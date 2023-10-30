@@ -1,5 +1,5 @@
 # SmartSaver.uk
-# Full Stack Node Express Server and React Frontend
+# Client
 
 This is the smartsaver.uk project. A full stack web applications using Node.js, Express.js, mySQL, and React. It follows a client-server architecture where the frontend and backend communicate through APIs.
 
