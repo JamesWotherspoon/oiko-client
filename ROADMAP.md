@@ -3,11 +3,25 @@
 ## Version 1.0.0
 
 ### Milestone 1: Project Initialization and Setup
-- [] Setup project using `create-react-app`.
-- [ ] Define the project structure and directory layout.
-- [ ] Implement a basic SCSS setup
-- [ ] Setup linting with ESLint
-- [ ] Configure environment variables for development and production.
+- [x] Setup project using `create-react-app`.
+- [x] Define the project structure
+        - assets/
+        -- images/
+        -- fonts/
+        - components
+        - containers/
+        - styles/
+        - utils/
+        -- api.js
+- [x] Implement a basic SCSS setup
+- [x] Setup linting with ESLint
+- [x] Configure environment variables for development and production.
+
+### Milestone 6: User Authentication Flow
+- [x] Develop the authentication components; Login, Register and auth page
+- [x] Create auth context
+- [ ] 
+- [ ] Implement protected routes.
 
 ### Milestone 2: Basic User Interface
 - [ ] Design the primary layout components (Header, Footer, Main Content).
@@ -24,16 +38,10 @@
 - [ ] Display mock data in components.
 - [ ] Introduce prop-types or TypeScript for type checking.
 
-### Milestone 5: Integration with API (Mock Data)
+### Milestone 5: Integration with API
 - [ ] Setup API utilities or services for reusable API calls.
 - [ ] Load and display mock data from the backend or local JSON.
 - [ ] Introduce loading states using spinners or placeholders.
-
-### Milestone 6: User Authentication Flow
-- [ ] Develop the authentication components (Login, Register).
-- [ ] Implement real authentication flow (login, logout, registration).
-- [ ] Store and manage user authentication status in the state.
-- [ ] Implement protected routes.
 
 ### Milestone 7: Advanced Interactivity and State
 - [ ] Introduce forms for user input (e.g., transaction creation, profile editing).

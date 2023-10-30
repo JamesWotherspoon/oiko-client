@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-import AuthPage from './components/AuthPage/AuthPage';
-import HomePage from './components/HomePage';
-import NotFoundPage from './components/NotFoundPage';
-import StandardErrorBoundary from './components/ErrorBoundary/StandardErrorBoundary';
-import './scss/main.scss';
-import { useAuth } from './context/authContext';
-import { getApiRequest } from './services/apiServices';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import AuthPage from './features/authentication/AuthPage';
+import Dashboard from './features/dashboard/Dashboard';
+import NotFoundPage from './features/NotFoundPage';
+import './styles/main.scss';
+import { useAuth } from './features/authentication/authContext';
+import { getApiRequest } from './utils/api';
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated)
+  console.log(isAuthenticated);
   if (!isAuthenticated) {
     return <Navigate to="/auth" />;
   }
-  
   return children;
 };
 
@@ -31,8 +24,8 @@ const App = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await getApiRequest('/auth/status');
-        console.log(response)
+        const response = await getApiRequest('/sessions');
+        console.log(response);
         if (response.status === 200) {
           login();
         } else {
@@ -41,7 +34,7 @@ const App = () => {
       } catch (error) {
         console.error('Error checking authentication:', error);
       } finally {
-        console.log(isLoading)
+        console.log(isLoading);
         setIsLoading(false);
       }
     };
@@ -53,23 +46,20 @@ const App = () => {
   }
 
   return (
-    <StandardErrorBoundary>
-      <Router>
-        <Routes>
-          <Route index element={<Navigate to="/home" />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
-    </StandardErrorBoundary>
+    <Router>
+      <Routes>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 };
 
