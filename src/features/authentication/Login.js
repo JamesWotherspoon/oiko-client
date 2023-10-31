@@ -3,7 +3,7 @@ import { postApiRequest } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './authContext';
 import Input from '../../sharedComponents/Input';
-import Button from '../../sharedComponents/Button';
+import Button from '@mui/material/Button';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -51,10 +51,12 @@ export default function Login() {
           disabled={awaitingApiResponse}
         />
         <Button
-          text={awaitingApiResponse ? 'Logging In...' : 'Login'}
+          variant="contained"
           onClick={handleLogin}
           disabled={awaitingApiResponse}
-        />
+        >
+          {awaitingApiResponse ? 'Logging In...' : 'Login'}
+        </Button>
       </form>
     </div>
   );

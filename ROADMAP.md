@@ -8,20 +8,22 @@
         - assets/
         -- images/
         -- fonts/
-        - components
-        - containers/
+        - features
         - styles/
         - utils/
         -- api.js
 - [x] Implement a basic SCSS setup
 - [x] Setup linting with ESLint
 - [x] Configure environment variables for development and production.
+- [x] Decide on a primary design framework - Matrial UI
+- [x] Decide on a form library - React Hook form
 
 ### Milestone 6: User Authentication Flow
 - [x] Develop the authentication components; Login, Register and auth page
 - [x] Create auth context
-- [ ] 
 - [ ] Implement protected routes.
+- [ ] Apply see and hide password
+- [ ] Ensure password is repeated for reg
 
 ### Milestone 2: Basic User Interface
 - [ ] Design the primary layout components (Header, Footer, Main Content).
@@ -53,6 +55,9 @@
 - [ ] Ensure components are styled consistently.
 - [ ] Make the application mobile-responsive.
 - [ ] Introduce themes or appearance toggles (light/dark mode).
+- [ ] Include copyright and favicon
+- [ ] Horiizontal loader across top
+- [ ] collapsable navbar to just icons
 
 ### Milestone 9: Performance and Optimization
 - [ ] Utilize React's performance tools to profile components.

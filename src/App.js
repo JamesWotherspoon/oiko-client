@@ -6,6 +6,7 @@ import NotFoundPage from './features/NotFoundPage';
 import './styles/main.scss';
 import { useAuth } from './features/authentication/authContext';
 import { getApiRequest } from './utils/api';
+import SideNav from './features/sideNav/SideNav';
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
@@ -53,6 +54,7 @@ const App = () => {
           path="/dashboard"
           element={
             <ProtectedRoute>
+              <SideNav />
               <Dashboard />
             </ProtectedRoute>
           }

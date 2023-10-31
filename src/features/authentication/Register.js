@@ -21,7 +21,6 @@ export default function Register() {
       const response = await postApiRequest('/users', { email, password });
 
       if (response.status === 201) {
-        // Registration successful, you can handle it as needed
         login();
         navigate('/home');
       }
