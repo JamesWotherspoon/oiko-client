@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigateBack } from "../utils/customHooks";
 
 export default function NotFoundPage() {
+  const navigateBack = useNavigateBack();
   return (
     <div className="not-found-cont">
       <div className="not-found-title-cont">
@@ -10,9 +11,7 @@ export default function NotFoundPage() {
       </div>
       <div>
         <p className="info-font">The page you are looking for can't be found.</p>
-        <Link to="/">
-          <button className="margin-top-4">Let's go back</button>
-        </Link>
+          <button className="margin-top-4" onClick={navigateBack} >Let's go back</button>
       </div>
     </div>
   );

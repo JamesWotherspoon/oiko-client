@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getApiRequest, deleteApiRequest } from '../../utils/api';
+import { useSessionApi } from '../../utils/apiHooks';
+import LoadingPage from '../LoadingPage';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -8,37 +10,35 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Set isRequestPending to true
+  const { isRequestPending, sendRequest } = useSessionApi(true);
 
   useEffect(() => {
-    getApiRequest('/sessions')
-      .then((response) => {
-        if (response.status === 200) isAuthenticated(true);
-        if (response.status === 404) isAuthenticated(false);
-        if (response.status === 500) console.log('Server Error');
-      })
-      .catch(() => {
-        console.log('Server Error');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    sendRequest('get').then((response) => {
+      console.log('response' + response.status);
+      if (response.status === 200) setIsAuthenticated(true);
+      if (response.status === 404) setIsAuthenticated(false);
+      if (response.status === 500) console.log('Server Error');
+    });
+  }, [sendRequest]);
 
   const login = () => {
     setIsAuthenticated(true);
+    navigate('/dashboard');
   };
 
   const logout = async () => {
-    const response = await deleteApiRequest('/sessions');
+    const response = await sendRequest('delete');
     if (response.status !== 200) console.log('Failed to logout');
     setIsAuthenticated(false);
+    navigate('/auth');
   };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {isLoading ? <h1>Loading ...</h1> : children}
+      {isRequestPending ? <LoadingPage /> : children}
     </AuthContext.Provider>
   );
 };
