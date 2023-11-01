@@ -5,46 +5,16 @@ import Dashboard from './features/dashboard/Dashboard';
 import NotFoundPage from './features/NotFoundPage';
 import './styles/main.scss';
 import { useAuth } from './features/authentication/authContext';
-import { getApiRequest } from './utils/api';
 import SideNav from './features/sideNav/SideNav';
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
-  if (!isAuthenticated) {
-    return <Navigate to="/auth" />;
-  }
+  if (!isAuthenticated) return <Navigate to="/auth" />;
   return children;
 };
 
 const App = () => {
-  const { login, logout } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await getApiRequest('/sessions');
-        console.log(response);
-        if (response.status === 200) {
-          login();
-        } else {
-          logout();
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error);
-      } finally {
-        console.log(isLoading);
-        setIsLoading(false);
-      }
-    };
-    checkAuthentication();
-  }, []);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <Router>
