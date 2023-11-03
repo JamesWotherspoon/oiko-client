@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigateBack } from "../utils/customHooks";
+import { useNavigateBack } from "../utils/useNavigateBack";
 
 export default function NotFoundPage() {
   const navigateBack = useNavigateBack();

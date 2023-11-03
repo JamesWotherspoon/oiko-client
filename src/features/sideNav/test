@@ -1,0 +1,56 @@
+      sx={{
+        width: open ? '240px' : '104px',
+        transition: 'width 0.2s ease-out',
+        overflowX: 'hidden',
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        '& .MuiDrawer-paper': {
+          width: open ? '240px' : '104px',
+          transition: 'width 0.2s ease-out',
+          overflowX: 'hidden',
+          boxSizing: 'border-box',
+        },
+        '& .MuiListItem-root': {
+          padding: '0',
+          color: 'grey',
+        },
+        '& .MuiListItemButton-root': {
+          padding: '8px 0px',
+        },
+        '& .MuiBox-root': {
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          padding: '32px 0',
+        },
+        '& .selected .MuiSvgIcon-root, & .selected .MuiListItemText-root': {
+          color: theme.palette.secondary.main,
+        },
+        '& .MuiAvatar-root': {
+          background: theme.palette.brand.main,
+          margin: '0 16px 0 32px',
+        },
+        '& .nav-icon': {
+          fontSize: 32,
+          textAlign: 'center',
+          margin: '0 16px 0 36px',
+          padding: 0,
+          color: theme.palette.brand.main,
+        },
+        '& .user-name': {
+          margin: 0,
+          color: theme.palette.grey.main,
+        },
+        '& .MuiIconButton-root': {
+          position: 'absolute',
+          right: 0,
+          margin: '3px',
+          width: '24px',
+          height: '24px',
+        },
+        '& .selected': {
+          backgroundColor: theme.palette.action.selected,
+        },
+        
+      }}

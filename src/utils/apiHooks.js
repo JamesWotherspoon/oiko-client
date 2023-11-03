@@ -23,14 +23,12 @@ const createApiHook = (endpoint) => {
       setError(null);
       console.log('sendRequest');
       const url = `${endpoint}${endpointExtend}`;
-
       try {
         const response = await api({
           method,
           url,
           data: payload,
         });
-        console.log('after Api call')
         setData(response.data);
         return response;
       } catch (error) {

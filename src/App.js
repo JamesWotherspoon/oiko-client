@@ -4,7 +4,6 @@ import AuthPage from './features/authentication/AuthPage';
 import Dashboard from './features/dashboard/Dashboard';
 import MoneyPot from './features/moneyPot/MoneyPot';
 import NotFoundPage from './features/NotFoundPage';
-import './styles/main.scss';
 import { useAuth } from './features/authentication/authContext';
 import SideNav from './features/sideNav/SideNav';
 import { AuthProvider } from './features/authentication/authContext';

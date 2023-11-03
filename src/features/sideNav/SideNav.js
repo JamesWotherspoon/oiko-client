@@ -1,54 +1,85 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
 import {
-  Dashboard,
-  AccountBalanceWallet,
-  Category,
-  ListAlt,
-  Settings,
-} from '@mui/icons-material';
-
+  StyledDrawer,
+  StyledListItem,
+  StyledListItemButton,
+  StyledAvatar,
+  StyledBox,
+  StyledIconButton,
+} from './SideNavStyles';
+import { Subject, PieChart, Grain, SyncAlt, Settings, Logout, ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+import { List, ListItemText } from '@mui/material';
 
 function SideNav() {
-  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const [open, setOpen] = useState(true);
+  const location = useLocation();
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   const navItems = [
-    { name: 'Dashboard', route: '/dashboard', icon: <Dashboard /> },
+    {
+      name: 'Dashboard',
+      route: '/dashboard',
+      icon: <Subject className="nav-icon" />,
+    },
     {
       name: 'Money Pots',
       route: '/moneypots',
-      icon: <AccountBalanceWallet />,
-      subItems: [
-        { name: 'Sub Item 1', route: '/subitem1' },
-        { name: 'Sub Item 2', route: '/subitem2' },
-      ],
+      icon: <PieChart className="nav-icon" />,
     },
-    { name: 'Categories', route: '/categories', icon: <Category /> },
-    { name: 'Transactions', route: '/transactions', icon: <ListAlt /> },
-    { name: 'Settings', route: '/settings', icon: <Settings /> },
+    {
+      name: 'Categories',
+      route: '/categories',
+      icon: <Grain className="nav-icon" />,
+    },
+    {
+      name: 'Transactions',
+      route: '/transactions',
+      icon: <SyncAlt className="nav-icon" />,
+    },
+    {
+      name: 'Settings',
+      route: '/settings',
+      icon: <Settings className="nav-icon" />,
+    },
+    {
+      name: 'Logout',
+      route: '/logout',
+      icon: <Logout className="nav-icon" />,
+    },
   ];
 
   return (
-    <Drawer
+    <StyledDrawer
       variant="permanent"
+      open={open}
+      theme={theme}
     >
-      <div  />
+      <StyledBox>
+        <StyledAvatar theme={theme}>JW</StyledAvatar>
+        {open ? (
+          <h5 className="user-name">
+            James <br /> Wotherspoon
+          </h5>
+        ) : null}
+        <StyledIconButton onClick={handleClick}>{open ? <ChevronLeft /> : <ChevronRight />}</StyledIconButton>
+      </StyledBox>
       <List>
         {navItems.map((item) => (
-          <React.Fragment key={item.name}>
-            <ListItem key={item.name} component={Link} to={item.route}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
-            </ListItem>
-          </React.Fragment>
+          <StyledListItem key={item.name} component={Link} to={item.route}>
+            <StyledListItemButton selected={location.pathname === item.route} theme={theme}>
+              {item.icon}
+              {open ? <ListItemText primary={item.name} /> : null}
+            </StyledListItemButton>
+          </StyledListItem>
         ))}
       </List>
-    </Drawer>
+    </StyledDrawer>
   );
 }
 

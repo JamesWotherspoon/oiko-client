@@ -1,7 +1,8 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+const baseTheme = createTheme({
+  spacing: 8,
   palette: {
     primary: {
       light: '#4f83cc',
@@ -15,8 +16,14 @@ const theme = createTheme({
       dark: '#3c1c7a',
       contrastText: '#fff',
     },
-    gradient: {
-      main: 'linear-gradient(to right, #1976d2, #5e35b1)',
+    grey: {
+      main: 'rgb(128, 128, 128)'
+    },
+    brand: {
+      main: 'linear-gradient(90deg, #1976d2, #5e35b1)',
+    },
+    error: {
+      main: '#f44336',
     },
     background: {
       default: '#f4f5f7',
@@ -25,6 +32,9 @@ const theme = createTheme({
       primary: '#333',
       secondary: '#555',  
     },
+  },
+  border: {
+    main: '0.5px, solid, rgba(0, 0, 0, 0.12)',
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
@@ -41,6 +51,54 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: 8,
+  },
+});
+
+const theme = createTheme({
+  ...baseTheme,
+  components: {
+    MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+      },
+      styleOverrides: {
+        root: {
+          background: baseTheme.palette.brand.main,
+          width: '120px',
+          margin: '8px',
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+      },
+      styleOverrides: {
+        root: {
+          margin: '8px',
+        },
+      },
+    },
+    MuiSelected: {
+      defaultProps: {
+        color: baseTheme.palette.brand.main,
+      },
+      styleOverrides: {
+        root: {
+          color: baseTheme.palette.brand.main,
+        },
+      },
+    }
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '.Mui-error': {
+          color: 'error.main',
+          margin: '8px',
+        },
+      },
+    },
   },
 });
 
