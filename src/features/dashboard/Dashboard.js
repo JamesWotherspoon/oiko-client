@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react";
+import { Box } from '@mui/system';
+import { useEffect, useState } from 'react';
+import TransactionsCard from './TransactionsCard';
 
 export default function Dashboard() {
-    const [apiResponse, setApiResponse] = useState({});
-    const [awaitingApiResponse, setAwaitingApiResponse] = useState(true)
+  const moneyPots = [];
+  const transactions = [];
+  const categories = [];
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>{awaitingApiResponse.toString()}</p>
-      <p>{JSON.stringify(apiResponse)}</p>
-    </div>
-  )
+    <Box>
+      <Box>
+        <h1>MoneyPot</h1>
+        <h1>categories</h1>
+      </Box>
+      <Box>
+        <TransactionsCard />
+      </Box>
+    </Box>
+  );
 }

@@ -1,11 +1,13 @@
-import { StyledBox } from './LoggedInLayoutStyles'
+import { StyledPageBox, StyledContentBox } from './LoggedInLayoutStyles';
 import SideNav from '../sideNav/SideNav';
 
 const LoggedInLayout = ({ children }) => (
-  <StyledBox>
+  <StyledPageBox>
     <SideNav />
-    {children}
-  </StyledBox>
+    <StyledContentBox>
+      {children}
+    </StyledContentBox>
+  </StyledPageBox>
 );
 
 export default LoggedInLayout;
