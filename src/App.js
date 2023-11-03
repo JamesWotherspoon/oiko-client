@@ -5,15 +5,8 @@ import Dashboard from './features/dashboard/Dashboard';
 import MoneyPot from './features/moneyPot/MoneyPot';
 import NotFoundPage from './features/NotFoundPage';
 import { useAuth } from './features/authentication/authContext';
-import SideNav from './features/sideNav/SideNav';
+import LoggedInLayout from './features/layout/LoggedInLayout';
 import { AuthProvider } from './features/authentication/authContext';
-
-const LoggedInLayout = ({ children }) => (
-  <>
-    <SideNav />
-    {children}
-  </>
-);
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
