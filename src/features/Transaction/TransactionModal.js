@@ -1,43 +1,47 @@
 import React, { useState } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import AdapterDateFns from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import CustomModal from '../../sharedComponents/CustomModal';
+import { HorizontalFillBox } from '../../styles/SharedStyles';
+import CurrencyTextField from '../../sharedComponents/CurrencyTextField';
 
 const TransactionModal = ({ open, handleClose }) => {
+  const currentDate = new Date().toISOString().slice(0, 10);
   const [categoryId, setCategoryId] = useState('');
-  const [amount, setAmount] = useState('');
-  const [transactionType, setTransactionType] = useState('');
+  const [amount, setAmount] = useState('0.00');
+  const [transactionType, setTransactionType] = useState('expense');
   const [moneyPot, setMoneyPot] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(currentDate);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preDefault();
     // handle form submission here
   };
 
   return (
-    <CustomModal isOpen={open} onClose={handleClose} >
+    <CustomModal isOpen={open} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
-        <TextField label="Category ID" value={categoryId} onChange={(event) => setCategoryId(event.target.value)} />
-        <TextField label="Amount" value={amount} onChange={(event) => setAmount(event.target.value)} />
-        <FormControl>
-          <InputLabel>Transaction Type</InputLabel>
-          <Select value={transactionType} onChange={(event) => setTransactionType(event.target.value)}>
-            <MenuItem value="income">Income</MenuItem>
-            <MenuItem value="expense">Expense</MenuItem>
-          </Select>
-        </FormControl>
-        <TextField label="Money Pot" value={moneyPot} onChange={(event) => setMoneyPot(event.target.value)} />
-        <TextField
-          label="Date"
-          type="date"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <HorizontalFillBox>
+          <TextField label="Money Pot" value={moneyPot} onChange={(e) => setMoneyPot(e.target.value)} />
+          <TextField label="Category ID" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} />
+        </HorizontalFillBox>
+        <HorizontalFillBox>
+          <FormControl>
+            <InputLabel>Transaction Type</InputLabel>
+            <Select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
+              <MenuItem value="income">Income</MenuItem>
+              <MenuItem value="expense">Expense</MenuItem>
+            </Select>
+          </FormControl>
+          <CurrencyTextField label="Amount" />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
+          </LocalizationProvider>
+        </HorizontalFillBox>
         <Button type="submit" variant="contained" color="primary">
-          Submit
+          Create
         </Button>
       </form>
     </CustomModal>
