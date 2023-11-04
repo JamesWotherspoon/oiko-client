@@ -30,8 +30,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const response = await sendRequest('delete');
-    if (response.status !== 200) console.log('Failed to logout');
+    await sendRequest('delete');
     setIsAuthenticated(false);
     navigate('/auth');
   };

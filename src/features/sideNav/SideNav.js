@@ -11,9 +11,11 @@ import {
 import { Subject, PieChart, Grain, SyncAlt, Settings, Logout, ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import { List, ListItemText } from '@mui/material';
+import { useAuth } from '../authentication/authContext';
 
 function SideNav() {
   const theme = useTheme();
+  const { logout } = useAuth();
   const [open, setOpen] = useState(true);
   const location = useLocation();
 
@@ -29,7 +31,7 @@ function SideNav() {
     },
     {
       name: 'Money Pots',
-      route: '/moneypots',
+      route: '/money-pots',
       icon: <PieChart className="nav-icon" />,
     },
     {
@@ -55,11 +57,7 @@ function SideNav() {
   ];
 
   return (
-    <StyledDrawer
-      variant="permanent"
-      open={open}
-      theme={theme}
-    >
+    <StyledDrawer variant="permanent" open={open} theme={theme}>
       <StyledBox>
         <StyledAvatar theme={theme}>JW</StyledAvatar>
         {open ? (
@@ -71,8 +69,13 @@ function SideNav() {
       </StyledBox>
       <List>
         {navItems.map((item) => (
-          <StyledListItem key={item.name} component={Link} to={item.route}>
-            <StyledListItemButton selected={location.pathname === item.route} theme={theme}>
+          <StyledListItem
+            key={item.name}
+            component={item.route === '/logout' ? 'div' : Link}
+            to={item.route}
+            onClick={item.route === '/logout' ? logout : undefined}
+          >
+            <StyledListItemButton theme={theme} selected={location.pathname === item.route}>
               {item.icon}
               {open ? <ListItemText primary={item.name} /> : null}
             </StyledListItemButton>
