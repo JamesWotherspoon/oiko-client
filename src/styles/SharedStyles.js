@@ -29,8 +29,9 @@ export const StyledCard = styled(Card)(({minWidth}) => ({
 }));
 
 export const StyledCardHeader = styled(Box)({
-    width: '100%',
-    textAlign: 'start',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',   
     color:  'grey',
     fontSize: '16px',
     fontWeight: 'bold',

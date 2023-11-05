@@ -26,7 +26,7 @@ const baseTheme = createTheme({
       main: '#f44336',
     },
     background: {
-      default: '#f4f5f7',
+      default: 'white',
     },
     text: {
       primary: '#333',

@@ -10,22 +10,21 @@ import {
   TableHead,
   TableRow,
   Paper,
-  FormControl,
   InputLabel,
-  Select,
+
   MenuItem,
   TextField,
   IconButton,
 } from '@mui/material';
 import { useTransactionApi } from '../../utils/apiHooks';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TransactionModal from './TransactionModal';
 import { HorizontalFlexBox, StyledCard, VerticalFlexBox } from '../../styles/SharedStyles';
+import { StyledFormControl, StyledSelect, InputContainerBox } from './TransactionStyles';
 
 const TransactionsCard = () => {
-  const [moneyPotFilter, setMoneyPotFilter] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [transactionTypeFilter, setTransactionTypeFilter] = useState('');
+  const [moneyPotFilter, setMoneyPotFilter] = useState('All');
+  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [transactionTypeFilter, setTransactionTypeFilter] = useState('Both');
   const [openModal, setOpenModal] = useState(false);
   const { data: transactions, error, isRequestPending, sendRequest } = useTransactionApi(true);
   const query = {
@@ -86,12 +85,13 @@ const TransactionsCard = () => {
         <>
           {openModal ? <TransactionModal open={openModal} handleClose={() => setOpenModal(false)} /> : null}
 
-          <HorizontalFlexBox>
-            <FormControl>
+          <InputContainerBox>
+            <StyledFormControl variant="standard">
               <InputLabel id="money-pot-filter-label">Money Pot</InputLabel>
-              <Select
+              <StyledSelect
                 autoWidth
                 labelId="money-pot-filter-label"
+                label="Money Pot"
                 id="money-pot-filter"
                 value={moneyPotFilter}
                 onChange={handleMoneyPotFilterChange}
@@ -100,13 +100,14 @@ const TransactionsCard = () => {
                 <MenuItem value="savings">Savings</MenuItem>
                 <MenuItem value="checking">Checking</MenuItem>
                 <MenuItem value="credit-card">Credit Card</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl>
+              </StyledSelect>
+            </StyledFormControl>
+            <StyledFormControl variant="standard">
               <InputLabel id="category-filter-label">Category</InputLabel>
-              <Select
+              <StyledSelect
                 autoWidth
                 labelId="category-filter-label"
+                label="Categories"
                 id="category-filter"
                 value={categoryFilter}
                 onChange={handleCategoryFilterChange}
@@ -116,13 +117,14 @@ const TransactionsCard = () => {
                 <MenuItem value="rent">Rent</MenuItem>
                 <MenuItem value="utilities">Utilities</MenuItem>
                 <MenuItem value="entertainment">Entertainment</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl>
+              </StyledSelect>
+            </StyledFormControl>
+            <StyledFormControl variant="standard">
               <InputLabel id="income-expense-filter-label">Income/Expense</InputLabel>
-              <Select
+              <StyledSelect
                 autoWidth
                 labelId="income-expense-filter-label"
+                label="Income/Expense"
                 id="income-expense-filter"
                 value={transactionTypeFilter}
                 onChange={handletransactionTypeFilterChange}
@@ -130,12 +132,10 @@ const TransactionsCard = () => {
                 <MenuItem value="Both">Both</MenuItem>
                 <MenuItem value="income">Income</MenuItem>
                 <MenuItem value="expense">Expense</MenuItem>
-              </Select>
-            </FormControl>
-            <IconButton onClick={() => setOpenModal(true)}>
-              <AddCircleOutlineIcon />
-            </IconButton>
-          </HorizontalFlexBox>
+              </StyledSelect>
+            </StyledFormControl>
+ 
+          </InputContainerBox>
 
           <TableContainer>
             <Table aria-label="transactions table">

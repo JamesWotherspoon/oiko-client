@@ -1,5 +1,5 @@
 import { MainLayoutStyle, StyledContentContainer } from './MainStyles';
-import { HorizontalFlexBox, VerticalFlexBox } from '../../styles/SharedStyles';
+import { HorizontalFlexBox } from '../../styles/SharedStyles';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import TransactionsCard from '../Transaction/Transactions';
@@ -17,10 +17,10 @@ const MainLayout = () => (
         <ItemCard title="Overview" minWidth="30%">
           <Overview />
         </ItemCard>
-        <ItemCard title="Upcoming Transactions" minWidth="30%">
+        <ItemCard title="Upcoming Transactions" minWidth="30%" includeAddButton>
           <ScheduledAction />
         </ItemCard>
-        <ItemCard title="categories" minWidth="30%">
+        <ItemCard title="categories" minWidth="30%" includeAddButton>
           <Categories />
         </ItemCard>
         <ItemCard title="Money Pot X" minWidth="40%">
@@ -30,7 +30,7 @@ const MainLayout = () => (
           <MoneyPotDisplay />
         </ItemCard>
       </HorizontalFlexBox>
-      <ItemCard title="Transactions" minWidth="30%">
+      <ItemCard title="Transactions" minWidth="30%" includeAddButton>
         <TransactionsCard />
       </ItemCard>
     </StyledContentContainer>
