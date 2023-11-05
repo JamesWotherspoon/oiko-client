@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import CustomModal from '../../sharedComponents/CustomModal';
-import { HorizontalFillBox } from '../../styles/SharedStyles';
+import { HorizontalFlexBox } from '../../styles/SharedStyles';
 import CurrencyTextField from '../../sharedComponents/CurrencyTextField';
 
 const TransactionModal = ({ open, handleClose }) => {
@@ -21,11 +21,11 @@ const TransactionModal = ({ open, handleClose }) => {
   return (
     <CustomModal isOpen={open} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
-        <HorizontalFillBox>
+        <HorizontalFlexBox>
           <TextField label="Money Pot" value={moneyPot} onChange={(e) => setMoneyPot(e.target.value)} />
           <TextField label="Category ID" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} />
-        </HorizontalFillBox>
-        <HorizontalFillBox>
+        </HorizontalFlexBox>
+        <HorizontalFlexBox>
           <FormControl>
             <InputLabel>Transaction Type</InputLabel>
             <Select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
@@ -36,7 +36,7 @@ const TransactionModal = ({ open, handleClose }) => {
           <CurrencyTextField label="Amount" />
 
           <DatePicker label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
-        </HorizontalFillBox>
+        </HorizontalFlexBox>
         <Button type="submit" variant="contained" color="primary">
           Create
         </Button>
