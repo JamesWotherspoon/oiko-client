@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) setIsAuthenticated(true);
       if (response.status === 404) setIsAuthenticated(false);
       if (response.status === 500) console.log('Server Error');
+    }).catch((error) => {
+      console.log('Error:', error);
     });
   }, [sendRequest]);
 

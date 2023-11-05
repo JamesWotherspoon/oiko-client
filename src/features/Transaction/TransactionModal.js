@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import AdapterDateFns from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import CustomModal from '../../sharedComponents/CustomModal';
 import { HorizontalFillBox } from '../../styles/SharedStyles';
@@ -36,9 +34,8 @@ const TransactionModal = ({ open, handleClose }) => {
             </Select>
           </FormControl>
           <CurrencyTextField label="Amount" />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
-          </LocalizationProvider>
+
+          <DatePicker label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
         </HorizontalFillBox>
         <Button type="submit" variant="contained" color="primary">
           Create

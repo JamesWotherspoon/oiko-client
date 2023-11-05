@@ -7,6 +7,7 @@ import NotFoundPage from './features/NotFoundPage';
 import { useAuth } from './features/authentication/authContext';
 import LoggedInLayout from './features/layout/LoggedInLayout';
 import { AuthProvider } from './features/authentication/authContext';
+import NewApp from './NewApp';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
@@ -19,6 +20,7 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
+          <Route path="/" element={<NewApp />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
           <Route path="/money-pots" element={<ProtectedRoute element={<MoneyPot />} />} />
