@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Card,
-  CardHeader,
-  CardContent,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   InputLabel,
-
   MenuItem,
-  TextField,
-  IconButton,
+
 } from '@mui/material';
 import { useTransactionApi } from '../../utils/apiHooks';
-import TransactionModal from './TransactionModal';
-import { HorizontalFlexBox, StyledCard, VerticalFlexBox } from '../../styles/SharedStyles';
+import TransactionModal from './AddTransaction';
 import { StyledFormControl, StyledSelect, InputContainerBox } from './TransactionStyles';
+import { transactionSlice } from '../../utils/slices';
+import { useSelector, useDispatch } from 'react-redux';
 
 const TransactionsCard = () => {
   const [moneyPotFilter, setMoneyPotFilter] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [transactionTypeFilter, setTransactionTypeFilter] = useState('Both');
-  const [openModal, setOpenModal] = useState(false);
-  const { data: transactions, error, isRequestPending, sendRequest } = useTransactionApi(true);
+  const dispatch = useDispatch();
+  const transactions = useSelector((state) => state.transaction.items);
+  const status = useSelector((state) => state.transaction.status);
+  const error = useSelector((state) => state.transaction.error);
+  
   const query = {
     /*
         from,
@@ -45,8 +43,10 @@ const TransactionsCard = () => {
   };
 
   useEffect(() => {
-    sendRequest('get', query);
-  }, []);
+    if (status === 'idle') {
+      dispatch(transactionSlice.fetchItems());
+    }
+  }, [status, dispatch]);
 
   const handleMoneyPotFilterChange = (event) => {
     setMoneyPotFilter(event.target.value);
@@ -79,12 +79,10 @@ const TransactionsCard = () => {
 
   return (
     <>
-      {isRequestPending ? (
+      {false ? (
         'loading...'
       ) : (
         <>
-          {openModal ? <TransactionModal open={openModal} handleClose={() => setOpenModal(false)} /> : null}
-
           <InputContainerBox>
             <StyledFormControl variant="standard">
               <InputLabel id="money-pot-filter-label">Money Pot</InputLabel>

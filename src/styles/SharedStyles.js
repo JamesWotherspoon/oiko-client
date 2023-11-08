@@ -18,7 +18,7 @@ export const VerticalFlexBox = styled(Box)({
     justifyContent: 'space-between',
 });
 
-export const StyledCard = styled(Card)(({minWidth}) => ({
+export const StyledCard = styled('div')(({minWidth}) => ({
     minWidth: minWidth, 
     padding: '16px',
     display: 'flex',

@@ -16,19 +16,21 @@
 - [x] Setup linting with ESLint
 - [x] Configure environment variables for development and production.
 - [x] Decide on a primary design framework - Matrial UI
-- [x] Decide on a form library - React Hook form
+- [x] Decide on a form library -
 
 ### Milestone 6: User Authentication Flow
 - [x] Develop the authentication components; Login, Register and auth page
 - [x] Create auth context
-- [ ] Implement protected routes.
+- [x] Implement protected routes.
 - [ ] Apply see and hide password
 - [ ] Ensure password is repeated for reg
 
 ### Milestone 2: Basic User Interface
-- [ ] Design the primary layout components (Header, Footer, Main Content).
-- [ ] Develop static versions of the main pages (Homepage, About, Contact).
-- [ ] Setup React Router for navigation.
+- [x] Design the primary layout components (Header, Footer, Main Content).
+- [x] Develop static versions of the main pages (Homepage, About, Contact).
+- [x] Setup React Router for navigation.
+
+### Refactor: Convert excessive mui styling to scss files
 
 ### Milestone 3: State Management Basics
 - [ ] Evaluate state needs and decide on Context API/Redux/MobX.
@@ -57,7 +59,6 @@
 - [ ] Introduce themes or appearance toggles (light/dark mode).
 - [ ] Include copyright and favicon
 - [ ] Horiizontal loader across top
-- [ ] collapsable navbar to just icons
 
 ### Milestone 9: Performance and Optimization
 - [ ] Utilize React's performance tools to profile components.
@@ -96,3 +97,14 @@
 - [ ] Gather user feedback on UX/UI.
 - [ ] Iterate on the design and functionality based on feedback.
 
+
+
+
+## Convert from mui styles to scss - using BEM 13:00
+## Implement Redux for shared data storage and access 15:00
+## Slightly modify backend for category and add other fields - include icons 16:00
+## Implement changes on frontend 17:30
+## Implement overview (catgegory pie chart) / accounts chart - data visualization 19:00
+## Implement valid login/signup 20:00
+## Create horizontal loader 21:00
+## Apply the notification banner library for successs or error messages

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconButton } from '@mui/material';
+import { IconButton, Divider } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
+import { StyledCardHeader } from '../styles/SharedStyles';
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ title, onClose, children }) => {
     const theme = useTheme();
-    if (!isOpen) {
-        return null;
-    }
+
     const modalOverlayStyle = {
         position: 'absolute',
         top: 0,
@@ -41,6 +40,8 @@ const Modal = ({ isOpen, onClose, children }) => {
                 <IconButton style={modalCloseStyle} onClick={onClose}>
                     <CloseIcon />
                 </IconButton>
+                <StyledCardHeader>{title}</StyledCardHeader>
+                <Divider />
                 {children}
             </div>
         </div>
@@ -48,7 +49,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 Modal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
 };

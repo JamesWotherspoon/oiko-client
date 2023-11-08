@@ -1,0 +1,142 @@
+// Section of PageLayot.js
+
+.misc-panel-cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-unit;
+  width: 75%;
+}
+.transaction-panel {
+  width: 25%;
+}
+
+.overview-panel,
+.scheduled-panel,
+.category-panel {
+  min-width: fit-content;
+  width: 30%;
+  max-width: 100%;
+}
+.account-panel {
+  width: 100%;
+}
+
+// Header
+//// TopBar.js
+#top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  margin-bottom: 14px;
+  border-bottom: $border;
+  padding: 0 $page-margin;
+}
+.brand-container {
+  display: flex;
+  width: fit-content;
+  align-items: flex-end;
+}
+.logo-container {
+  display: flex;
+  align-items: flex-end;
+  .bar {
+    width: 9px;
+    border-left: 5px solid $primary-color;
+  }
+  .bar-1 {
+    height: 5px;
+  }
+  .bar-2 {
+    height: 10px;
+  }
+  .bar-3 {
+    height: 15px;
+  }
+}
+.brand-name {
+  line-height: 1;
+  color: $secondary-color;
+  position: relative;
+  top: 5px;
+}
+.accent-stop {
+  color: $primary-color;
+}
+.brand-slogan {
+  margin-left: 10px;
+  font-size: 14px;
+  color: $secondary-text-color;
+  line-height: 1;
+}
+
+// Nav.js
+nav {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  cursor: pointer;
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 40px;
+    color: $light-grey;
+    .nav-label {
+      margin-top: 3px;
+      padding-bottom: 12px;
+      font-size: 12px;
+      color: $light-grey;
+    }
+    .nav-underline {
+        width: 100%;
+        border-radius: 10px;
+        height: 2px;
+        background-color: $light-grey;
+    }
+    &.selected {
+      color: $secondary-color;
+        .nav-label {
+            color: $secondary-color;
+        }
+        .nav-underline {
+            background-color: $secondary-color;
+        }
+    }
+  }
+}
+
+// Categories
+.category-btn-cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-unit;
+}
+
+.category-icon-btn {
+  width: 60px;
+  height: 60px;
+  background-color: $light-grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: $border;
+  border-radius: $border-radius;
+  color: $secondary-color;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+// Scheduled Action
+
+.schedule-action-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}

@@ -1,0 +1,38 @@
+// Import stylesheets
+@import './reset.scss';
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+@import './variables';
+@import './shared_components';
+@import './home.scss';
+@import './dynamic_properties';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// PageLayout.js
+#page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+}
+main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 20px $page-margin;
+}

@@ -1,0 +1,23 @@
+
+.btn-outline,
+.btn-fill {
+    width: 120px;
+    height: fit-content;
+    padding: 5px 15px;
+    border: $border;
+    font-size: 14px;
+    border-radius: $border-radius;
+}
+.btn-fill {
+    color: $background-color;
+    background-color: $accent-color;
+}
+.btn-outline {
+    color: $secondary-color;
+    background-color: transparent;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: $sm-gap-unit;
+}

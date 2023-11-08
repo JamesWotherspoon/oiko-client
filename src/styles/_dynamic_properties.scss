@@ -1,0 +1,26 @@
+@import './variables';
+// Set default value for the CSS variable in :root
+:root {
+  --page-margin: #{$page-margin-xsm}; 
+}
+// Update the CSS variables with scss variables based on breakpoints
+@media (min-width: $breakpoint-sm) {
+  :root {
+    --page-margin: #{$page-margin-sm};
+  }
+}
+@media (min-width: $breakpoint-md) {
+  :root {
+    --page-margin: #{$page-margin-md};
+  }
+}
+@media (min-width: $breakpoint-lg) {
+  :root {
+    --page-margin: #{$page-margin-lg};
+  }
+}
+@media (min-width: $breakpoint-xlg) {
+  :root {
+    --page-margin: #{$page-margin-xlg};
+  }
+}

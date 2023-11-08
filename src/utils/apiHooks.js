@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: BASE_URL,
   timeout: 2000,
   withCredentials: true,
@@ -61,3 +61,5 @@ export const useTransactionApi = createApiHook('/transactions');
 export const useCategoryApi = createApiHook('/categories');
 export const useScheduledActionApi = createApiHook('/scheduled-transactions');
 export const useMoneyPotApi = createApiHook('/money-pots');
+
+

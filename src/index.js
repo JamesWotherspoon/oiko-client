@@ -3,21 +3,22 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppThemeProvider from './styles/AppThemeProvider';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import './styles/index.scss';
+import { Provider } from 'react-redux';
+import { store } from './utils/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <LocalizationProvider dateAdapter={AdapterDateFns}>
-    <AppThemeProvider>
-      <CssBaseline />
-      <App />
-    </AppThemeProvider>
+    <Provider store={store}>
+      <AppThemeProvider>
+        <CssBaseline />
+        <App />
+      </AppThemeProvider>
+    </Provider>
   </LocalizationProvider>,
 );
 

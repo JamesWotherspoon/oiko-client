@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import NotFoundPage from './features/NotFoundPage';
 import { useAuth } from './features/authentication/authContext';
 import { AuthProvider } from './features/authentication/authContext';
-import MainLayout from './features/layout/MainLayout';
+import PageLayout from './features/layout/PageLayout';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/auth" />;
-  return <MainLayout>{element}</MainLayout>;
+  return <PageLayout>{element}</PageLayout>;
 };
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<MainLayout />} />
+          <Route path="/" element={<PageLayout />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AuthProvider>
