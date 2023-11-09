@@ -18,10 +18,9 @@ const sendRequest = async (method, url, data = null, params) => {
     params,
   };
   if(data) axiosRequest.data = data;
-  console.log(axiosRequest)
+
   try {
     const response = await api(axiosRequest);
-    console.log('response', response);
     return response;
   } catch (error) {
     if (error.code === 'ECONNABORTED') {
@@ -37,7 +36,7 @@ const sendRequest = async (method, url, data = null, params) => {
       // Request was not sent
       console.error('Error occurred while making the request:', error.message);
     }
-    return error;
+    throw error.message;
   }
 }
 

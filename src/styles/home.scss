@@ -115,6 +115,16 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: $gap-unit;
+  button {
+    background-color: hsl(164,48%,60%);
+  }
+  .selected {
+    box-shadow: $box-shadow;
+  }
+  .not-selected {
+    background-color: $light-grey;
+    opacity: 0.5;
+  }
 }
 
 .category-icon-btn {
@@ -139,4 +149,35 @@ nav {
   flex-direction: row;
   flex-wrap: wrap;
 
+}
+
+
+// Transaction
+.transaction-type-amount-cont {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  .expense-income-btn {
+    font-weight: 700;
+    margin-right: 15px;
+  }
+  .amount-input {
+    font-size: 36px;
+    border: 0px;
+    width: 100%;
+  }
+  .plus {
+
+  }
+  .minus {
+
+  }
+}
+
+div.transaction-date-picker {
+  width: 150px;
+  align-self: flex-end;
+  padding: 20px 0;
 }

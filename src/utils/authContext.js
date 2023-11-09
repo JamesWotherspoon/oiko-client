@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useSessionApi } from '../../utils/apiHooks';
-import LoadingPage from '../LoadingPage';
+import { useSessionApi } from './apiHooks';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -39,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {isRequestPending ? <LoadingPage /> : children}
+      {isRequestPending ? '...Loading' : children}
     </AuthContext.Provider>
   );
 };

@@ -6,13 +6,14 @@ import AppThemeProvider from './styles/AppThemeProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { enGB } from 'date-fns/locale'; // 
 import './styles/index.scss';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
+  <LocalizationProvider dateAdapter={AdapterDateFns} locale={enGB}>
     <Provider store={store}>
       <AppThemeProvider>
         <CssBaseline />

@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { IconButton, Divider } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
-import { StyledCardHeader } from '../styles/SharedStyles';
 
 const Modal = ({ title, onClose, children }) => {
-    const theme = useTheme();
 
     const modalOverlayStyle = {
         position: 'absolute',
@@ -25,7 +23,7 @@ const Modal = ({ title, onClose, children }) => {
         backgroundColor: '#FFF',
         padding: '50px',
         zIndex: 1100,
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: '8px',
     };
     const modalCloseStyle = {
         position: 'absolute',
@@ -40,8 +38,8 @@ const Modal = ({ title, onClose, children }) => {
                 <IconButton style={modalCloseStyle} onClick={onClose}>
                     <CloseIcon />
                 </IconButton>
-                <StyledCardHeader>{title}</StyledCardHeader>
-                <Divider />
+                <div>{title}</div>
+                <hr />
                 {children}
             </div>
         </div>
@@ -49,8 +47,9 @@ const Modal = ({ title, onClose, children }) => {
 };
 
 Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    title: PropTypes.string,
+    onClose: PropTypes.func,
+    children: PropTypes.node,
 };
 
 export default Modal;

@@ -31,6 +31,7 @@ const createEntitySlice = (options, endpointResource) => {
         })
         .addCase(thunks.addItems.fulfilled, (state, action) => {
           state.status = 'succeeded';
+          console.log('success')
           state.items.push(action.payload);
         })
         .addCase(thunks.addItems.rejected, (state, action) => {

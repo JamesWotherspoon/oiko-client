@@ -74,7 +74,7 @@ const theme = createTheme({
           color: baseTheme.palette.primary.main,
           background: baseTheme.palette.secondary.main,
           width: '120px',
-          margin: '8px',
+          margin: '8px 0',
           boxShadow: 'none',
         },
         '&.MuiButton-contained': {
@@ -103,6 +103,10 @@ const theme = createTheme({
     MuiFormControl: {
       defaultProps: {
         variant: 'standard',
+      },
+      styleOverrides: {
+        root: {
+        },
       },
     },
   },

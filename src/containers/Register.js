@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useUserApi } from '../../utils/apiHooks';
-import { useAuth } from './authContext';
+import { useUserApi } from '../utils/apiHooks';
+import { useAuth } from '../utils/authContext';
 import { Box, TextField, Button, CircularProgress } from '@mui/material';
 
 export default function Register() {

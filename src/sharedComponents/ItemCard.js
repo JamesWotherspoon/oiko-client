@@ -5,9 +5,12 @@ import { IconButton } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CustomModal from './CustomModal';
 
-export default function ItemCard({ title, children, modalContent }) {
+export default function ItemCard({ title, children, modalContent, addItem }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const openModal  = () => {
+    setIsModalOpen(true)
+    addItem()
+  }
   return (
     <>
       <StyledCard>
@@ -15,7 +18,7 @@ export default function ItemCard({ title, children, modalContent }) {
           <h3>{title}</h3>
 
           {modalContent && (
-            <IconButton onClick={() => setIsModalOpen(true)}>
+            <IconButton onClick={openModal}>
               <AddCircleOutlineIcon />
             </IconButton>
           )}
@@ -23,8 +26,8 @@ export default function ItemCard({ title, children, modalContent }) {
         {children}
       </StyledCard>
       {isModalOpen && (
-        <CustomModal onClose={() => setIsModalOpen(false)}>
-          {React.cloneElement(modalContent, { actionComplete: () => setIsModalOpen(false) })}
+        <CustomModal title={title} onClose={() => setIsModalOpen(false)}>
+          {modalContent}
         </CustomModal>
       )}
     </>

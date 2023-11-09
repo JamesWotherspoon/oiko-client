@@ -10,11 +10,11 @@ import {
   MenuItem,
 
 } from '@mui/material';
-import { useTransactionApi } from '../../utils/apiHooks';
-import TransactionModal from './AddTransaction';
 import { StyledFormControl, StyledSelect, InputContainerBox } from './TransactionStyles';
 import { transactionSlice } from '../../utils/slices';
 import { useSelector, useDispatch } from 'react-redux';
+import CustomModal from '../../sharedComponents/CustomModal';
+import EditTransaction from './EditTransaction';
 
 const TransactionsCard = () => {
   const [moneyPotFilter, setMoneyPotFilter] = useState('All');
@@ -24,22 +24,16 @@ const TransactionsCard = () => {
   const transactions = useSelector((state) => state.transaction.items);
   const status = useSelector((state) => state.transaction.status);
   const error = useSelector((state) => state.transaction.error);
-  
-  const query = {
-    /*
-        from,
-        to,
-        categoryId,
-        scheduledTransactionId,
-        transactionTypeFilter,
-        name,
-        minAmount,
-        maxAmount,
-        description,
-        sortField,
-        sortOrder,
-        page,
-*/
+
+  const [openModal, setOpenModal] = useState({
+    isOpen: false,
+    transaction: undefined,
+  });
+  const handleOpenModal = (transaction) => {
+    setOpenModal({ isOpen: true, transaction });
+  };
+  const handleCloseModal = () => {
+    setOpenModal({ isOpen: false, transaction: null });
   };
 
   useEffect(() => {
@@ -148,17 +142,24 @@ const TransactionsCard = () => {
               </TableHead>
               <TableBody>
                 {transactions.map((transaction) => (
-                  <TableRow key={transaction.id}>
+<>
+                  <TableRow key={transaction.id} onClick={() => handleOpenModal(transaction)}>
                     <TableCell>{transaction.moneyPotId}</TableCell>
                     <TableCell>{transaction.transactionType}</TableCell>
                     <TableCell>{transaction.amount}</TableCell>
                     <TableCell>{transaction.categoryId}</TableCell>
                     <TableCell>{transaction.scheduledTransactionId ? 'Yes' : 'No'}</TableCell>
                   </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+          {openModal.isOpen &&
+          <CustomModal title={`Edit Transaction`} onClose={handleCloseModal}>
+            <EditTransaction transaction={openModal.transaction} actionComplete={handleCloseModal} />
+          </CustomModal>
+          }
         </>
       )}
     </>

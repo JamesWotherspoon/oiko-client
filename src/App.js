@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import NotFoundPage from './features/NotFoundPage';
-import { useAuth } from './features/authentication/authContext';
-import { AuthProvider } from './features/authentication/authContext';
-import PageLayout from './features/layout/PageLayout';
+import NotFoundPage from './containers/NotFoundPage';
+import { useAuth } from './utils/authContext';
+import { AuthProvider } from './utils/authContext';
+import PageLayout from './containers/PageLayout';
 
 const ProtectedRoute = ({ element }) => {
   const { isAuthenticated } = useAuth();
