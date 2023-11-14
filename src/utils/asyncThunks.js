@@ -19,7 +19,6 @@ const createAsyncThunks = (name, endpointResource) => {
     `${name}/addItems`, 
     async (data, { rejectWithValue }) => {
       try {
-        console.log(data)
         const response = await apiService.add(endpointResource, data);
         return response.data;
       } catch (error) {

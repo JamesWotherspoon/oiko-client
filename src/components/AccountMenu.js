@@ -6,8 +6,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useDispatch } from 'react-redux';
 import { sessionSlice } from '../utils/slices';
 import { useClickOutside } from '../utils/helpers';
+import { useReduxResetStates } from '../utils/helpers';
 
 const AccountMenu = () => {
+  const reduxResetStates = useReduxResetStates()
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +23,7 @@ const AccountMenu = () => {
 
   const handleDeleteSession = () => {
     dispatch(sessionSlice.deleteItem());
+    reduxResetStates()
   };
 
   const toggleMenu = () => {

@@ -1,4 +1,3 @@
-import { sessionReducer } from './actionsReducers';
 import { handleAsyncThunk, handleSessionThunk } from './handleThunks';
 import { createSlice } from '@reduxjs/toolkit';
 import createAsyncThunks from './asyncThunks';
@@ -23,10 +22,15 @@ const createEntitySliceWithThunks = (options, endpointResource, handleAsyncThunk
   const { name, initialState } = options;
   const thunks = createAsyncThunks(name, endpointResource);
 
+  const resetReducer = (state) => {
+    Object.assign(state, initialState);
+  };
+
   const slice = createSlice({
     name,
     initialState,
     reducers: {
+      reset: resetReducer,
       ...customReducers,
     },
     extraReducers: (builder) => handleAsyncThunk(builder, thunks),
@@ -115,7 +119,14 @@ export const sessionSlice = createEntitySliceWithThunks(
   },
   '/sessions',
   handleSessionThunk,
-  sessionReducer,
+  {
+    login: (state) => {
+      state.isAuthenticated = true;
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+    },
+  }
 );
 
 const selectItemSlice = createSlice({
@@ -131,13 +142,13 @@ const selectItemSlice = createSlice({
       state.selectedTransaction = action.payload;
     },
     selectCategory: (state, action) => {
-      state.selectedCategory = action.payload
+      state.selectedCategory = action.payload;
     },
     selectMoneyPot: (state, action) => {
-      state.selectedMoneyPot = action.payload
+      state.selectedMoneyPot = action.payload;
     },
     selectScheduledAction: (state, action) => {
-      state.selectedScheduledAction = action.payload
+      state.selectedScheduledAction = action.payload;
     },
   },
 });

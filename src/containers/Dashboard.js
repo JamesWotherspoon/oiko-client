@@ -1,4 +1,4 @@
-import Overview from '../features/Overview/Overview';
+import Overview from './Overview';
 import Categories from './Categories';
 import ItemCard from '../sharedComponents/ItemCard';
 import Transactions from './Transactions';

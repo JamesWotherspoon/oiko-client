@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NotFoundPage from './containers/NotFoundPage';
-import PageLayout from './containers/PageLayout';
+import { ProtectedLayout } from './containers/ProtectedLayout';
 import Auth from './containers/Auth';
-import { useSelector } from 'react-redux';
-import { useFetchData } from './utils/helpers';
+import { useDispatch, useSelector } from 'react-redux';
 import Dashboard from './containers/Dashboard';
 import Transactions from './containers/Transactions';
 import Categories from './containers/Categories';
 import ScheduledActions from './containers/ScheduledActions';
 import MoneyPots from './containers/MoneyPots';
+import { sessionSlice } from './utils/slices';
 
 const ProtectedRoute = ({ element }) => {
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
   if (!isAuthenticated) return <Navigate to="/auth" />;
-  return <PageLayout>{element}</PageLayout>;
+  return <ProtectedLayout>{element}</ProtectedLayout>;
 };
 
 const App = () => {
-  useFetchData();
+  const dispatch = useDispatch()
   const sessionStatus = useSelector((state) => state.session.status);
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
 
+  if (sessionStatus === 'idle') dispatch(sessionSlice.fetchItems());
   if (sessionStatus === 'idle' || sessionStatus === 'loading') return <div>Loading...</div>;
 
   return (

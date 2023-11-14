@@ -37,7 +37,9 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const sanitizedData = sanitizePayload(formData, ['balance', 'description']);
+    console.log(sanitizedData)
     const { valid, errors } = validateHelper(moneyPotValidate, sanitizedData);
+    console.log(valid)
     if (!valid) {
       setErrors(errors);
       return

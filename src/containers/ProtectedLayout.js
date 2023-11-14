@@ -1,7 +1,9 @@
 import TopBar from '../components/TopBar';
 import Nav from '../components/Nav';
+import { useFetchData } from '../utils/helpers';
 
-const PageLayout = ({ children }) => {
+export const ProtectedLayout = ({ children }) => {
+  useFetchData();
   return (
     <div id="page">
       <header>
@@ -13,5 +15,3 @@ const PageLayout = ({ children }) => {
     </div>
   );
 };
-
-export default PageLayout;

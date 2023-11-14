@@ -1,3 +1,4 @@
+
 const handleFetchAsyncThunk = (builder, thunks) => {
   builder
     // Handling thunks.fetchItems
@@ -70,6 +71,8 @@ export const handleAsyncThunk = (builder, thunks) => {
   handleUpdateAsyncThunk(builder, thunks);
   handleDeleteAsyncThunk(builder, thunks);
 };
+
+
 const handleFetchSessionAsyncThunk = (builder, thunks) => {
   builder
     // Handling thunks.addItems
@@ -109,7 +112,7 @@ const handleDeleteSessionAsyncThunk = (builder, thunks) => {
     })
     .addCase(thunks.deleteItem.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.isAuthenticated = action.payload.isAuthenticated;
+      state.isAuthenticated = false;
     })
     .addCase(thunks.deleteItem.rejected, (state, action) => {
       state.status = 'failed';

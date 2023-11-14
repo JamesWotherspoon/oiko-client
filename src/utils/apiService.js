@@ -17,7 +17,7 @@ const sendRequest = async (method, url, data = null, params) => {
     url,
   };
   if(data) axiosRequest.data = data;
-  console.log(data)
+
   try {
     const response = await api(axiosRequest);
     return response;

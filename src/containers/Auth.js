@@ -3,21 +3,17 @@ import LoginForm from '../components/forms/LoginForm';
 import SignUpForm from '../components/forms/SignUpForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { sessionSlice, userSlice } from '../utils/slices';
-import { login } from '../utils/actionsReducers';
 import { useNavigate } from 'react-router-dom';
 
 export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
 
   const handleAddUser = (userData) => {
     const payload = { email: userData.email, password: userData.password };
     dispatch(userSlice.addItems(payload)).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
-        dispatch(login());
-        navigate('/dashboard');
+        dispatch(sessionSlice.actions.login())
       }
     });
   };
@@ -25,8 +21,7 @@ export default function Auth() {
   const handleAddSession = (credentials) => {
     dispatch(sessionSlice.addItems({ email: credentials.email, password: credentials.password })).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
-        dispatch(login());
-        navigate('/dashboard');
+        dispatch(sessionSlice.actions.login())
       }
     });
   };

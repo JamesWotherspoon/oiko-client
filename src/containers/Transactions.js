@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionSlice } from '../utils/slices';
+import { transactionSlice, moneyPotSlice } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
 import TransactionsListing from '../components/TransactionListing';
 import { selectTransaction } from '../utils/slices';
@@ -10,31 +10,43 @@ import EditTransaction from '../components/EditTransaction';
 
 export default function Transactions() {
   const dispatch = useDispatch();
-  // Handle retrieving transaction data
+  const moneyPotStatus = useSelector((state) => state.moneyPot.status);
   const status = useSelector((state) => state.transaction.status);
   const error = useSelector((state) => state.transaction.error);
   const [displayUnit, setDisplayUnit] = useState('graphs');
   const selectedTransaction = useSelector((state) => state.selectItem.selectedTransaction);
   const [queryParams, setQueryParams] = useState({});
-  console.log(displayUnit)
+
   useEffect(() => {
     if (selectedTransaction.id) {
       setDisplayUnit('editItem');
     }
   }, [selectedTransaction]);
 
-  const handleAddItem = (itemData) => {
-    dispatch(transactionSlice.addItems(itemData));
+  const handleAddItem = async (itemData) => {
+    await dispatch(transactionSlice.addItems(itemData)).then(() => {
+      if (moneyPotStatus !== 'loading'){
+        dispatch(moneyPotSlice.fetchItems());
+      }
+    })
     setDisplayUnit('graphs');
   };
 
   const handleUpdate = (data) => {
-    dispatch(transactionSlice.updateItem({ id: selectedTransaction.id, data }));
+    dispatch(transactionSlice.updateItem({ id: selectedTransaction.id, data })).then(() => {
+      if (moneyPotStatus !== 'loading'){
+        dispatch(moneyPotSlice.fetchItems());
+      }
+    })
     setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
-    dispatch(transactionSlice.deleteItem(id));
+    dispatch(transactionSlice.deleteItem(id)).then(() => {
+      if (moneyPotStatus !== 'loading'){
+        dispatch(moneyPotSlice.fetchItems());
+      }
+    })
     setDisplayUnit('graphs');
   };
 

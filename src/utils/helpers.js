@@ -1,9 +1,7 @@
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sessionSlice } from './slices';
-import { login } from './actionsReducers';
-import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice } from './slices';
+import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice, sessionSlice } from './slices';
 
 export const useNavigateBack = () => {
   const navigate = useNavigate();
@@ -49,28 +47,6 @@ export const validateHelper = (schemaValidate, data) => {
   return { valid, errors };
 };
 
-export const useAuthStatus = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
-  const item = useSelector((state) => state.session.items);
-  const status = useSelector((state) => state.session.status);
-  const error = useSelector((state) => state.session.error);
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(sessionSlice.fetchItems()).then((response) => {
-        if (response.payload.isAuthenticated) {
-          dispatch(login());
-          navigate('/dashboard');
-        }
-      });
-    }
-  }, [status, dispatch, navigate]);
-
-  return { isAuthenticated, status, error };
-};
-
 export const generateUniqueKey = () => {
   return Math.random().toString(36).substring(1, 9);
 };
@@ -92,18 +68,46 @@ export const useClickOutside = (ref, callback) => {
 
 export const useFetchData = () => {
   const dispatch = useDispatch();
-  const sessionStatus = useSelector((state) => state.session.status);
   const transactionStatus = useSelector((state) => state.transaction.status);
   const scheduledActionStatus = useSelector((state) => state.scheduledAction.status);
   const categoryStatus = useSelector((state) => state.transaction.status);
   const moneyPotStatus = useSelector((state) => state.moneyPot.status);
 
   useEffect(() => {
-    if (sessionStatus === 'idle') dispatch(sessionSlice.fetchItems());
     if (transactionStatus === 'idle') dispatch(transactionSlice.fetchItems());
     if (scheduledActionStatus === 'idle') dispatch(scheduledActionSlice.fetchItems());
     if (categoryStatus === 'idle') dispatch(categorySlice.fetchItems());
     if (moneyPotStatus === 'idle') dispatch(moneyPotSlice.fetchItems());
-  }, [categoryStatus, scheduledActionStatus, sessionStatus, transactionStatus, moneyPotStatus, dispatch]);
+  }, [categoryStatus, scheduledActionStatus, transactionStatus, moneyPotStatus, dispatch]);
 };
 
+export const useMoneyPotsTotal = () => {
+  const moneyPots = useSelector(state => state.moneyPot.items);
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    if(moneyPots.length){
+      let totalBalance = 0;
+      moneyPots.forEach(moneyPot => {
+        let balanceNumber = parseFloat(moneyPot.balance)
+        totalBalance += balanceNumber
+      })
+      setTotal(totalBalance.toFixed(2))
+    }
+  }, [moneyPots])
+
+  return total;
+}
+
+export const useReduxResetStates = () => {
+    const dispatch = useDispatch();
+  
+    const reduxResetStates = () => {
+      dispatch(transactionSlice.actions.reset());
+      dispatch(moneyPotSlice.actions.reset());
+      dispatch(categorySlice.actions.reset());
+      dispatch(scheduledActionSlice.actions.reset());
+    };
+  
+    return reduxResetStates;
+}

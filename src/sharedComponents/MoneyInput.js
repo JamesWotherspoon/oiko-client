@@ -20,7 +20,6 @@ const MoneyInput = ({amount, onChange}) => {
     const validAmount = cleanedValue.match(/^\d*\.?\d{0,2}/g);
     let sanitizedAmount = validAmount ? validAmount[0] : '';
     let sanitizedNumber = parseFloat(sanitizedAmount);
-    console.log(typeof sanitizedNumber)
     onChange(sanitizedNumber);
     // Insert commas and pound symbol
     let formattedAmount = formatNumberWithCommas(sanitizedAmount);

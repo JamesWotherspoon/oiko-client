@@ -91,7 +91,7 @@ export const credentialsValidate = ajv.compile(credentialsSchema);
 const MoneyPotsBodySchema = {
   type: 'object',
   properties: {
-    name: { type: 'string' },
+    name: { type: 'string', minLength: 1  },
     balance: { type: 'number' },
     description: { type: 'string' },
   },
