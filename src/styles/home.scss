@@ -32,6 +32,7 @@
   margin-bottom: 14px;
   border-bottom: $border;
   padding: 0 $page-margin;
+  box-shadow: $box-shadow;
 }
 .brand-container {
   display: flex;
@@ -84,7 +85,8 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 40px;
+    margin: 0 20px;
+    padding: 0 20px;
     color: $light-grey;
     .nav-label {
       margin-top: 3px;
@@ -93,19 +95,19 @@ nav {
       color: $light-grey;
     }
     .nav-underline {
-        width: 100%;
-        border-radius: 10px;
-        height: 2px;
-        background-color: $light-grey;
+      width: 100%;
+      border-radius: 10px;
+      height: 2px;
+      background-color: $light-grey;
     }
-    &.selected {
+    &.active {
       color: $secondary-color;
-        .nav-label {
-            color: $secondary-color;
-        }
-        .nav-underline {
-            background-color: $secondary-color;
-        }
+      .nav-label {
+        color: $secondary-color;
+      }
+      .nav-underline {
+        background-color: $secondary-color;
+      }
     }
   }
 }
@@ -116,7 +118,7 @@ nav {
   flex-wrap: wrap;
   gap: $gap-unit;
   button {
-    background-color: hsl(164,48%,60%);
+    background-color: hsl(164, 48%, 60%);
   }
   .selected {
     box-shadow: $box-shadow;
@@ -148,9 +150,7 @@ nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
 }
-
 
 // Transaction
 .transaction-type-amount-cont {
@@ -158,7 +158,6 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
   .expense-income-btn {
     font-weight: 700;
     margin-right: 15px;
@@ -169,15 +168,67 @@ nav {
     width: 100%;
   }
   .plus {
-
   }
   .minus {
-
   }
 }
 
-div.transaction-date-picker {
-  width: 150px;
-  align-self: flex-end;
-  padding: 20px 0;
+.auth-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $page-margin;
+}
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  form {
+    width: 350px;
+  }
+}
+
+.account-container {
+  position: relative;
+  cursor: pointer;
+  #menu-icon {
+    margin-top: 10px;
+    padding: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+  }
+  #menu-icon:hover,
+  &.open #menu-icon,
+  &:hover #menu-icon {
+    border: $border;
+  }
+  .account-actions {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    border-radius: $border-radius;
+    padding: 16px;
+    width: 150px;
+    text-align: center;
+    border: $border;
+    box-shadow: $box-shadow;
+    background-color: $background-color;
+    display: none;
+    flex-direction: column;
+  }
+  &:hover {
+    .account-actions {
+      display: flex;
+    }
+  }
+  &.open {
+    .account-actions {
+      display: flex;
+    }
+  }
 }

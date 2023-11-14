@@ -67,11 +67,11 @@ const theme = createTheme({
       },
       styleOverrides: {
         outlined: {
-          color: baseTheme.palette.primary.main,
+          color: 'white',
           background: 'transparent',
         },
         root: {
-          color: baseTheme.palette.primary.main,
+          color: 'white',
           background: baseTheme.palette.secondary.main,
           width: '120px',
           margin: '8px 0',
@@ -91,12 +91,9 @@ const theme = createTheme({
       },
     },
     MuiSelected: {
-      defaultProps: {
-        color: baseTheme.palette.brand.main,
-      },
       styleOverrides: {
         root: {
-          color: baseTheme.palette.brand.main,
+          backgroundColor: 'grey',
         },
       },
     },

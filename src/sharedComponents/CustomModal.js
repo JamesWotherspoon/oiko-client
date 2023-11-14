@@ -38,8 +38,8 @@ const Modal = ({ title, onClose, children }) => {
                 <IconButton style={modalCloseStyle} onClick={onClose}>
                     <CloseIcon />
                 </IconButton>
-                <div>{title}</div>
-                <hr />
+                <h5 className='modal-title'>{title}</h5>
+
                 {children}
             </div>
         </div>

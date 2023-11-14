@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import { Input } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 
 const MoneyInput = ({amount, onChange}) => {
   const [formattedAmount, setFormattedAmount] = useState(`£ ${amount ? amount : '0.00'}`);
+
+  useEffect(() => {
+    setFormattedAmount(`£ ${amount ? amount : '0.00'}`);
+  }, [amount]);
 
   const formatNumberWithCommas = (value) => {
     let number = value.replace(/,/g, '');
@@ -15,6 +20,7 @@ const MoneyInput = ({amount, onChange}) => {
     const validAmount = cleanedValue.match(/^\d*\.?\d{0,2}/g);
     let sanitizedAmount = validAmount ? validAmount[0] : '';
     let sanitizedNumber = parseFloat(sanitizedAmount);
+    console.log(typeof sanitizedNumber)
     onChange(sanitizedNumber);
     // Insert commas and pound symbol
     let formattedAmount = formatNumberWithCommas(sanitizedAmount);
@@ -24,7 +30,8 @@ const MoneyInput = ({amount, onChange}) => {
 
   return (
     <div className='money-input-container'>
-      <input
+      <Input
+      variant="standard"
         className='money-input'
         type="text"
         value={formattedAmount}

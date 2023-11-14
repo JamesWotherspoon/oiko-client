@@ -9,12 +9,13 @@ export default function DateSelect({ label, date,  handleDateChange, error }) {
     handleDateChange(formattedDate)
   };
   return (
-    <div>
+    <div className='date-picker-cont'>
       <DatePicker
         label={label}
         value={date ? parseISO(date) : null}
         format="dd/MM/yyyy"
         onChange={handleOnChange}
+        className='date-picker'
       />
       <FormError errorMessage={error} />
     </div>

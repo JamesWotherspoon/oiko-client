@@ -1,68 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import CustomModal from '../sharedComponents/CustomModal';
-import TransactionsDisplay from '../features/Transaction/Transactions';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionSlice } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
+import TransactionsListing from '../components/TransactionListing';
+import { selectTransaction } from '../utils/slices';
+import EditTransaction from '../components/EditTransaction';
 
 export default function Transactions() {
   const dispatch = useDispatch();
   // Handle retrieving transaction data
-  const transactions = useSelector((state) => state.transaction.items);
   const status = useSelector((state) => state.transaction.status);
   const error = useSelector((state) => state.transaction.error);
-
+  const [displayUnit, setDisplayUnit] = useState('graphs');
+  const selectedTransaction = useSelector((state) => state.selectItem.selectedTransaction);
   const [queryParams, setQueryParams] = useState({});
-
-  const [addItem, setAddItem] = useState(false);
-  const [editItem, setEditItem] = useState();
-
+  console.log(displayUnit)
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(transactionSlice.fetchItems());
+    if (selectedTransaction.id) {
+      setDisplayUnit('editItem');
     }
-  }, [status, dispatch, queryParams]);
+  }, [selectedTransaction]);
 
-  const handleAdd = (transactionData) => {
-    dispatch(transactionSlice.addItems(transactionData));
-    setAddItem(false);
+  const handleAddItem = (itemData) => {
+    dispatch(transactionSlice.addItems(itemData));
+    setDisplayUnit('graphs');
   };
 
-  const handleUpdate = (id, formData) => {
-    dispatch(transactionSlice.updateItem({ id, formData }));
-    setEditItem();
+  const handleUpdate = (data) => {
+    dispatch(transactionSlice.updateItem({ id: selectedTransaction.id, data }));
+    setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
     dispatch(transactionSlice.deleteItem(id));
-    setEditItem();
+    setDisplayUnit('graphs');
   };
 
   return (
-    <div>
-      <ItemCard className="transaction-panel" title="Transactions" addItem={() => setAddItem(true)} modalContent={true}>
-        {/* <TransactionsDisplay
-          data={transactions}
-          handleItemSelect={(itemData) => setEditItem(itemData)}
-          handleParamsChange={(params) => setQueryParams(params)}
-        /> */}
+    <div className="page-content-cont">
+      <ItemCard className="transaction-listing" title="Transactions" addItem={() => setDisplayUnit('addItem')}>
+        <TransactionsListing handleParamsChange={(params) => setQueryParams(params)} />
       </ItemCard>
-      {addItem && (
-        <CustomModal title="Add Transaction" onClose={() => setAddItem(false)}>
-          <TransactionForm onSubmit={handleAdd}>
-            <button type="submit">Add</button>
-          </TransactionForm>
-        </CustomModal>
-      )}
-      {editItem && (
-        <CustomModal title="Edit Transaction" onClose={() => setEditItem()}>
-          <TransactionForm onSubmit={handleUpdate} itemData={editItem}>
-            <button type="submit">Update</button>
-            <button onClick={() => handleDelete(editItem.id)}>Delete</button>
-          </TransactionForm>
-        </CustomModal>
-      )}
+      <div className="side-cont">
+        {displayUnit === 'graphs' && (
+          <div>
+            <h5>Graphs</h5>
+          </div>
+        )}
+        {displayUnit === 'addItem' && (
+          <div className="form-cont">
+            <h5 className="modal-title">Add Transaction</h5>
+            <TransactionForm onSubmit={handleAddItem}>
+              <button type="submit">Create</button>
+            </TransactionForm>
+          </div>
+        )}
+        {displayUnit === 'editItem' && (
+          <EditTransaction
+            handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
+            selectedTransaction={selectedTransaction}
+          />
+        )}
+      </div>
     </div>
   );
-};
+}

@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
-import MoneyPotSelect from '../../sharedComponents/MoneyPotSelect';
+import React, { useEffect, useState } from 'react';
+import OptionsSelect from '../../sharedComponents/OptionsSelect';
 import MoneyTypeFieldset from '../../sharedComponents/MoneyTypeFieldset';
-import CategoryUnitSelect from '../../sharedComponents/CategoryUnitSelect';
+import CategorySelect from '../../sharedComponents/CategorySelect';
 import DateSelect from '../../sharedComponents/DateSelect';
 import { useSelector } from 'react-redux';
-import { transactionValidate as validate } from '../../utils/validator';
+import { transactionValidate } from '../../utils/validator';
 import { format } from 'date-fns';
+import { validateHelper, sanitizePayload } from '../../utils/helpers';
 
 const TransactionForm = ({ children, onSubmit, transaction }) => {
-  const currentDate = format(new Date(), 'yyyy-MM-dd')
+  const currentDate = format(new Date(), 'yyyy-MM-dd');
   const moneyPots = useSelector((state) => state.moneyPot.items);
   const initialFormState = {
     categoryId: transaction?.categoryId || null,
-    amount: transaction?.amount || 0.0,
+    amount: parseFloat(transaction?.amount) || 0.0,
     transactionType: transaction?.transactionType || 'expense',
-    moneyPotId: transaction?.moneyPotId || moneyPots?.[0].id,
+    moneyPotId: transaction?.moneyPotId || moneyPots[0]?.id,
     transactionDate: transaction?.transactionDate || currentDate,
   };
   const [formData, setFormData] = useState(initialFormState);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors({})
+    if (transaction) {
+      setFormData({
+        categoryId: transaction.categoryId,
+        amount: parseFloat(transaction.amount),
+        transactionType: transaction.transactionType,
+        moneyPotId: transaction.moneyPotId,
+        transactionDate: transaction.transactionDate,
+      });
+    }
+  }, [transaction]);
 
   const handleChange = (name, value) => {
     setFormData((prevFormData) => ({
@@ -29,53 +43,51 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate form data against schema
-    const valid = validate(formData);
-
+    const sanitizedData = sanitizePayload(formData, ['categoryId', 'name', 'description']);
+    const { valid, errors } = validateHelper(transactionValidate, sanitizedData);
     if (!valid) {
-      console.log(validate.errors);
-      const validationErrors = validate.errors.reduce((accumulator, error) => {
-        console.log(error);
-        const key = error.instancePath.slice(1);
-        accumulator[key] = error.message;
-        return accumulator;
-      }, {});
-      setErrors(validationErrors);
-    } else {
-      onSubmit(formData);
+      setErrors(errors);
+      return
     }
+    onSubmit(sanitizedData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <MoneyPotSelect
-        moneyPotId={formData.moneyPotId}
-        handleMoneyPotIdChange={(value) => handleChange('moneyPotId', value)}
-        moneyPots={moneyPots}
-        error={errors.moneyPotId}
-      />
-      <fieldset>
-        <div className="horizontal-flex">
-          <MoneyTypeFieldset
-            transactionType={formData.transactionType}
-            handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
-            amount={formData.amount}
-            handleAmountChange={(value) => handleChange('amount', value)}
-            error={errors.amount + errors.transactionType}
-          />
-          <DateSelect
-            label=""
-            date={formData.transactionDate}
-            handleDateChange={(value) => handleChange('transactionDate', value)}
-            error={errors.transactionDate}
-          />
-        </div>
+      <fieldset className="date-money-fieldset">
+        <MoneyTypeFieldset
+          transactionType={formData.transactionType}
+          handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
+          amount={formData.amount}
+          handleAmountChange={(value) => handleChange('amount', value)}
+          error={errors.amount + errors.transactionType}
+        />
+        <DateSelect
+          label=""
+          date={formData.transactionDate}
+          handleDateChange={(value) => handleChange('transactionDate', value)}
+          error={errors.transactionDate}
+        />
       </fieldset>
-      <CategoryUnitSelect
-        cateoryId={formData.categoryId}
-        handleCategoryIdChange={(value) => handleChange('categoryId', value)}
-        error={errors.categoryId}
-      />
+      <fieldset>
+        <OptionsSelect
+          label="Account"
+          selectedId={formData.moneyPotId}
+          handleSelectedIdChange={(value) => handleChange('moneyPotId', value)}
+          options={moneyPots}
+          error={errors.moneyPotId}
+        />
+      </fieldset>
+      <fieldset>
+        <h5 className="form-sub-heading">
+          Category <span className="info-text">(optional)</span>
+        </h5>
+        <CategorySelect
+          selectedCategoryId={formData.categoryId}
+          handleCategoryIdChange={(value) => handleChange('categoryId', value)}
+          error={errors.categoryId}
+        />
+      </fieldset>
       <div className="submit-btn-cont">{children}</div>
     </form>
   );

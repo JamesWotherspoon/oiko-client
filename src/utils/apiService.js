@@ -15,10 +15,9 @@ const sendRequest = async (method, url, data = null, params) => {
   const axiosRequest = {
     method,
     url,
-    params,
   };
   if(data) axiosRequest.data = data;
-
+  console.log(data)
   try {
     const response = await api(axiosRequest);
     return response;
@@ -29,6 +28,7 @@ const sendRequest = async (method, url, data = null, params) => {
     } else if (error.response) {
       // Request was sent and the server responded
       console.error(`Server responded with status ${error.response.status}`);
+      console.error(error.response);
     } else if (error.request) {
       // Request was sent but no response was received
       console.error('No response received from the server');

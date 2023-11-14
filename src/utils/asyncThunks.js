@@ -19,6 +19,7 @@ const createAsyncThunks = (name, endpointResource) => {
     `${name}/addItems`, 
     async (data, { rejectWithValue }) => {
       try {
+        console.log(data)
         const response = await apiService.add(endpointResource, data);
         return response.data;
       } catch (error) {
@@ -29,7 +30,7 @@ const createAsyncThunks = (name, endpointResource) => {
 
   const deleteItem = createAsyncThunk(
     `${name}/deleteItem`, 
-    async (id, { rejectWithValue }) => {
+    async (id = '', { rejectWithValue }) => {
       try {
         await apiService.delete(`${endpointResource}/${id}`);
         return id;
