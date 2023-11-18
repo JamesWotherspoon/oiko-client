@@ -4,6 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import EmptyDataInfo from '../sharedComponents/EmptyDataInfo';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { selectScheduledAction } from '../utils/slices';
+import LoopIcon from '@mui/icons-material/Loop';
+import { categoryIconColorMapping } from '../utils/helpers';
+import { format } from 'date-fns';
+import { enGB } from 'date-fns/locale';
 
 const ScheduledActionsListing = () => {
   const navigate = useNavigate();
@@ -19,31 +23,43 @@ const ScheduledActionsListing = () => {
   };
 
   return (
-    <>
+    <div className="scheduled-listing">
       {scheduledActions.length === 0 ? (
         <EmptyDataInfo label="scheduled actions" />
       ) : (
-        <TableContainer>
-          <Table>
-            <TableBody>
-              {scheduledActions.map((scheduledAction) => (
-                <TableRow key={scheduledAction.id} onClick={() => handleItemSelect(scheduledAction)}>
-                  <TableCell>{scheduledAction.moneyPotId}</TableCell>
-                  <TableCell>{scheduledAction.transactionType}</TableCell>
-                  <TableCell>{scheduledAction.amount}</TableCell>
-                  <TableCell>{scheduledAction.categoryId}</TableCell>
-                  <TableCell>{scheduledAction.name}</TableCell>
-                  <TableCell>{scheduledAction.recurrenceType}</TableCell>
-                  <TableCell>{scheduledAction.nextTransactionDate}</TableCell>
-                  <TableCell>{scheduledAction.active ? 'active' : 'Not active'}</TableCell>
-                  <TableCell>{scheduledAction.description}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          {scheduledActions.map((scheduledAction) => (
+            <div
+              className="scheduled-listing-unit"
+              key={scheduledAction.id}
+              onClick={() => handleItemSelect(scheduledAction)}
+            >
+              <div className="category-action-name-cont">
+              {scheduledAction.Category?.iconIdentifier &&
+                <div className={`category-icon-btn ${scheduledAction.Category.iconIdentifier}`}>
+                   {categoryIconColorMapping(scheduledAction.Category.iconIdentifier, scheduledAction.Category.color)}
+                </div>}
+                {scheduledAction.name}
+              </div>
+              <div className="money-pot-name-amount-cont">
+              <div className='amount-cont'>
+                  {scheduledAction.transactionType === 'positive' ? '+' : '-'}£ {scheduledAction.amount}
+                </div>
+                
+              </div>
+              <div className='low-level-info'>
+                <div className="recurrence-cont">
+                <div>{scheduledAction.MoneyPot?.name}  -  </div>
+                  <LoopIcon />
+                  {scheduledAction.recurrenceType}
+                </div>
+                {format(new Date(scheduledAction.nextTransactionDate), 'dd/MM/yyyy', { locale: enGB })}
+              </div>
+            </div>
+          ))}
+        </>
       )}
-    </>
+    </div>
   );
 };
 

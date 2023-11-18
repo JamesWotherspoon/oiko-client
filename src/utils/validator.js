@@ -8,7 +8,7 @@ const transactionBodySchema = {
   type: 'object',
   properties: {
     categoryId: { type: ['integer', 'null'] },
-    transactionType: { type: 'string', enum: ['income', 'expense'] },
+    transactionType: { type: 'string', enum: ['positive', 'negative'] },
     name: { type: 'string' },
     amount: { type: 'number', minimum: 0.01 },
     transactionDate: { type: 'string', format: 'date' },
@@ -24,7 +24,7 @@ export const transactionValidate = ajv.compile(transactionBodySchema);
 const categoryBodySchema = {
   type: 'object',
   properties: {
-    type: { type: 'string', enum: ['income', 'expense', ''] },
+    type: { type: 'string', enum: ['positive', 'negative', ''] },
     name: { type: 'string', minLength: 1 },
     description: { type: 'string' },
   },
@@ -39,7 +39,7 @@ const scheduledActionBodySchema = {
   properties: {
     moneyPotId: { type: 'integer' },
     categoryId: { type: ['integer', 'null'] },
-    transactionType: { type: 'string', enum: ['income', 'expense'] },
+    transactionType: { type: 'string', enum: ['positive', 'negative'] },
     name: { type: 'string' },
     amount: { type: 'number', minimum: 0.01  },
     recurrenceType: { type: 'string', enum: ['daily', 'weekly', 'monthly', 'quarterly', 'biannually', 'annually'] },
@@ -93,6 +93,7 @@ const MoneyPotsBodySchema = {
   properties: {
     name: { type: 'string', minLength: 1  },
     balance: { type: 'number' },
+    balanceType: { type: 'string', enum: ['positive', 'negative'] },
     description: { type: 'string' },
   },
   required: ['name'],

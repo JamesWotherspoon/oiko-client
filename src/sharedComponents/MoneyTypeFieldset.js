@@ -6,7 +6,7 @@ import FormError from './FormError';
 
 export default function MoneyTypeFieldset({ transactionType, handleTransactionTypeChange, amount, handleAmountChange, error  }) {
     const onTransactionTypeChange = () => {
-      const newTransactionType = transactionType === 'income' ? 'expense' : 'income'
+      const newTransactionType = transactionType === 'negative' ? 'positive' : 'negative'
       handleTransactionTypeChange(newTransactionType)
     }
 
@@ -16,7 +16,7 @@ export default function MoneyTypeFieldset({ transactionType, handleTransactionTy
       onClick={onTransactionTypeChange}
       className="expense-income-btn"
     >
-      {transactionType === 'income' ? (
+      {transactionType === 'positive' ? (
         <span className="plus">+</span>
       ) : (
         <span className="minus">-</span>

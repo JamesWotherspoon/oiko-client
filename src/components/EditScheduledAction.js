@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionSlice } from '../utils/slices';
-import TransactionForm from '../components/forms/TransactionForm';
-import TransactionsListing from '../components/TransactionListing';
 import { selectScheduledAction } from '../utils/slices';
 import ScheduledActionForm from './forms/ScheduledActionForm';
 

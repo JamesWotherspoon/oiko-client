@@ -2,21 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice, sessionSlice } from './slices';
-
-export const useNavigateBack = () => {
-  const navigate = useNavigate();
-  const navigateBack = () => {
-    const { referrer } = document;
-    const isSameDomain = referrer && referrer.includes(window.location.origin);
-
-    if (isSameDomain) {
-      navigate(-1);
-    } else {
-      navigate('/dashboard');
-    }
-  };
-  return navigateBack;
-};
+import { setNotification } from './slices';
+import GroceriesSvg from '@mui/icons-material/LocalGroceryStore';
+import ClothesSvg from '@mui/icons-material/ShoppingBag';
+import DiningSvg from '@mui/icons-material/Restaurant';
+import DrinksSvg from '@mui/icons-material/LocalBar';
+import PetsSvg from '@mui/icons-material/Pets';
+import HolidaysSvg from '@mui/icons-material/Flight';
+import CommuteSvg from '@mui/icons-material/DirectionsCar';
+import DefaultSvg from '@mui/icons-material/Category';
+import RentSvg from '@mui/icons-material/HouseSiding';
+import BillsSvg from '@mui/icons-material/Water';
 
 export function sanitizePayload(payload, keysToRemove, { removeEmptyString = true, removeNull = true } = {}) {
   return Object.entries(payload).reduce((acc, [key, value]) => {
@@ -35,7 +31,6 @@ export const validateHelper = (schemaValidate, data) => {
   if (!valid) {
     console.log(schemaValidate.errors);
     errors = schemaValidate.errors.reduce((accumulator, error) => {
-      console.log(error);
       let key = error.instancePath.slice(1);
       if (!key) {
         key = error.params.missingProperty || 'unknown';
@@ -51,63 +46,48 @@ export const generateUniqueKey = () => {
   return Math.random().toString(36).substring(1, 9);
 };
 
-export const useClickOutside = (ref, callback) => {
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback();
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
+export const categoryIconColorMapping = (iconIdentifier, color) => {
+  const svgComponents = {
+    groceries: <GroceriesSvg />,
+    clothes: <ClothesSvg />,
+    dining: <DiningSvg />,
+    drinks: <DrinksSvg />,
+    pets: <PetsSvg />,
+    holidays: <HolidaysSvg />,
+    commute: <CommuteSvg />,
+    rent: <RentSvg />,
+    bills: <BillsSvg />,
+    default: <DefaultSvg />,
+  };
 
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [ref, callback]);
+  const svgComponent = svgComponents[iconIdentifier] || svgComponents.default;
+
+  return (
+    <div className={`category-icon`} style={{ backgroundColor: color }}>
+      {svgComponent}
+    </div>
+  );
 };
 
-export const useFetchData = () => {
-  const dispatch = useDispatch();
-  const transactionStatus = useSelector((state) => state.transaction.status);
-  const scheduledActionStatus = useSelector((state) => state.scheduledAction.status);
-  const categoryStatus = useSelector((state) => state.transaction.status);
-  const moneyPotStatus = useSelector((state) => state.moneyPot.status);
-
-  useEffect(() => {
-    if (transactionStatus === 'idle') dispatch(transactionSlice.fetchItems());
-    if (scheduledActionStatus === 'idle') dispatch(scheduledActionSlice.fetchItems());
-    if (categoryStatus === 'idle') dispatch(categorySlice.fetchItems());
-    if (moneyPotStatus === 'idle') dispatch(moneyPotSlice.fetchItems());
-  }, [categoryStatus, scheduledActionStatus, transactionStatus, moneyPotStatus, dispatch]);
+export const getMonthFromIndex = (monthIndex) => {
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  return monthNames[monthIndex];
 };
 
-export const useMoneyPotsTotal = () => {
-  const moneyPots = useSelector(state => state.moneyPot.items);
-  const [total, setTotal] = useState(0)
-
-  useEffect(() => {
-    if(moneyPots.length){
-      let totalBalance = 0;
-      moneyPots.forEach(moneyPot => {
-        let balanceNumber = parseFloat(moneyPot.balance)
-        totalBalance += balanceNumber
-      })
-      setTotal(totalBalance.toFixed(2))
-    }
-  }, [moneyPots])
-
-  return total;
-}
-
-export const useReduxResetStates = () => {
-    const dispatch = useDispatch();
-  
-    const reduxResetStates = () => {
-      dispatch(transactionSlice.actions.reset());
-      dispatch(moneyPotSlice.actions.reset());
-      dispatch(categorySlice.actions.reset());
-      dispatch(scheduledActionSlice.actions.reset());
-    };
-  
-    return reduxResetStates;
-}
+export const isEmptyObject = (obj) => {
+  if(!obj) return false
+  return Object.keys(obj).length === 0;
+};

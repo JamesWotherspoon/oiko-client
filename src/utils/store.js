@@ -1,6 +1,6 @@
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
-import { categorySlice, moneyPotSlice, scheduledActionSlice, transactionSlice, userSlice, sessionSlice, selectItemReducer }  from './slices'
+import { categorySlice, moneyPotSlice, scheduledActionSlice, transactionSlice, userSlice, sessionSlice, selectItemReducer, transactionSelectedMonthSlice, notificationSlice, chartDataSlice }  from './slices'
 
 export const store = configureStore({
   reducer: {
@@ -11,5 +11,7 @@ export const store = configureStore({
     session: sessionSlice.reducer,
     user: userSlice.reducer,
     selectItem: selectItemReducer,
+    notification: notificationSlice.reducer,
+    chartData: chartDataSlice.reducer,
   },
 });

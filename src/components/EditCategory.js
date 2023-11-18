@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionSlice } from '../utils/slices';
-import TransactionForm from '../components/forms/TransactionForm';
-import TransactionsListing from '../components/TransactionListing';
 import { selectCategory } from '../utils/slices';
-import MoneyPotForm from './forms/MoneyPotForm';
 import CategoryForm from './forms/CategoryForm';
 
 export default function EditCategory({ handleDelete, handleUpdate, selectedCategory }) {

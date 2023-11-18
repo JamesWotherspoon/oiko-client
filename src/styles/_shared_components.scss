@@ -166,9 +166,8 @@ button.expense-income-btn {
 }
 
 .data-listing-cont {
+  width: 100%;
   max-height: 60vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 .empty-data-info {
@@ -205,4 +204,8 @@ button.expense-income-btn {
 .item-card-link {
   color: $primary-color;
   text-decoration: underline;
+}
+
+.low-level-info {
+  color: $info-color;
 }

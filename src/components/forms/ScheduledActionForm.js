@@ -15,7 +15,7 @@ const ScheduledActionForm = ({ children, onSubmit, scheduledAction }) => {
   const initialFormState = {
     categoryId: scheduledAction?.categoryId || null,
     amount: parseFloat(scheduledAction?.amount) || 0.0,
-    transactionType: scheduledAction?.transactionType || 'expense',
+    transactionType: scheduledAction?.transactionType || 'negative',
     moneyPotId: scheduledAction?.moneyPotId || moneyPots[0]?.id,
     name: scheduledAction?.name || '',
     recurrenceType: scheduledAction?.recurrenceType || 'monthly',

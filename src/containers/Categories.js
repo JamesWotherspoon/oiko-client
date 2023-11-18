@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { categorySlice } from '../utils/slices';
 import CategoryForm from '../components/forms/CategoryForm';
-import CategorySelect from '../sharedComponents/CategorySelect';
-import { sanitizePayload } from '../utils/helpers';
-import EmptyDataInfo from '../sharedComponents/EmptyDataInfo';
+import { useDispatchToastNotification } from '../utils/hooks';
 import CategoryListing from '../components/CategoryListing';
 import EditCategory from '../components/EditCategory';
 
 export default function Categories() {
   const dispatch = useDispatch();
+  const dispatchToastNotification = useDispatchToastNotification()
   // Handle retrieving category data
   const categories = useSelector((state) => state.category.items);
   const status = useSelector((state) => state.category.status);
@@ -26,17 +24,17 @@ export default function Categories() {
   }, [selectedCategory])
 
   const handleAdd = (itemData) => {
-    dispatch(categorySlice.addItems(itemData));
+    dispatch(categorySlice.addResources(itemData)).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 
   const handleUpdate = (data) => {
-    dispatch(categorySlice.updateItem({ id: selectedCategory.id, data }));
+    dispatch(categorySlice.updateResource({ id: selectedCategory.id, data })).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 
   const handleDelete = (id) => {
-    dispatch(categorySlice.deleteItem(id));
+    dispatch(categorySlice.deleteResource(id)).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 

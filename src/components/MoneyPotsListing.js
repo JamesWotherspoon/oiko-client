@@ -5,6 +5,7 @@ import OptionsSelect from '../sharedComponents/OptionsSelect';
 import EmptyDataInfo from '../sharedComponents/EmptyDataInfo';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { selectMoneyPot } from '../utils/slices';
+import MonthlyChart from './MonthlyChart';
 
 const MoneyPotsListing = ({ data }) => {
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ const MoneyPotsListing = ({ data }) => {
               <div key={moneyPotItem.id} onClick={() => handleItemSelect(moneyPotItem)}>
                 <div>{moneyPotItem.name}</div>
                 <div>{moneyPotItem.balance}</div>
+                <MonthlyChart moneyPotId={moneyPotItem.id} />
               </div>
             );
           })}

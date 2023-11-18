@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { categoryIconColorMapping } from '../utils/helpers';
 
 const CategoryUnit = ({ category, onCategoryClick, selectedCategoryId }) => {
-  const { name, categoryColor = 'hsl(164,48%,60%)', id } = category;
+  let { name, color = 'hsl(164,48%,60%)', iconIdentifier, id } = category;
+  const categoryItemDisplay = categoryIconColorMapping(iconIdentifier, color);
   let selectedClass;
 
   if (selectedCategoryId) {
@@ -9,9 +11,12 @@ const CategoryUnit = ({ category, onCategoryClick, selectedCategoryId }) => {
   }
 
   return (
-    <button className={`category-icon-btn ${selectedClass}`} type="button" onClick={() => onCategoryClick(category)} >
+    <div className='category-unit'>
+      <div className={`category-icon-btn ${selectedClass}`} type="button" onClick={() => onCategoryClick(category)}>
+        {categoryItemDisplay}
+      </div>
       <h5>{name}</h5>
-    </button>
+    </div>
   );
 };
 

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { scheduledActionSlice } from '../utils/slices';
 import ScheduledActionForm from '../components/forms/ScheduledActionForm';
 import ScheduledActionsListing from '../components/ScheduledActionsListing';
 import EditScheduledAction from '../components/EditScheduledAction';
+import { useDispatchToastNotification } from '../utils/hooks';
 
 const ScheduledActions = () => {
   const dispatch = useDispatch();
+  const dispatchToastNotification = useDispatchToastNotification()
   // Handle retrieving scheduled action data
   const scheduledActions = useSelector((state) => state.scheduledAction.items);
   const status = useSelector((state) => state.scheduledAction.status);
@@ -24,17 +25,25 @@ const ScheduledActions = () => {
 
   const handleAdd = (scheduledActionData) => {
     console.log(scheduledActionData)
-    dispatch(scheduledActionSlice.addItems(scheduledActionData));
+    dispatch(scheduledActionSlice.addResources(scheduledActionData)).then((action) => {
+      const { id } = action.payload.data;
+      dispatch(scheduledActionSlice.fetchResourceById(id))
+      return action;
+    }).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 
   const handleUpdate = (scheduledActionData) => {
-    dispatch(scheduledActionSlice.updateItem({ id: selectedScheduledAction.id, data: scheduledActionData }));
+    dispatch(scheduledActionSlice.updateResource({ id: selectedScheduledAction.id, data: scheduledActionData })).then((action) => {
+      const { id } = action.payload.data;
+      dispatch(scheduledActionSlice.fetchResourceById(id))
+      return action;
+    }).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 
   const handleDelete = (id) => {
-    dispatch(scheduledActionSlice.deleteItem(id));
+    dispatch(scheduledActionSlice.deleteResource(id)).then(dispatchToastNotification);
     setDisplayUnit('graphs')
   };
 

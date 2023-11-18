@@ -1,10 +1,7 @@
 import Overview from './Overview';
 import Categories from './Categories';
 import ItemCard from '../sharedComponents/ItemCard';
-import Transactions from './Transactions';
-import ScheduledActions from './ScheduledActions';
-import MoneyPots from './MoneyPots';
-import TransactionsListing from '../components/TransactionListing';
+import TransactionsListing from '../components/TransactionsListing';
 import MoneyPotsListing from '../components/MoneyPotsListing';
 import ScheduledActionsListing from '../components/ScheduledActionsListing';
 import CategoryListing from '../components/CategoryListing';
@@ -21,9 +18,6 @@ const Dashboard = () => {
         </ItemCard>
         <ItemCard className="category-listing" title="Category" link={"/categories"}>
           <CategoryListing />
-        </ItemCard>
-        <ItemCard className="money-pot-listing" title="Accounts" link={"/accounts"}>
-          <MoneyPotsListing />
         </ItemCard>
       </div>
       <ItemCard className="transaction-listing" title="Transactions" link={"/transactions"}>

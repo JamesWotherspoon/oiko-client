@@ -1,12 +1,8 @@
-import ClickOutside from 'react-click-outside';
 import React, { useState, useRef } from 'react';
-import { Typography, Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDispatch } from 'react-redux';
 import { sessionSlice } from '../utils/slices';
-import { useClickOutside } from '../utils/helpers';
-import { useReduxResetStates } from '../utils/helpers';
+import { useClickOutside, useReduxResetStates } from '../utils/hooks';
 
 const AccountMenu = () => {
   const reduxResetStates = useReduxResetStates()
@@ -22,7 +18,7 @@ const AccountMenu = () => {
   });
 
   const handleDeleteSession = () => {
-    dispatch(sessionSlice.deleteItem());
+    dispatch(sessionSlice.deleteResource());
     reduxResetStates()
   };
 

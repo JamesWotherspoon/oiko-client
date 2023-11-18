@@ -10,6 +10,7 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
   const moneyPots = useSelector((state) => state.moneyPot.items);
   const initialFormState = {
     name: moneyPot?.name || '',
+    balanceType: moneyPot?.balanceType || 'positive',
     balance: parseFloat(moneyPot?.balance) || 0.0,
     description: moneyPot?.description || '',
   };
@@ -59,8 +60,8 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
       </fieldset>
       <fieldset>
         <MoneyTypeFieldset
-          transactionType={'income'}
-          handleTransactionTypeChange={(value) => console.log(value)}
+          transactionType={formData.balanceType}
+          handleTransactionTypeChange={(value) => handleChange('balanceType', value)}
           amount={formData.balance}
           handleAmountChange={(value) => handleChange('balance', value)}
           error={errors.balance}

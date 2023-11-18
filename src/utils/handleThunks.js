@@ -1,127 +1,109 @@
-
-const handleFetchAsyncThunk = (builder, thunks) => {
+const handlePendingRejected = (builder, thunks) => {
   builder
-    // Handling thunks.fetchItems
-    .addCase(thunks.fetchItems.pending, (state) => {
+    .addCase(thunks.fetchResources.pending, (state) => {
       state.status = 'loading';
     })
-    .addCase(thunks.fetchItems.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.items = action.payload;
-    })
-    .addCase(thunks.fetchItems.rejected, (state, action) => {
+    .addCase(thunks.fetchResources.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
-    });
-};
-const handleAddAsyncThunk = (builder, thunks) => {
-  builder
-    // Handling thunks.addItems
-    .addCase(thunks.addItems.pending, (state) => {
+    })
+    .addCase(thunks.fetchResourceById.pending, (state) => {
       state.status = 'loading';
     })
-    .addCase(thunks.addItems.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.items.push(action.payload);
-    })
-    .addCase(thunks.addItems.rejected, (state, action) => {
+    .addCase(thunks.fetchResourceById.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
-    });
-};
-
-const handleUpdateAsyncThunk = (builder, thunks) => {
-  builder
-    // Handling thunks.updateItem
-    .addCase(thunks.updateItem.pending, (state) => {
+    })
+    .addCase(thunks.addResources.pending, (state) => {
       state.status = 'loading';
     })
-    .addCase(thunks.updateItem.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      const index = state.items.findIndex((item) => item.id === action.payload.id);
-      if (index !== -1) {
-        state.items[index] = action.payload;
-      }
-    })
-    .addCase(thunks.updateItem.rejected, (state, action) => {
+    .addCase(thunks.addResources.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
-    });
-};
-
-const handleDeleteAsyncThunk = (builder, thunks) => {
-  builder
-    // Handling thunks.deleteItem
-    .addCase(thunks.deleteItem.pending, (state) => {
+    })
+    .addCase(thunks.updateResource.pending, (state) => {
       state.status = 'loading';
     })
-    .addCase(thunks.deleteItem.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.items = state.items.filter((item) => item.id !== action.payload);
-    })
-    .addCase(thunks.deleteItem.rejected, (state, action) => {
+    .addCase(thunks.updateResource.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
-    });
-};
-
-export const handleAsyncThunk = (builder, thunks) => {
-  handleFetchAsyncThunk(builder, thunks);
-  handleAddAsyncThunk(builder, thunks);
-  handleUpdateAsyncThunk(builder, thunks);
-  handleDeleteAsyncThunk(builder, thunks);
-};
-
-
-const handleFetchSessionAsyncThunk = (builder, thunks) => {
-  builder
-    // Handling thunks.addItems
-    .addCase(thunks.fetchItems.pending, (state) => {
+    })
+    .addCase(thunks.deleteResource.pending, (state) => {
       state.status = 'loading';
     })
-    .addCase(thunks.fetchItems.fulfilled, (state, action) => {
+    .addCase(thunks.deleteResource.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    })
+};
+const handleItemsFulfilledAsyncThunk = (builder, thunks) => {
+  builder
+  .addCase(thunks.fetchResources.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    state.items = action.payload.data;
+  })
+  .addCase(thunks.fetchResourceById.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    const index = state.items.findIndex((item) => item.id === action.payload.data.id);
+    if (index !== -1) {
+      state.items[index] = action.payload.data;
+    }
+  })
+  .addCase(thunks.addResources.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    state.items.push(action.payload.data);
+  })
+  .addCase(thunks.updateResource.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    const index = state.items.findIndex((item) => item.id === action.payload.data.id);
+    if (index !== -1) {
+      state.items[index] = action.payload.data;
+    }
+  })
+  .addCase(thunks.deleteResource.fulfilled, (state, action) => {
+    state.status = 'succeeded';
+    state.items = state.items.filter((item) => String(item.id) !== action.payload.id);
+  })
+};
+
+export const handleItemsAsyncThunk = (builder, thunks) => {
+  handleItemsFulfilledAsyncThunk(builder, thunks);
+  handlePendingRejected(builder, thunks);
+};
+
+const handleSessionFulfilledAsyncThunk = (builder, thunks) => {
+  builder
+    .addCase(thunks.fetchResources.fulfilled, (state, action) => {
       state.status = 'succeeded';
       console.log('success: action.payload: ', action.payload);
       state.isAuthenticated = action.payload.isAuthenticated;
     })
-    .addCase(thunks.fetchItems.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    });
-};
-
-const handleAddSessionAsyncThunk = (builder, thunks) => {
-  builder
-    // Handling thunks.addItems
-    .addCase(thunks.addItems.pending, (state) => {
-      state.status = 'loading';
-    })
-    .addCase(thunks.addItems.fulfilled, (state, action) => {
+    .addCase(thunks.addResources.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.isAuthenticated = action.payload.isAuthenticated;
     })
-    .addCase(thunks.addItems.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    });
-};
-const handleDeleteSessionAsyncThunk = (builder, thunks) => {
-  builder
-    .addCase(thunks.deleteItem.pending, (state) => {
-      state.status = 'loading';
-    })
-    .addCase(thunks.deleteItem.fulfilled, (state, action) => {
+    .addCase(thunks.deleteResource.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.isAuthenticated = false;
     })
-    .addCase(thunks.deleteItem.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    });
 };
 
-export const handleSessionThunk = (builder, thunks) => {
-  handleFetchSessionAsyncThunk(builder, thunks);
-  handleAddSessionAsyncThunk(builder, thunks);
-  handleDeleteSessionAsyncThunk(builder, thunks);
+export const handleSessionAsyncThunk = (builder, thunks) => {
+  handleSessionFulfilledAsyncThunk(builder, thunks);
+  handlePendingRejected(builder, thunks)
+};
+
+
+const handleChartDataFulfilledAsyncThunk = (builder, thunks) => {
+  builder
+    .addCase(thunks.fetchResources.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      const chartName = action.payload.chartName
+      state.data[chartName] = action.payload.data;
+    })
+};
+
+export const handleChartDataAsyncThunk = (builder, thunks) => {
+  handleChartDataFulfilledAsyncThunk(builder, thunks);
+  handlePendingRejected(builder, thunks)
 };

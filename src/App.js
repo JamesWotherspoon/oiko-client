@@ -22,7 +22,7 @@ const App = () => {
   const sessionStatus = useSelector((state) => state.session.status);
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
 
-  if (sessionStatus === 'idle') dispatch(sessionSlice.fetchItems());
+  if (sessionStatus === 'idle') dispatch(sessionSlice.fetchResources());
   if (sessionStatus === 'idle' || sessionStatus === 'loading') return <div>Loading...</div>;
 
   return (

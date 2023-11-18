@@ -4,6 +4,7 @@ import SignUpForm from '../components/forms/SignUpForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { sessionSlice, userSlice } from '../utils/slices';
 import { useNavigate } from 'react-router-dom';
+import { setNotification } from '../utils/slices';
 
 export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -11,17 +12,21 @@ export default function Auth() {
 
   const handleAddUser = (userData) => {
     const payload = { email: userData.email, password: userData.password };
-    dispatch(userSlice.addItems(payload)).then((action) => {
+    dispatch(userSlice.addResources(payload)).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
         dispatch(sessionSlice.actions.login())
+      } else if(action.type.endsWith('/rejected')){
+        dispatch(setNotification({ message: action.payload, type: 'error' }));
       }
     });
   };
 
   const handleAddSession = (credentials) => {
-    dispatch(sessionSlice.addItems({ email: credentials.email, password: credentials.password })).then((action) => {
+    dispatch(sessionSlice.addResources({ email: credentials.email, password: credentials.password })).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
         dispatch(sessionSlice.actions.login())
+      } else if(action.type.endsWith('/rejected')){
+        dispatch(setNotification({ message: action.payload, type: 'error' }));
       }
     });
   };

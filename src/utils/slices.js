@@ -1,24 +1,8 @@
-import { handleAsyncThunk, handleSessionThunk } from './handleThunks';
+import { handleItemsAsyncThunk, handleSessionAsyncThunk, handleChartDataAsyncThunk } from './handleThunks';
 import { createSlice } from '@reduxjs/toolkit';
 import createAsyncThunks from './asyncThunks';
 
-const createEntitySlice = (options, customReducers = {}) => {
-  const { name, initialState } = options;
-
-  const slice = createSlice({
-    name,
-    initialState,
-    reducers: {
-      ...customReducers,
-    },
-  });
-
-  return {
-    ...slice,
-  };
-};
-
-const createEntitySliceWithThunks = (options, endpointResource, handleAsyncThunk, customReducers = {}) => {
+const createEntitySliceWithThunks = (options, endpointResource, handleItemsAsyncThunk, customReducers = {}) => {
   const { name, initialState } = options;
   const thunks = createAsyncThunks(name, endpointResource);
 
@@ -33,7 +17,7 @@ const createEntitySliceWithThunks = (options, endpointResource, handleAsyncThunk
       reset: resetReducer,
       ...customReducers,
     },
-    extraReducers: (builder) => handleAsyncThunk(builder, thunks),
+    extraReducers: (builder) => handleItemsAsyncThunk(builder, thunks),
   });
 
   return {
@@ -52,7 +36,7 @@ export const categorySlice = createEntitySliceWithThunks(
     },
   },
   '/categories',
-  handleAsyncThunk,
+  handleItemsAsyncThunk,
 );
 
 export const moneyPotSlice = createEntitySliceWithThunks(
@@ -65,7 +49,7 @@ export const moneyPotSlice = createEntitySliceWithThunks(
     },
   },
   '/money-pots',
-  handleAsyncThunk,
+  handleItemsAsyncThunk,
 );
 
 export const transactionSlice = createEntitySliceWithThunks(
@@ -73,12 +57,13 @@ export const transactionSlice = createEntitySliceWithThunks(
     name: 'transaction',
     initialState: {
       items: [],
+      selectedMonthItems: [],
       status: 'idle',
       error: null,
     },
   },
   '/transactions',
-  handleAsyncThunk,
+  handleItemsAsyncThunk,
 );
 
 export const scheduledActionSlice = createEntitySliceWithThunks(
@@ -91,7 +76,7 @@ export const scheduledActionSlice = createEntitySliceWithThunks(
     },
   },
   '/scheduled-transactions',
-  handleAsyncThunk,
+  handleItemsAsyncThunk,
 );
 
 export const userSlice = createEntitySliceWithThunks(
@@ -104,7 +89,7 @@ export const userSlice = createEntitySliceWithThunks(
     },
   },
   '/users',
-  handleAsyncThunk,
+  handleItemsAsyncThunk,
 );
 
 export const sessionSlice = createEntitySliceWithThunks(
@@ -118,7 +103,7 @@ export const sessionSlice = createEntitySliceWithThunks(
     },
   },
   '/sessions',
-  handleSessionThunk,
+  handleSessionAsyncThunk,
   {
     login: (state) => {
       state.isAuthenticated = true;
@@ -126,7 +111,7 @@ export const sessionSlice = createEntitySliceWithThunks(
     logout: (state) => {
       state.isAuthenticated = false;
     },
-  }
+  },
 );
 
 const selectItemSlice = createSlice({
@@ -155,3 +140,38 @@ const selectItemSlice = createSlice({
 
 export const { reducer: selectItemReducer, actions: selectItemActions } = selectItemSlice;
 export const { selectTransaction, selectCategory, selectMoneyPot, selectScheduledAction } = selectItemActions;
+
+export const notificationSlice = createSlice({
+  name: 'notification',
+  initialState: {
+    message: '',
+    type: '',
+  },
+  reducers: {
+    setNotification: (state, action) => {
+      state.message = action.payload.message;
+      state.type = action.payload.type;
+    },
+    clearNotification: (state) => {
+      state.message = '';
+      state.type = '';
+    },
+  },
+});
+
+export const { setNotification, clearNotification } = notificationSlice.actions;
+
+export const chartDataSlice = createEntitySliceWithThunks(
+  {
+    name: 'chartData',
+    initialState: {
+      data: {
+        allMoneyPots: {},
+      },
+      status: 'idle',
+      error: null,
+    },
+  },
+  '/chart-data',
+  handleChartDataAsyncThunk,
+);

@@ -11,6 +11,7 @@ import './styles/index.scss';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Notifications from './components/Notifications';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Router>
           <App />
         </Router>
+        <Notifications />
       </AppThemeProvider>
     </Provider>
   </LocalizationProvider>,

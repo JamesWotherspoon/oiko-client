@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { moneyPotSlice } from '../utils/slices';
 import MoneyPotForm from '../components/forms/MoneyPotForm';
 import MoneyPotsListing from '../components/MoneyPotsListing';
 import EditMoneyPot from '../components/EditMoneyPot';
+import { useDispatchToastNotification } from '../utils/hooks';
 
 export default function MoneyPots() {
   const dispatch = useDispatch();
+  const dispatchToastNotification = useDispatchToastNotification()
   // Handle retrieving money pot data
   const moneyPots = useSelector((state) => state.moneyPot.items);
   const status = useSelector((state) => state.moneyPot.status);
@@ -24,17 +25,17 @@ export default function MoneyPots() {
   }, [selectedMoneyPot]);
 
   const handleAdd = (ItemData) => {
-    dispatch(moneyPotSlice.addItems(ItemData));
+    dispatch(moneyPotSlice.addResources(ItemData)).then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 
   const handleUpdate = (data) => {
-    dispatch(moneyPotSlice.updateItem({ id: selectedMoneyPot.id, data }));
+    dispatch(moneyPotSlice.updateResource({ id: selectedMoneyPot.id, data })).then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
-    dispatch(moneyPotSlice.deleteItem(id));
+    dispatch(moneyPotSlice.deleteResource(id)).then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 

@@ -4,15 +4,14 @@ import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionSlice } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
-import TransactionsListing from '../components/TransactionListing';
+import TransactionsListing from './TransactionsListing';
 import { selectTransaction } from '../utils/slices';
 
 export default function EditTransaction({ handleDelete, handleUpdate, selectedTransaction }) {
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     return () => {
-      console.log('clean up transaction')
       dispatch(selectTransaction({ id: null }));
     };
   }, [dispatch]);

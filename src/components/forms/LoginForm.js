@@ -30,11 +30,7 @@ export default function LoginForm({ handleLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { valid, errors } = validateHelper(credentialsValidate, formData);
-    if(!valid){
-      setErrors(errors)
-      return
-    }
+    
     if (formData.rememberMe) {
       localStorage.setItem('rememberedEmail', formData.email);
     }

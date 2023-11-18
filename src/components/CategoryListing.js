@@ -14,7 +14,6 @@ const CategoryListing = ({ data }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.items);
 
-
   const handleItemSelect = (itemData) => {
     dispatch(selectCategory(itemData));
     if (location.pathname !== '/categories') {
@@ -27,7 +26,7 @@ const CategoryListing = ({ data }) => {
       {categories.length === 0 ? (
         <EmptyDataInfo label="categories" />
       ) : (
-        <div className="data-listing-cont">
+        <div className="data-listing-cont category-listing">
         {categories.map((category) => {
           return (
             <CategoryUnit key={category.id} category={category} onCategoryClick={handleItemSelect} />

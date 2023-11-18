@@ -15,6 +15,7 @@ const sendRequest = async (method, url, data = null, params) => {
   const axiosRequest = {
     method,
     url,
+    params,
   };
   if(data) axiosRequest.data = data;
 
@@ -29,6 +30,7 @@ const sendRequest = async (method, url, data = null, params) => {
       // Request was sent and the server responded
       console.error(`Server responded with status ${error.response.status}`);
       console.error(error.response);
+      throw error.response
     } else if (error.request) {
       // Request was sent but no response was received
       console.error('No response received from the server');
@@ -36,7 +38,7 @@ const sendRequest = async (method, url, data = null, params) => {
       // Request was not sent
       console.error('Error occurred while making the request:', error.message);
     }
-    throw error.message;
+    throw error;
   }
 }
 

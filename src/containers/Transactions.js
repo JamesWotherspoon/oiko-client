@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from '../sharedComponents/CustomModal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionSlice, moneyPotSlice } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
-import TransactionsListing from '../components/TransactionListing';
-import { selectTransaction } from '../utils/slices';
+import TransactionsListing from '../components/TransactionsListing';
 import EditTransaction from '../components/EditTransaction';
+import { useDispatchToastNotification } from '../utils/hooks';
 
 export default function Transactions() {
   const dispatch = useDispatch();
+  const dispatchToastNotification = useDispatchToastNotification();
   const moneyPotStatus = useSelector((state) => state.moneyPot.status);
   const status = useSelector((state) => state.transaction.status);
   const error = useSelector((state) => state.transaction.error);
   const [displayUnit, setDisplayUnit] = useState('graphs');
   const selectedTransaction = useSelector((state) => state.selectItem.selectedTransaction);
-  const [queryParams, setQueryParams] = useState({});
 
   useEffect(() => {
     if (selectedTransaction.id) {
@@ -24,36 +23,49 @@ export default function Transactions() {
   }, [selectedTransaction]);
 
   const handleAddItem = async (itemData) => {
-    await dispatch(transactionSlice.addItems(itemData)).then(() => {
-      if (moneyPotStatus !== 'loading'){
-        dispatch(moneyPotSlice.fetchItems());
-      }
-    })
+    await dispatch(transactionSlice.addResources(itemData))
+      .then((action) => {
+        if (moneyPotStatus !== 'loading') {
+          dispatch(moneyPotSlice.fetchResources());
+        }
+        const { id } = action.payload.data;
+        dispatch(transactionSlice.fetchResourceById(id));
+        return action;
+      })
+      .then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 
   const handleUpdate = (data) => {
-    dispatch(transactionSlice.updateItem({ id: selectedTransaction.id, data })).then(() => {
-      if (moneyPotStatus !== 'loading'){
-        dispatch(moneyPotSlice.fetchItems());
-      }
-    })
+    dispatch(transactionSlice.updateResource({ id: selectedTransaction.id, data }))
+      .then((action) => {
+        if (moneyPotStatus !== 'loading') {
+          dispatch(moneyPotSlice.fetchResources());
+        }
+        const { id } = action.payload.data;
+        dispatch(transactionSlice.fetchResourceById(id));
+        return action;
+      })
+      .then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
-    dispatch(transactionSlice.deleteItem(id)).then(() => {
-      if (moneyPotStatus !== 'loading'){
-        dispatch(moneyPotSlice.fetchItems());
-      }
-    })
+    dispatch(transactionSlice.deleteResource(id))
+      .then((action) => {
+        if (moneyPotStatus !== 'loading') {
+          dispatch(moneyPotSlice.fetchResources());
+        }
+        return action;
+      })
+      .then(dispatchToastNotification);
     setDisplayUnit('graphs');
   };
 
   return (
-    <div className="page-content-cont">
+    <div className="page-content-cont ">
       <ItemCard className="transaction-listing" title="Transactions" addItem={() => setDisplayUnit('addItem')}>
-        <TransactionsListing handleParamsChange={(params) => setQueryParams(params)} />
+        <TransactionsListing />
       </ItemCard>
       <div className="side-cont">
         {displayUnit === 'graphs' && (

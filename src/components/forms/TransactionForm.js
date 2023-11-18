@@ -14,7 +14,7 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
   const initialFormState = {
     categoryId: transaction?.categoryId || null,
     amount: parseFloat(transaction?.amount) || 0.0,
-    transactionType: transaction?.transactionType || 'expense',
+    transactionType: transaction?.transactionType || 'negative',
     moneyPotId: transaction?.moneyPotId || moneyPots[0]?.id,
     transactionDate: transaction?.transactionDate || currentDate,
   };
@@ -35,6 +35,7 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
   }, [transaction]);
 
   const handleChange = (name, value) => {
+    console.log(formData.transactionType)
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
