@@ -80,7 +80,7 @@ export default function Transactions() {
         {addItem && (
           <Modal onClose={() => setAddItem(false)}>
             <TransactionForm onSubmit={handleAddItem}>
-              <button className='btn' type="submit">Add transaction</button>
+              <button className='btn btn-large' type="submit">Add transaction</button>
             </TransactionForm>
           </Modal>
         )}

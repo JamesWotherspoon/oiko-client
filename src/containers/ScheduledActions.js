@@ -6,6 +6,7 @@ import ScheduledActionForm from '../components/forms/ScheduledActionForm';
 import ScheduledActionsListing from '../components/ScheduledActionsListing';
 import EditScheduledAction from '../components/EditScheduledAction';
 import { useDispatchToastNotification } from '../utils/hooks';
+import Modal from '../sharedComponents/Modal';
 
 const ScheduledActions = () => {
   const dispatch = useDispatch();
@@ -15,11 +16,10 @@ const ScheduledActions = () => {
   const status = useSelector((state) => state.scheduledAction.status);
   const error = useSelector((state) => state.scheduledAction.error);
   const selectedScheduledAction = useSelector((state) => state.selectItem.selectedScheduledAction);
-  const [displayUnit, setDisplayUnit] = useState('');
+  const [addItem, setAddItem] = useState(false);
 
   useEffect(() => {
     if (selectedScheduledAction.id) {
-      setDisplayUnit('editItem');
     }
   }, [selectedScheduledAction]);
 
@@ -32,7 +32,7 @@ const ScheduledActions = () => {
         return action;
       })
       .then(dispatchToastNotification);
-    setDisplayUnit('addItem');
+    setAddItem(false);
   };
 
   const handleUpdate = (scheduledActionData) => {
@@ -43,12 +43,10 @@ const ScheduledActions = () => {
         return action;
       })
       .then(dispatchToastNotification);
-    setDisplayUnit('addItem');
   };
 
   const handleDelete = (id) => {
     dispatch(scheduledActionSlice.deleteResource(id)).then(dispatchToastNotification);
-    setDisplayUnit('addItem');
   };
 
   return (
@@ -57,22 +55,23 @@ const ScheduledActions = () => {
         <h1>Schedule Transactions</h1>
         <p>
           Schedule money coming in and the bills you need to pay
-          <br />Create a new scheduled transaction.
+          <br />
+          Create a new scheduled transaction.
         </p>
-        <button className='btn'>Create</button>
+        <button className="btn" onClick={() => setAddItem(true)}>Create</button>
       </div>
       <div className="content">
         <ScheduledActionsListing />
-
-        {displayUnit === 'addItem' && (
-          <div className="form-cont">
-            <h5 className="modal-title">Add Scheduled Action</h5>
+        {addItem && (
+          <Modal onClose={() => setAddItem(false)}>
             <ScheduledActionForm onSubmit={handleAdd}>
-              <button className='btn' type="submit">Create</button>
+              <button className="btn btn-large" type="submit">
+                Create
+              </button>
             </ScheduledActionForm>
-          </div>
+          </Modal>
         )}
-        {displayUnit === 'editItem' && (
+        {false && (
           <EditScheduledAction
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}

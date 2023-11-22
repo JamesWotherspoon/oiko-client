@@ -133,7 +133,8 @@ form {
     }
   }
 }
-#money-pots form {
+#money-pots form,
+#categories form {
   width: 300px;
   textarea {
     border: 1px solid rgba(0, 0, 0, 0.42);

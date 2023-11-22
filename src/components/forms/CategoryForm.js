@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { categoryValidate } from '../../utils/validator';
 import { validateHelper, sanitizePayload } from '../../utils/helpers';
 import TextField from '../../sharedComponents/TextField';
+import TextArea from '../../sharedComponents/TextArea';
 
 const CategoryForm = ({ children, onSubmit, category }) => {
   const initialFormState = {
@@ -13,7 +14,7 @@ const CategoryForm = ({ children, onSubmit, category }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setErrors({})
+    setErrors({});
     if (category) {
       setFormData({
         name: category?.name,
@@ -35,7 +36,7 @@ const CategoryForm = ({ children, onSubmit, category }) => {
     const { valid, errors } = validateHelper(categoryValidate, sanitizedData);
     if (!valid) {
       setErrors(errors);
-      return
+      return;
     }
 
     onSubmit(sanitizedData);
@@ -44,8 +45,21 @@ const CategoryForm = ({ children, onSubmit, category }) => {
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
-        <TextField label="Category name" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} error={errors.name}/>
+        <TextField
+          required
+          label="Category name"
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          error={errors.name}
+        />
       </fieldset>
+      <TextArea
+        label="Description"
+        optional
+        value={formData.description}
+        onChange={(e) => handleChange('description', e.target.value)}
+        error={errors.description}
+      />
       <div className="submit-btn-cont">{children}</div>
     </form>
   );

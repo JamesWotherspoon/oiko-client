@@ -62,10 +62,10 @@ const ScheduledActionForm = ({ children, onSubmit, scheduledAction }) => {
     e.preventDefault();
     const sanitizedData = sanitizePayload(formData, ['dayOfWeek', 'dateOfMonth', 'monthOfYear', 'categoryId']);
     const { valid, errors } = validateHelper(scheduledActionValidate, sanitizedData);
-    console.log(valid)
+    console.log(valid);
     if (!valid) {
       setErrors(errors);
-      return
+      return;
     }
     onSubmit(sanitizedData);
   };
@@ -75,10 +75,14 @@ const ScheduledActionForm = ({ children, onSubmit, scheduledAction }) => {
   const actionDaySelect = { label: 'Day of Week', key: 'dayOfWeek', options: dayOfWeek };
   const actionDateSelect = { label: 'Date of Month', key: 'dateOfMonth', options: dateOfMonth };
 
-  if (formData.recurrenceType === 'monthly') {
-    addtionalScheduledActionFields.push(actionDateSelect);
-  } else if (formData.recurrenceType === 'weekly') {
+  if (formData.recurrenceType === 'weekly') {
     addtionalScheduledActionFields.push(actionDaySelect);
+  } else if (formData.recurrenceType === 'monthly') {
+    addtionalScheduledActionFields.push(actionDateSelect);
+  } else if (formData.recurrenceType === 'quarterly') {
+    addtionalScheduledActionFields.push(actionDateSelect);
+  } else if (formData.recurrenceType === 'biannually') {
+    addtionalScheduledActionFields.push(actionDateSelect);
   } else if (formData.recurrenceType === 'annually') {
     addtionalScheduledActionFields.push(actionMonthSelect);
     addtionalScheduledActionFields.push(actionDateSelect);
@@ -86,42 +90,44 @@ const ScheduledActionForm = ({ children, onSubmit, scheduledAction }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <fieldset className="date-money-fieldset">
-        <MoneyTypeFieldset
-          transactionType={formData.transactionType}
-          handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
-          amount={formData.amount}
-          handleAmountChange={(value) => handleChange('amount', value)}
-          error={errors.amount + errors.transactionType}
-        />
-        {nextTransactionDate && <h3>{nextTransactionDate}</h3>}
-      </fieldset>
       <fieldset>
         <TextField
-          label="Action name"
+          label="Scheduled name"
+          optional
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
           error={errors.name}
         />
         <OptionsSelect
-          label="Account"
-          selectedId={formData.moneyPotId}
-          handleSelectedIdChange={(value) => handleChange('moneyPotId', value)}
-          options={moneyPots}
-          error={errors.moneyPotId}
-        />
-      </fieldset>
-      <fieldset className="horizontal-flex">
-        <OptionsSelect
-          label="Recurrence Type"
+          required
+          label="Recurrence type"
           selectedId={formData.recurrenceType}
           handleSelectedIdChange={(value) => handleChange('recurrenceType', value)}
           options={recurrenceType}
           error={errors.recurrenceType}
         />
       </fieldset>
+      <fieldset>
+        <MoneyTypeFieldset
+          required
+          label="Transaction amount"
+          transactionType={formData.transactionType}
+          handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
+          amount={formData.amount}
+          handleAmountChange={(value) => handleChange('amount', value)}
+          error={errors.amount + errors.transactionType}
+        />
+        <OptionsSelect
+          label="Account"
+          required
+          selectedId={formData.moneyPotId}
+          handleSelectedIdChange={(value) => handleChange('moneyPotId', value)}
+          options={moneyPots}
+          error={errors.moneyPotId}
+        />
+      </fieldset>
       {addtionalScheduledActionFields.length > 0 && (
-        <fieldset className="horizontal-flex">
+        <fieldset>
           {addtionalScheduledActionFields.map((field) => {
             return (
               <OptionsSelect
@@ -138,9 +144,6 @@ const ScheduledActionForm = ({ children, onSubmit, scheduledAction }) => {
       )}
 
       <fieldset>
-        <h5 className="form-sub-heading">
-          Category <span className="info-text">(optional)</span>
-        </h5>
         <CategorySelect
           selectedCategoryId={formData.categoryId}
           handleCategoryIdChange={(value) => handleChange('categoryId', value)}

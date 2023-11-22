@@ -70,8 +70,8 @@ export default function MoneyPots() {
       {addItem && (
         <Modal onClose={() => setAddItem(false)}>
           <MoneyPotForm onSubmit={handleAdd}>
-            <button className="btn" type="submit">
-              Create
+            <button className="btn btn-large" type="submit">
+              Add account
             </button>
           </MoneyPotForm>
         </Modal>
