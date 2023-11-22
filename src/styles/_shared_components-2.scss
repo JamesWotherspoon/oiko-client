@@ -1,0 +1,251 @@
+.horizontal-flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $gap-unit;
+  > * {
+    flex-grow: 1;
+  }
+}
+.info-color {
+  color: $info-color;
+}
+.error-color {
+  color: $error-color;
+}
+.positive-color {
+  color: $positive-color;
+}
+.btn-cont {
+  display: flex;
+  gap: $gap-unit;
+}
+button {
+  width: 240px;
+  padding: 7px 20px;
+  background-color: $off-black;
+  border-radius: $border-radius;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 1.2px;
+  border: 2px solid $off-black;
+}
+
+.btn-outline {
+  border: 1px solid $off-black;
+  color: $off-black;
+  background-color: transparent;
+}
+.small-btn {
+  padding: 5px 20px;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+}
+.submit-btn-cont {
+  display: flex;
+  padding: 30px 0 0px 0;
+  gap: $gap-unit;
+  > * {
+    flex-grow: 1;
+  }
+  .delete {
+    background-color: transparent;
+    color: $error-color;
+    border: 0.5px solid $error-color;
+  }
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $lg-gap-unit;
+  padding-top: 20px;
+  max-width: 500px;
+
+  .date-money-fieldset {
+    padding: 20px 0;
+    flex-wrap: nowrap;
+    gap: $gap-unit;
+    align-items: flex-end;
+  }
+  .date-picker-cont {
+    width: 150px;
+  }
+  fieldset {
+    width: 100%;
+    display: flex;
+    border: none;
+    flex-wrap: wrap;
+    position: relative;
+    > * {
+      flex-grow: 1;
+    }
+  }
+  .form-sub-heading {
+    color: $info-color;
+    font-weight: 200;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .date-picker-cont.MuiInputBase-root {
+    width: 150px;
+  }
+  button.expense-income-btn {
+    width: 30px;
+    height: 30px;
+    background-color: $light-grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background-color: $dark-grey;
+    }
+  }
+  .transaction-type-amount-cont {
+    position: relative;
+    button {
+      position: absolute;
+      left: 0;
+      z-index: 10000;
+    }
+    .money-input-container {
+      display: flex;
+      align-items: center;
+
+      .money-input-symbol {
+        width: 25px;
+        height: 25px;
+        font-size: 24px;
+        font-weight: 700;
+        margin-right: -20px;
+      }
+
+      .money-input {
+        width: 100%;
+        border: none;
+        border-radius: $border-radius;
+        padding: 0 0 0 35px;
+        font-size: 36px;
+        font-weight: 700;
+        background-color: transparent;
+        input {
+          padding: 0 8px;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .error-cont {
+    display: flex;
+    align-items: center;
+    gap: $gap-unit;
+    color: $error-color;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    .error-icon {
+      font-size: 18px;
+    }
+    .error-text {
+      margin: 0;
+    }
+  }
+}
+
+.form-sub-heading {
+  margin-bottom: 14px;
+}
+.MuiInputBase-root {
+  font-size: 18px;
+}
+
+.info-text {
+  color: $info-color;
+  font-weight: 400;
+  font-style: italic;
+}
+
+// Money Input
+
+.modal-title {
+  font-weight: 100;
+  color: grey;
+  font-size: 18px;
+}
+.options-select-cont {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  > * {
+    flex-grow: 1;
+  }
+}
+
+.data-listing-cont {
+  width: 100%;
+  max-height: 60vh;
+}
+
+.empty-data-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 0;
+  gap: 15px;
+
+  .empty-data-info-text {
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+  }
+}
+
+.page-content-cont {
+  max-width: 100%;
+  display: flex;
+  margin: 0 $page-margin;
+  padding: $gap-unit * 2 0 0 0;
+  gap: $gap-unit * 4;
+  > * {
+    flex-grow: 1;
+  }
+}
+
+.side-cont {
+  min-width: 50%;
+  display: flex;
+  justify-content: center;
+}
+.item-card-link {
+  color: $primary-color;
+  text-decoration: underline;
+}
+
+.low-level-info {
+  color: $info-color;
+}
+
+.card {
+  width: 200px;
+  height: 165px;
+  border: $border;
+  border-radius: $border-radius;
+  padding: $gap-unit;
+  margin: 8px;
+  cursor: pointer;
+}
+.money-pot-listing {
+  display: flex;
+  align-items: flex-end;
+}
+
+.item-card-header {
+  display: flex;
+  gap: $gap-unit;
+  margin-bottom: $gap-unit;
+}

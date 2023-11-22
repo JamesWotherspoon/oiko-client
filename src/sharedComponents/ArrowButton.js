@@ -3,9 +3,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const CreateButton = ({ onClick }) => {
   return (
-    <IconButton onClick={onClick}>
-      <AddCircleOutlineIcon />
-    </IconButton>
+    <button className="btn-outline small-btn" onClick={onClick}>
+      Create
+    </button>
   );
 };
 

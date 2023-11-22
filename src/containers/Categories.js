@@ -14,7 +14,7 @@ export default function Categories() {
   const categories = useSelector((state) => state.category.items);
   const status = useSelector((state) => state.category.status);
   const error = useSelector((state) => state.category.error);
-  const [displayUnit, setDisplayUnit] = useState('graphs');
+  const [displayUnit, setDisplayUnit] = useState('');
   const selectedCategory = useSelector((state) => state.selectItem.selectedCategory);
  
   useEffect(() => {
@@ -25,34 +25,36 @@ export default function Categories() {
 
   const handleAdd = (itemData) => {
     dispatch(categorySlice.addResources(itemData)).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    setDisplayUnit('addItem')
   };
 
   const handleUpdate = (data) => {
     dispatch(categorySlice.updateResource({ id: selectedCategory.id, data })).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    setDisplayUnit('addItem')
   };
 
   const handleDelete = (id) => {
     dispatch(categorySlice.deleteResource(id)).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    setDisplayUnit('addItem')
   };
 
   return (
-    <div>
-      <ItemCard className="category-panel" title="Categories" addItem={() => setDisplayUnit('addItem')}>
+    <main id="categories">
+      <div className="content-header">
+        <h1>Categories</h1>
+        <p>
+          Break your spending down into categories to better understand how to make your money go futher
+          <br /> create a new category or edit the existing ones.
+        </p>
+        <button className='btn' >Create</button>
+      </div>
+      <div className="content">
         <CategoryListing />
-      </ItemCard>
-      <div className="side-cont">
-        {displayUnit === 'graphs' && (
-          <div>
-            <h5>Graphs</h5>
-          </div>
-        )}
+  
       {displayUnit === 'addItem' && (
           <div className="form-cont">
             <h5 className="modal-title">Add Category</h5><CategoryForm onSubmit={handleAdd}>
-            <button type="submit">Create</button>
+            <button className='btn' type="submit">Create</button>
           </CategoryForm>
         </div>
       )}
@@ -60,6 +62,6 @@ export default function Categories() {
         <EditCategory handleUpdate={handleUpdate} handleDelete={handleDelete} selectedCategory={selectedCategory} />
       )}
       </div>
-    </div>
+    </main>
   );
 }

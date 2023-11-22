@@ -11,7 +11,7 @@ export default function NotFoundPage() {
       </div>
       <div>
         <p className="info-font">The page you are looking for can't be found.</p>
-          <button className="margin-top-4" onClick={navigateBack} >Let's go back</button>
+          <button className='btn' onClick={navigateBack} >Let's go back</button>
       </div>
     </div>
   );

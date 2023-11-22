@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { sessionSlice, userSlice } from '../utils/slices';
 import { useNavigate } from 'react-router-dom';
 import { setNotification } from '../utils/slices';
+import BrandContainer from '../sharedComponents/BrandContainer';
 
 export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -33,22 +34,10 @@ export default function Auth() {
 
   return (
     <div className='auth-page'>
-     <div className="brand-container">
-        <div className="logo-container">
-          <div className="bar bar-1" />
-          <div className="bar bar-2" />
-          <div className="bar bar-3" />
-        </div>
-        <h1 className="brand-name">
-          <span>oi</span>
-          <span className="accent-stop">ko.</span>
-        </h1>
-        <h3 className="brand-slogan">Make your money go futher</h3>
-      </div>
-      
+      <BrandContainer />
       <div className="auth-content">
         {isSignUp ? <SignUpForm handleSignUp={handleAddUser} /> : <LoginForm handleLogin={handleAddSession} />}
-        <div onClick={() => setIsSignUp((prev) => !prev)}>Swap to </div>
+        <div className="auth-swap-link" onClick={() => setIsSignUp((prev) => !prev)}>{isSignUp ? 'Already have an account? Swap to login' : 'Create an account'}</div>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { Create } from '@mui/icons-material';
 import React from 'react'
-import CreateButton from './CreateButton';
 
 const EmptyDataInfo = ({ label }) => {
   return (

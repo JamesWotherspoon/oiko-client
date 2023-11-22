@@ -5,6 +5,7 @@ import { moneyPotValidate } from '../../utils/validator';
 import { validateHelper, sanitizePayload } from '../../utils/helpers';
 import TextField from '../../sharedComponents/TextField';
 import MoneyTypeFieldset from '../../sharedComponents/MoneyTypeFieldset';
+import TextArea from '../../sharedComponents/TextArea';
 
 const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
   const moneyPots = useSelector((state) => state.moneyPot.items);
@@ -18,7 +19,7 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setErrors({})
+    setErrors({});
     if (moneyPot) {
       setFormData({
         name: moneyPot?.name,
@@ -38,12 +39,12 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const sanitizedData = sanitizePayload(formData, ['balance', 'description']);
-    console.log(sanitizedData)
+    console.log(sanitizedData);
     const { valid, errors } = validateHelper(moneyPotValidate, sanitizedData);
-    console.log(valid)
+    console.log(valid);
     if (!valid) {
       setErrors(errors);
-      return
+      return;
     }
     onSubmit(sanitizedData);
   };
@@ -52,6 +53,7 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
     <form onSubmit={handleSubmit}>
       <fieldset>
         <TextField
+          required
           label="Account name"
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
@@ -60,6 +62,8 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
       </fieldset>
       <fieldset>
         <MoneyTypeFieldset
+          label="Intial balance"
+          optional
           transactionType={formData.balanceType}
           handleTransactionTypeChange={(value) => handleChange('balanceType', value)}
           amount={formData.balance}
@@ -68,8 +72,9 @@ const MoneyPotForm = ({ children, onSubmit, moneyPot }) => {
         />
       </fieldset>
       <fieldset>
-        <TextField
+        <TextArea
           label="Notes"
+          optional
           value={formData.description}
           onChange={(e) => handleChange('description', e.target.value)}
           error={errors.description}

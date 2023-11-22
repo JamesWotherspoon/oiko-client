@@ -1,0 +1,70 @@
+#scheduled-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: $gap-unit $page-margin;
+  gap: $gap-unit;
+  .content {
+    width: 100%;
+    max-width: 1000px;
+    @include slide-up;
+  }
+}
+
+// Styles used for home and scheduled actions page
+#scheduled-listing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-unit;
+
+  .scheduled-listing-unit {
+    width: 200px;
+    padding: $gap-unit;
+    @include selectable-styles;
+
+    .category-action-name-cont {
+      display: flex;
+      align-items: baseline;
+      min-height: 30px;
+      max-height: 30px;
+      gap: $gap-unit;
+    }
+    .amount-cont {
+      font-size: 18px;
+      font-weight: 600;
+      padding: $gap-unit 0;
+    }
+    .money-pot-name-amount-cont {
+      display: flex;
+      flex-direction: column;
+    }
+    .low-level-info {
+      color: $info-color;
+      font-style: italic;
+
+      .recurrence-cont {
+        display: flex;
+        align-items: center;
+
+        .MuiSvgIcon-root {
+          width: 0.8em;
+          height: 0.8em;
+        }
+      }
+    }
+    @include border;
+  }
+}
+
+
+@media (max-width: 900px) {
+    #page #scheduled-actions {
+        .content {
+            flex-direction: column;
+            height: fit-content;
+            #scheduled-listing {
+                justify-content: center;
+            }
+        }
+    }
+}

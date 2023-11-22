@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionSlice, moneyPotSlice } from '../utils/slices';
+import { transactionSlice, moneyPotSlice, pastThirtyDaysSlice } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
 import TransactionsListing from '../components/TransactionsListing';
 import EditTransaction from '../components/EditTransaction';
 import { useDispatchToastNotification } from '../utils/hooks';
+import MonthlyChart from '../components/MonthlyChart';
+import Modal from '../sharedComponents/Modal';
 
 export default function Transactions() {
   const dispatch = useDispatch();
@@ -13,12 +15,11 @@ export default function Transactions() {
   const moneyPotStatus = useSelector((state) => state.moneyPot.status);
   const status = useSelector((state) => state.transaction.status);
   const error = useSelector((state) => state.transaction.error);
-  const [displayUnit, setDisplayUnit] = useState('graphs');
   const selectedTransaction = useSelector((state) => state.selectItem.selectedTransaction);
+  const [addItem, setAddItem] = useState(false);
 
   useEffect(() => {
     if (selectedTransaction.id) {
-      setDisplayUnit('editItem');
     }
   }, [selectedTransaction]);
 
@@ -28,12 +29,13 @@ export default function Transactions() {
         if (moneyPotStatus !== 'loading') {
           dispatch(moneyPotSlice.fetchResources());
         }
+        dispatch(pastThirtyDaysSlice.fetchResources());
         const { id } = action.payload.data;
         dispatch(transactionSlice.fetchResourceById(id));
         return action;
       })
       .then(dispatchToastNotification);
-    setDisplayUnit('graphs');
+    setAddItem(false);
   };
 
   const handleUpdate = (data) => {
@@ -42,12 +44,12 @@ export default function Transactions() {
         if (moneyPotStatus !== 'loading') {
           dispatch(moneyPotSlice.fetchResources());
         }
+        dispatch(pastThirtyDaysSlice.fetchResources());
         const { id } = action.payload.data;
         dispatch(transactionSlice.fetchResourceById(id));
         return action;
       })
       .then(dispatchToastNotification);
-    setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
@@ -56,32 +58,33 @@ export default function Transactions() {
         if (moneyPotStatus !== 'loading') {
           dispatch(moneyPotSlice.fetchResources());
         }
+        dispatch(pastThirtyDaysSlice.fetchResources());
         return action;
       })
       .then(dispatchToastNotification);
-    setDisplayUnit('graphs');
   };
 
   return (
-    <div className="page-content-cont ">
-      <ItemCard className="transaction-listing" title="Transactions" addItem={() => setDisplayUnit('addItem')}>
+    <main id="transactions">
+      <div className="content-header">
+        <h1>Transactions</h1>
+        <p>
+          Explore your transactions and break down your expenses
+          <br /> or create a new transaction.
+        </p>
+        <button className='btn' onClick={() => setAddItem(true)}>Create</button>
+      </div>
+      <div className="content">
         <TransactionsListing />
-      </ItemCard>
-      <div className="side-cont">
-        {displayUnit === 'graphs' && (
-          <div>
-            <h5>Graphs</h5>
-          </div>
-        )}
-        {displayUnit === 'addItem' && (
-          <div className="form-cont">
-            <h5 className="modal-title">Add Transaction</h5>
+        <MonthlyChart />
+        {addItem && (
+          <Modal onClose={() => setAddItem(false)}>
             <TransactionForm onSubmit={handleAddItem}>
-              <button type="submit">Create</button>
+              <button className='btn' type="submit">Add transaction</button>
             </TransactionForm>
-          </div>
+          </Modal>
         )}
-        {displayUnit === 'editItem' && (
+        {false && (
           <EditTransaction
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
@@ -89,6 +92,6 @@ export default function Transactions() {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 }

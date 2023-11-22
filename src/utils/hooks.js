@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice, sessionSlice, chartDataSlice } from './slices';
+import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice, sessionSlice, chartDataSlice, pastThirtyDaysSlice } from './slices';
 import { setNotification } from './slices';
 import GroceriesSvg from '@mui/icons-material/LocalGroceryStore';
 import ClothesSvg from '@mui/icons-material/ShoppingBag';
@@ -50,13 +50,15 @@ export const useFetchData = () => {
   const scheduledActionStatus = useSelector((state) => state.scheduledAction.status);
   const categoryStatus = useSelector((state) => state.transaction.status);
   const moneyPotStatus = useSelector((state) => state.moneyPot.status);
+  const pastThirtyDaysStatus = useSelector(state => state.pastThirtyDays.status)
 
   useEffect(() => {
     if (transactionStatus === 'idle') dispatch(transactionSlice.fetchResources());
     if (scheduledActionStatus === 'idle') dispatch(scheduledActionSlice.fetchResources());
     if (categoryStatus === 'idle') dispatch(categorySlice.fetchResources());
     if (moneyPotStatus === 'idle') dispatch(moneyPotSlice.fetchResources());
-  }, [categoryStatus, scheduledActionStatus, transactionStatus, moneyPotStatus, dispatch]);
+    if( pastThirtyDaysStatus === 'idle') dispatch(pastThirtyDaysSlice.fetchResources())
+  }, [categoryStatus, scheduledActionStatus, transactionStatus, moneyPotStatus, dispatch, pastThirtyDaysStatus]);
 };
 
 export const useMoneyPotsTotal = () => {

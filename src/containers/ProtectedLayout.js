@@ -1,6 +1,7 @@
 import TopBar from '../components/TopBar';
 import Nav from '../components/Nav';
 import { useFetchData } from '../utils/hooks';
+import Footer from '../components/Footer';
 
 export const ProtectedLayout = ({ children }) => {
   useFetchData();
@@ -12,7 +13,7 @@ export const ProtectedLayout = ({ children }) => {
         <Nav />
       </header>
       {children}
-      <footer></footer>
+      <Footer />
     </div>
   );
 };

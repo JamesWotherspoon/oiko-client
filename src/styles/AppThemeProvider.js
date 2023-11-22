@@ -4,12 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 const baseTheme = createTheme({
   spacing: 8,
   palette: {
-    primary: {
-      light: '',
-      main: 'rgb(0,48,61)',
-      dark: '',
-      contrastText: '',
-    },
+
     secondary: {
       light: '',
       main: 'rgb(104,202,176)',
@@ -45,20 +40,6 @@ const theme = createTheme({
   ...baseTheme,
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
-      fontSize: '2rem',
-      fontWeight: 500,
-      color: baseTheme.palette.primary.main,
-    },
-    h2: {
-      fontSize: '1.75rem',
-      fontWeight: 500,
-    },
-    h3: {
-      fontSize: '2.4rem',
-      fontWeight: 500,
-      color: baseTheme.palette.brand.main,
-    },
   },
   components: {
     MuiButton: {
@@ -88,13 +69,6 @@ const theme = createTheme({
     MuiTextField: {
       defaultProps: {
         variant: 'standard',
-      },
-    },
-    MuiSelected: {
-      styleOverrides: {
-        root: {
-          backgroundColor: 'grey',
-        },
       },
     },
     MuiFormControl: {

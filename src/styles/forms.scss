@@ -1,0 +1,219 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-unit;
+  padding: $gap-unit 0;
+  width: 648px;
+
+  label,
+  .MuiFormLabel-root {
+    color: $info-color;
+    font-size: 18px;
+    align-self: flex-start;
+  }
+
+  input,
+  .MuiInputBase-root {
+    font-size: 22px;
+  }
+
+  .money-input-container,
+  input,
+  .MuiInputBase-root,
+  .MuiTextField-root,
+  .MuiFormControl-root {
+    width: 300px;
+    position: relative;
+  }
+  .transaction-type-amount-cont {
+    position: relative;
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: calc($gap-unit * 2);
+  }
+
+  .options-select-cont {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+  }
+  .date-picker-cont {
+    display: flex;
+    flex-direction: column;
+  }
+  .category-picker-cont {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-unit;
+  }
+  .submit-btn-cont {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 0 0;
+  }
+  button.expense-income-btn {
+    width: 30px;
+    height: 30px;
+    background-color: $light-grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background-color: $dark-grey;
+    }
+  }
+
+  .transaction-type-amount-cont {
+    .joint-input-cont {
+      position: relative;
+      width: fit-content;
+      height: fit-content;
+    }
+    button {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1100;
+      font-size: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 8px;
+      .minus {
+        font-size: 28px;
+        padding-bottom: 6px;
+      }
+    }
+    .money-input-container {
+      display: flex;
+      align-items: center;
+
+      .money-input {
+        width: 100%;
+        border: none;
+        border-radius: $border-radius;
+        padding: 0 0 0 35px;
+        font-size: 36px;
+        font-weight: 700;
+        background-color: transparent;
+        input {
+          padding: 0 8px;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .error-cont {
+    display: flex;
+    align-items: center;
+    gap: $gap-unit;
+    color: $error-color;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    position: absolute;
+    bottom: -20px;
+    .error-icon {
+      font-size: 18px;
+    }
+    .error-text {
+      margin: 0;
+    }
+  }
+}
+#money-pots form {
+  width: 300px;
+  textarea {
+    border: 1px solid rgba(0, 0, 0, 0.42);
+    border-radius: $border-radius;
+    max-width: 300px;
+    width: 100%;
+    min-width: 100%;
+    height: 80px;
+    min-height: 80px;
+    max-height: 300px;
+    font-family: $body-font-family;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    padding: 7px;
+  }
+}
+.auth {
+  // Styles currently not in use 
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+  input:-webkit-autofill:hover {
+    border-bottom: 1px solid rgba(0, 0, 0);
+  }
+  input:-webkit-autofill::first-line {
+  }
+}
+
+html body #menu-selectId,
+html body .MuiPopper-root {
+  z-index: 4000;
+}
+html body .MuiMenuItem-root {
+  font-size: 18px;
+}
+
+@media (max-width: 775px) {
+  .modal {
+    position: absolute;
+    z-index: 90;
+    width: 100%;
+    padding-top: 100px;
+
+    .modal-overlay {
+      background-color: $background-color;
+    }
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  form {
+    align-items: center;
+    max-width: 550px;
+    width: fit-content;
+  }
+  fieldset {
+    flex-direction: column;
+    gap: $gap-unit;
+    width: 100%;
+  }
+  #root {
+    .money-input-container,
+    input,
+    .MuiInputBase-root,
+    .MuiTextField-root,
+    .options-select-cont,
+    .MuiFormControl-root,
+    .transaction-type-amount-cont,
+    .date-picker-cont,
+    .joint-input-cont,
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+}

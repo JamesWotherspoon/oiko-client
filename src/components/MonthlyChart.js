@@ -5,7 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import { format, getDaysInMonth, startOfMonth, endOfMonth, parseISO } from 'date-fns';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { getMonthFromIndex, isEmptyObject } from '../utils/helpers';
-import { addMonths, subMonths } from 'date-fns';
+import { addMonths } from 'date-fns';
 import { IconButton } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -14,6 +14,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const options = {
   responsive: true,
+  width: 800,
+  height: 700,
   scales: {
     x: {
       stacked: true,
@@ -61,7 +63,7 @@ const MonthlyChart = ({ moneyPotId = null }) => {
         <IconButton onClick={() => changeSelectedMonth(month, year, -1)}>
           <NavigateBeforeIcon />
         </IconButton>
-        <h2>{getMonthFromIndex(month)}</h2>
+        <p>{getMonthFromIndex(month)}</p>
         <IconButton onClick={() => changeSelectedMonth(month, year, 1)}>
           <NavigateNextIcon />
         </IconButton>

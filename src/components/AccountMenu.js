@@ -27,12 +27,12 @@ const AccountMenu = () => {
   };
 
   return (
-    <div>
+    <>
       {isAuthenticated ? (
         <div ref={menuRef} className={`account-container ${isMenuOpen ? 'open' : null}`}>
           <MenuIcon onClick={toggleMenu} id="menu-icon" />
-          <div className="account-actions">
-            <div onClick={handleDeleteSession}>Sign out</div>
+          <div className={`account-actions ${isMenuOpen ? 'open' : null}`}>
+            <p onClick={handleDeleteSession}>Sign out</p>
           </div>
         </div>
       ) : (
@@ -43,7 +43,7 @@ const AccountMenu = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default AccountMenu;

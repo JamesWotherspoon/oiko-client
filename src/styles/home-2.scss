@@ -1,0 +1,572 @@
+// Section of PageLayot.js
+
+.misc-panel-cont {
+  display: flex;
+  gap: $gap-unit * 3;
+  width: 75%;
+  flex-wrap: wrap;
+}
+.transaction-panel {
+  width: 25%;
+}
+.home {
+  .overview-panel,
+  .scheduled-action-panel,
+  .category-panel {
+    min-width: fit-content;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  .scheduled-action-panel,
+  .category-panel {
+    width: 100%;
+  }
+  .account-panel {
+    width: 100%;
+    align-items: center;
+  }
+}
+
+#home .overview-panel {
+  max-width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+
+// Header
+//// TopBar.js
+#top-bar {
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  margin-bottom: 14px;
+  border-bottom: $border;
+  padding: 0 $page-margin;
+  box-shadow: $box-shadow;
+}
+.auth-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $page-margin;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+    flex-direction: column;
+    div.brand-container {
+      scale: 1;
+      transform: translateX(0);
+    }
+  }
+  .brand-container {
+    align-items: flex-start;
+    flex-direction: column;
+    scale: 1.6;
+    transform: translateX(60%);
+    .brand-slogan {
+      margin: 20px 0 0 0;
+    }
+  }
+}
+.brand-container {
+  display: flex;
+  width: fit-content;
+  align-items: flex-end;
+}
+.brand-full-logo {
+  display: flex;
+}
+.logo-container {
+  display: flex;
+  align-items: flex-end;
+  .bar {
+    width: 9px;
+    border-left: 5px solid $primary-color;
+  }
+  .bar-1 {
+    height: 5px;
+  }
+  .bar-2 {
+    height: 10px;
+  }
+  .bar-3 {
+    height: 15px;
+  }
+}
+.brand-name {
+  line-height: 1;
+  color: $secondary-color;
+  position: relative;
+  top: 5px;
+}
+.accent-stop {
+  color: $primary-color;
+}
+.brand-slogan {
+  margin-left: 10px;
+  font-size: 14px;
+  color: $secondary-text-color;
+  line-height: 1;
+}
+
+// Nav.js
+nav {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  cursor: pointer;
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    padding: 0 20px;
+    color: $light-grey;
+    .nav-label {
+      margin-top: 3px;
+      padding-bottom: 12px;
+      font-size: 12px;
+      color: $light-grey;
+    }
+    .nav-underline {
+      width: 100%;
+      border-radius: 10px;
+      height: 2px;
+      background-color: $light-grey;
+    }
+    &.active {
+      color: $secondary-color;
+      .nav-label {
+        color: $secondary-color;
+      }
+      .nav-underline {
+        background-color: $secondary-color;
+      }
+    }
+    &:hover {
+      color: $info-color;
+      .nav-label {
+        color: $info-color;
+      }
+      .nav-underline {
+        background-color: $info-color;
+      }
+    }
+  }
+}
+
+// Categories
+.category-btn-cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap-unit;
+  button {
+    background-color: hsl(164, 48%, 60%);
+  }
+  .selected {
+    box-shadow: $box-shadow;
+  }
+  .not-selected {
+    background-color: $light-grey;
+    opacity: 0.5;
+  }
+}
+.category-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  @include selectable-style-with-cat-icon;
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  background-color: $light-grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: $border;
+  border-radius: $border-radius;
+  color: $secondary-color;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  box-shadow: $box-shadow;
+
+  .MuiSvgIcon-root {
+    width: 1.3em;
+    height: 1.3em;
+  }
+}
+.category-listing {
+  display: flex;
+  row-gap: 16px;
+  column-gap: 24px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+// Scheduled Action
+
+.schedule-action-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+// Transaction
+.cell-amount {
+  white-space: nowrap;
+}
+.transaction-type-amount-cont {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .expense-income-btn {
+    font-weight: 700;
+    margin-right: 15px;
+  }
+  .amount-input {
+    font-size: 36px;
+    border: 0px;
+    width: 100%;
+  }
+}
+
+.auth-page {
+}
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  form {
+    width: 350px;
+  }
+}
+
+.account-container {
+  position: relative;
+  cursor: pointer;
+  #menu-icon {
+    margin-top: 10px;
+    padding: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+  }
+  #menu-icon:hover,
+  &.open #menu-icon,
+  &:hover #menu-icon {
+    border: $border;
+  }
+  .account-actions {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    border-radius: $border-radius;
+    padding: 16px;
+    min-width: 200px;
+    text-align: center;
+    border: $border;
+    box-shadow: $box-shadow;
+    background-color: $background-color;
+    display: none;
+    flex-direction: column;
+  }
+  &:hover {
+    .account-actions {
+      display: flex;
+    }
+  }
+  &.open {
+    .account-actions {
+      display: flex;
+    }
+  }
+}
+.scheduled-listing {
+  display: flex;
+  flex-wrap: wrap;
+
+  .scheduled-listing-unit {
+    width: 200px;
+
+    @include selectable-styles;
+    .category-action-name-cont {
+      display: flex;
+      min-height: 25px;
+      max-height: 25px;
+    }
+    .amount-cont {
+      font-size: 18px;
+      font-weight: 600;
+      padding: $gap-unit 0;
+    }
+    .money-pot-name-amount-cont {
+      display: flex;
+      flex-direction: column;
+    }
+    .recurrence-cont {
+      display: flex;
+      align-items: center;
+      color: $info-color;
+      .MuiSvgIcon-root {
+        width: 0.8em;
+        height: 0.8em;
+      }
+    }
+  }
+}
+
+.scheduled-listing .category-icon,
+.trasaction-listing .category-icon {
+  max-width: 25px;
+  height: 25px;
+  box-shadow: none;
+  margin-right: 8px;
+  .MuiSvgIcon-root {
+    width: 0.6em;
+    height: 0.6em;
+  }
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 500px;
+
+  .chart-header {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    text-align: center;
+    font-size: $base-font-size;
+    color: $info-color;
+    p {
+      width: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+  }
+}
+
+.page-content-cont .money-pot-listing {
+  flex-wrap: wrap;
+}
+
+.transaction-graph-cont {
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  height: 400px;
+  background-image: url('../assets/images/footer.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  padding: 150px 20px 0;
+  margin-top: 200px;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Style for each section within the footer */
+  .footer-section {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  /* Style for links in the footer */
+  .links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .links li {
+    margin-bottom: 10px;
+  }
+
+  .links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* Style for the contact section */
+  .contact a {
+    color: white; /* Green color for email link */
+  }
+
+  /* Style for the bottom section of the footer */
+  .footer-bottom {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.total-balance {
+  font-size: 28px;
+  color: $primary-color;
+}
+.pot-balance {
+  font-size: 18px;
+  color: $secondary-color;
+}
+
+.primary-circle {
+  border: 16px solid $primary-color;
+  border-radius: 1000px;
+  width: 220px;
+  max-width: 220px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.secondary-circle {
+  border: 8px solid $secondary-color;
+  border-radius: 1000px;
+  width: 150px;
+  max-width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  @include selectable-styles;
+}
+
+.transaction-listing .MuiTableRow-root {
+  @include selectable-style-with-cat-icon;
+}
+
+.transaction-listing .MuiTableContainer-root {
+  overflow-x: hidden;
+}
+
+.page-content-cont .scheduled-action-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page-content-cont .scheduled-listing {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-swap-link {
+  margin-top: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#home .account-panel {
+  align-items: center;
+  flex-grow: 1;
+}
+
+.money-pot-listing {
+  overflow: hidden;
+  position: relative;
+  padding: 0 40px;
+
+  .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 500;
+  }
+  .next-arrow-btn {
+    right: 0px;
+  }
+  .previous-arrow-btn {
+    left: 0px;
+  }
+
+  .money-pots-cont {
+    .money-pot-cont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+  }
+}
+
+.total-accounts-cont {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  @media (max-width: 740px) {
+    flex-direction: column;
+    .account-panel {
+      width: 100%;
+    }
+  }
+}
+
+.items-container {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.outer-money-pots-cont {
+  overflow: hidden;
+  width: calc((170px * 3));
+  min-width: calc((170px * 3));
+
+  @media (max-width: 1370px) {
+    width: calc((170px * 2));
+    min-width: calc((170px * 2));
+  }
+  @media (max-width: 970px) {
+    width: calc((170px));
+    min-width: calc((170px));
+  }
+}
+.dyanimic-money-pots-cont {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.money-pot-cont {
+  width: 170px;
+}
+
+.item-card-header {
+  align-self: flex-start;
+}

@@ -49,8 +49,8 @@ export default function TransactionsListing() {
   };
 
   return (
-    <div className="trasaction-listing">
-      <div className="horizontal-flex">
+    <div id="transaction-listing">
+      <div className="query-selectors-cont">
         <OptionsSelect
           label="Account"
           selectedId={transactionQuery.moneyPotId}
@@ -83,11 +83,11 @@ export default function TransactionsListing() {
               <TableBody className="data-listing">
                 {transactions.map((transactionItem) => (
                   <TableRow key={transactionItem.id} onClick={() => handleItemSelect(transactionItem)}>
-                    <TableCell>
-                      {format(new Date(transactionItem.transactionDate), 'dd/MM/yyyy', { locale: enGB })}
+                    <TableCell className='date'>
+                      {format(new Date(transactionItem.transactionDate), 'dd/MM', { locale: enGB })}
                     </TableCell>
-                    <TableCell>{transactionItem.MoneyPot?.name}</TableCell>
-                    <TableCell className="cell-amount">
+                    <TableCell className='pot-name'>{transactionItem.MoneyPot?.name}</TableCell>
+                    <TableCell className="amount">
                       {transactionItem.transactionType === 'positive' ? '+' : '-'}£ {transactionItem.amount}
                     </TableCell>
                     <TableCell>

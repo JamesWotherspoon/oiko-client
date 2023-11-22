@@ -17,15 +17,14 @@ export default function CategorySelect({ selectedCategoryId, handleCategoryIdCha
 
   return (
     <>
-      <div className="category-btn-cont">
+      <div className="category-select">
         {categories.map((category) => (
-          <div key={`${category.id}`}>
-            <CategoryUnit
-              category={category}
-              onCategoryClick={handleCategorySelection}
-              selectedCategoryId={selectedCategoryId}
-            />
-          </div>
+          <CategoryUnit
+            key={category.id}
+            category={category}
+            onCategoryClick={handleCategorySelection}
+            selectedCategoryId={selectedCategoryId}
+          />
         ))}
       </div>
       <FormError errorMessage={error} />

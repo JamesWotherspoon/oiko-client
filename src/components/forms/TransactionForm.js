@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import OptionsSelect from '../../sharedComponents/OptionsSelect';
 import MoneyTypeFieldset from '../../sharedComponents/MoneyTypeFieldset';
 import CategorySelect from '../../sharedComponents/CategorySelect';
@@ -7,35 +7,33 @@ import { useSelector } from 'react-redux';
 import { transactionValidate } from '../../utils/validator';
 import { format } from 'date-fns';
 import { validateHelper, sanitizePayload } from '../../utils/helpers';
+import TextField from '../../sharedComponents/TextField';
 
 const TransactionForm = ({ children, onSubmit, transaction }) => {
   const currentDate = format(new Date(), 'yyyy-MM-dd');
   const moneyPots = useSelector((state) => state.moneyPot.items);
-  const initialFormState = {
-    categoryId: transaction?.categoryId || null,
-    amount: parseFloat(transaction?.amount) || 0.0,
-    transactionType: transaction?.transactionType || 'negative',
-    moneyPotId: transaction?.moneyPotId || moneyPots[0]?.id,
-    transactionDate: transaction?.transactionDate || currentDate,
-  };
+  const initialFormState = useMemo(() => {
+    return {
+      name: transaction?.name || '',
+      categoryId: transaction?.categoryId || null,
+      amount: parseFloat(transaction?.amount) || 0.0,
+      transactionType: transaction?.transactionType || 'negative',
+      moneyPotId: transaction?.moneyPotId || moneyPots[0]?.id,
+      transactionDate: transaction?.transactionDate || currentDate,
+    };
+  }, [transaction, moneyPots, currentDate]);
   const [formData, setFormData] = useState(initialFormState);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setErrors({})
+    setErrors({});
     if (transaction) {
-      setFormData({
-        categoryId: transaction.categoryId,
-        amount: parseFloat(transaction.amount),
-        transactionType: transaction.transactionType,
-        moneyPotId: transaction.moneyPotId,
-        transactionDate: transaction.transactionDate,
-      });
+      setFormData(initialFormState);
     }
-  }, [transaction]);
+  }, [initialFormState, transaction]);
 
   const handleChange = (name, value) => {
-    console.log(formData.transactionType)
+    console.log(formData.transactionType);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -48,30 +46,23 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
     const { valid, errors } = validateHelper(transactionValidate, sanitizedData);
     if (!valid) {
       setErrors(errors);
-      return
+      return;
     }
     onSubmit(sanitizedData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <fieldset className="date-money-fieldset">
-        <MoneyTypeFieldset
-          transactionType={formData.transactionType}
-          handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
-          amount={formData.amount}
-          handleAmountChange={(value) => handleChange('amount', value)}
-          error={errors.amount + errors.transactionType}
-        />
-        <DateSelect
-          label=""
-          date={formData.transactionDate}
-          handleDateChange={(value) => handleChange('transactionDate', value)}
-          error={errors.transactionDate}
-        />
-      </fieldset>
       <fieldset>
+        <TextField
+          label="Name"
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+          error={errors.name}
+          optional
+        />
         <OptionsSelect
+          required
           label="Account"
           selectedId={formData.moneyPotId}
           handleSelectedIdChange={(value) => handleChange('moneyPotId', value)}
@@ -79,10 +70,28 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
           error={errors.moneyPotId}
         />
       </fieldset>
-      <fieldset>
-        <h5 className="form-sub-heading">
+      <fieldset className="date-money-fieldset">
+        <MoneyTypeFieldset
+          required
+          label="Transaction Amount"
+          transactionType={formData.transactionType}
+          handleTransactionTypeChange={(value) => handleChange('transactionType', value)}
+          amount={formData.amount}
+          handleAmountChange={(value) => handleChange('amount', value)}
+          error={errors.amount + errors.transactionType}
+        />
+        <DateSelect
+          label="Transaction Date"
+          optional
+          date={formData.transactionDate}
+          handleDateChange={(value) => handleChange('transactionDate', value)}
+          error={errors.transactionDate}
+        />
+      </fieldset>
+      <fieldset className="category-picker-cont">
+        <label className="form-sub-heading">
           Category <span className="info-text">(optional)</span>
-        </h5>
+        </label>
         <CategorySelect
           selectedCategoryId={formData.categoryId}
           handleCategoryIdChange={(value) => handleChange('categoryId', value)}

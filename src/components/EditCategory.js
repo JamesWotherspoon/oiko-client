@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from '../sharedComponents/CustomModal';
+import CustomModal from '../sharedComponents/Modal';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCategory } from '../utils/slices';

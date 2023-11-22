@@ -6,60 +6,79 @@ import MoneyPotForm from '../components/forms/MoneyPotForm';
 import MoneyPotsListing from '../components/MoneyPotsListing';
 import EditMoneyPot from '../components/EditMoneyPot';
 import { useDispatchToastNotification } from '../utils/hooks';
+import MonthlyChart from '../components/MonthlyChart';
+import MoneyPot from '../sharedComponents/Moneypot';
+import Modal from '../sharedComponents/Modal';
 
 export default function MoneyPots() {
   const dispatch = useDispatch();
-  const dispatchToastNotification = useDispatchToastNotification()
+  const dispatchToastNotification = useDispatchToastNotification();
   // Handle retrieving money pot data
   const moneyPots = useSelector((state) => state.moneyPot.items);
   const status = useSelector((state) => state.moneyPot.status);
   const error = useSelector((state) => state.moneyPot.error);
-  const [displayUnit, setDisplayUnit] = useState('graphs');
   const selectedMoneyPot = useSelector((state) => state.selectItem.selectedMoneyPot);
+  const [addItem, setAddItem] = useState(false);
 
   useEffect(() => {
-
     if (selectedMoneyPot.id) {
-      setDisplayUnit('editItem');
     }
   }, [selectedMoneyPot]);
 
   const handleAdd = (ItemData) => {
     dispatch(moneyPotSlice.addResources(ItemData)).then(dispatchToastNotification);
-    setDisplayUnit('graphs');
+    setAddItem(false);
   };
 
   const handleUpdate = (data) => {
     dispatch(moneyPotSlice.updateResource({ id: selectedMoneyPot.id, data })).then(dispatchToastNotification);
-    setDisplayUnit('graphs');
   };
 
   const handleDelete = (id) => {
     dispatch(moneyPotSlice.deleteResource(id)).then(dispatchToastNotification);
-    setDisplayUnit('graphs');
   };
 
   return (
-    <div>
-      <ItemCard className="money-pot-panel" title="Money Pots" addItem={() => setDisplayUnit('addItem')}>
-        <MoneyPotsListing />
-      </ItemCard>
-      <div className="side-cont">
-        {displayUnit === 'graphs' && (
-          <div>
-            <h5>Graphs</h5>
-          </div>
-        )}
-        {displayUnit === 'addItem' && (
-          <div className="form-cont">
-          <h5 className="modal-title">Add Account</h5>
-          <MoneyPotForm onSubmit={handleAdd}>
-              <button type="submit">Create</button>
-            </MoneyPotForm>
-          </div>
-        )}
-        {displayUnit === 'editItem' && <EditMoneyPot handleUpdate={handleUpdate} handleDelete={handleDelete} selectedMoneyPot={selectedMoneyPot} />}
+    <main id="money-pots">
+      <div className="content-header">
+        <h1>Accounts</h1>
+        <p>
+          Explore your accounts by month and category
+          <br /> or create a new custom account.
+        </p>
+        <button className="btn" onClick={() => setAddItem(true)}>
+          Create
+        </button>
       </div>
-    </div>
+      <div className="content">
+        {moneyPots.map((moneyPot) => {
+          return (
+            <section key={moneyPot.id} className="money-pot-section">
+              <div className="money-pot-info">
+                <h3 className="pot-name">{moneyPot.name}</h3>
+                <h4 className="pot-balance">
+                  {moneyPot.balanceType === 'negative' && '-'} £{moneyPot.balance}
+                </h4>
+                <p className="pot-description">{moneyPot.description}</p>
+                <button className="btn">Edit {moneyPot.name}</button>
+              </div>
+              <MonthlyChart moneyPotId={moneyPot.id} />
+            </section>
+          );
+        })}
+      </div>
+      {addItem && (
+        <Modal onClose={() => setAddItem(false)}>
+          <MoneyPotForm onSubmit={handleAdd}>
+            <button className="btn" type="submit">
+              Create
+            </button>
+          </MoneyPotForm>
+        </Modal>
+      )}
+      {false && (
+        <EditMoneyPot handleUpdate={handleUpdate} handleDelete={handleDelete} selectedMoneyPot={selectedMoneyPot} />
+      )}
+    </main>
   );
 }

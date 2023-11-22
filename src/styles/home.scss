@@ -1,323 +1,275 @@
-// Section of PageLayot.js
 
-.misc-panel-cont {
+
+.card {
   display: flex;
   flex-direction: column;
-  gap: $gap-unit;
-  width: 75%;
-}
-.transaction-panel {
-  width: 25%;
-}
+  flex-grow: 1;
+  border-radius: 16px;
 
-.overview-panel,
-.scheduled-panel,
-.category-panel {
-  min-width: fit-content;
-  width: 30%;
-  max-width: 100%;
-}
-.account-panel {
-  width: 100%;
-}
-
-// Header
-//// TopBar.js
-#top-bar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
-  margin-bottom: 14px;
-  border-bottom: $border;
-  padding: 0 $page-margin;
-  box-shadow: $box-shadow;
-}
-.brand-container {
-  display: flex;
-  width: fit-content;
-  align-items: flex-end;
-}
-.logo-container {
-  display: flex;
-  align-items: flex-end;
-  .bar {
-    width: 9px;
-    border-left: 5px solid $primary-color;
-  }
-  .bar-1 {
-    height: 5px;
-  }
-  .bar-2 {
-    height: 10px;
-  }
-  .bar-3 {
-    height: 15px;
-  }
-}
-.brand-name {
-  line-height: 1;
-  color: $secondary-color;
-  position: relative;
-  top: 5px;
-}
-.accent-stop {
-  color: $primary-color;
-}
-.brand-slogan {
-  margin-left: 10px;
-  font-size: 14px;
-  color: $secondary-text-color;
-  line-height: 1;
-}
-
-// Nav.js
-nav {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  padding-top: 10px;
-  cursor: pointer;
-  .nav-item {
+  .card-header {
+    color: $secondary-color;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 20px;
-    padding: 0 20px;
-    color: $light-grey;
-    .nav-label {
-      margin-top: 3px;
-      padding-bottom: 12px;
-      font-size: 12px;
-      color: $light-grey;
+    justify-content: flex-start;
+    align-items: baseline;
+    width: 100%;
+    margin: calc($gap-unit * 2) 0;
+
+    h3 {
+      color: $primary-color;
+      line-height: 1.4;
+      font-weight: 700;
+      font-size: 22px;
     }
-    .nav-underline {
-      width: 100%;
-      border-radius: 10px;
-      height: 2px;
-      background-color: $light-grey;
-    }
-    &.active {
-      color: $secondary-color;
-      .nav-label {
-        color: $secondary-color;
-      }
-      .nav-underline {
-        background-color: $secondary-color;
-      }
+    .card-subtitle {
+      color: $info-color;
+      font-size: 16px;
+      line-height: 1.4;
     }
   }
-}
-
-// Categories
-.category-btn-cont {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $gap-unit;
-  button {
-    background-color: hsl(164, 48%, 60%);
-  }
-  .selected {
-    box-shadow: $box-shadow;
-  }
-  .not-selected {
-    background-color: $light-grey;
-    opacity: 0.5;
-  }
-}
-.category-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  scale: 1;
-  transition: scale;
-  &:hover {
-    scale: 1.05;
-    transition: scale;
-  }
-}
-
-.category-icon {
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  background-color: $light-grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: $border;
-  border-radius: $border-radius;
-  color: $secondary-color;
-  font-size: 14px;
-  font-weight: bold;
-  color: white;
-  box-shadow: $box-shadow;
-
-  .MuiSvgIcon-root {
-    width: 1.3em;
-    height: 1.3em;
-  }
-}
-.category-listing {
-  display: flex;
-  row-gap: 16px;
-  column-gap: 24px;
-  flex-wrap: wrap;
-  padding: 10px 0;
-}
-
-// Scheduled Action
-
-.schedule-action-form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-// Transaction
-.cell-amount {
-  white-space: nowrap;
-}
-.transaction-type-amount-cont {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .expense-income-btn {
-    font-weight: 700;
-    margin-right: 15px;
-  }
-  .amount-input {
-    font-size: 36px;
-    border: 0px;
+  .card-body {
     width: 100%;
   }
 }
 
-.auth-page {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 $page-margin;
-}
-.auth-content {
+#home {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  form {
-    width: 350px;
-  }
-}
+  margin: $gap-unit $page-margin;
 
-.account-container {
-  position: relative;
-  cursor: pointer;
-  #menu-icon {
-    margin-top: 10px;
-    padding: 10px;
-    width: 45px;
-    height: 45px;
-    border-radius: 100px;
-  }
-  #menu-icon:hover,
-  &.open #menu-icon,
-  &:hover #menu-icon {
-    border: $border;
-  }
-  .account-actions {
-    position: absolute;
-    top: 60px;
-    right: 0px;
-    border-radius: $border-radius;
-    padding: 16px;
-    width: 150px;
-    text-align: center;
-    border: $border;
-    box-shadow: $box-shadow;
-    background-color: $background-color;
-    display: none;
-    flex-direction: column;
-  }
-  &:hover {
-    .account-actions {
-      display: flex;
-    }
-  }
-  &.open {
-    .account-actions {
-      display: flex;
-    }
-  }
-}
-.scheduled-listing {
-  display: flex;
-  flex-wrap: wrap;
+  .top-section {
+    display: flex;
+    max-height: 840px;
+    gap: calc($gap-unit * 3);
+    margin-bottom: calc($gap-unit * 3);
 
-  .scheduled-listing-unit {
-    width: 200px;
-    border: $border;
-    border-radius: $border-radius;
-    padding: $gap-unit;
-    margin: 8px;
-    cursor: pointer;
-
-    &:hover {
-      scale: 1.05;
-    }
-    .category-action-name-cont {
-      display: flex;
-      min-height: 25px;
-      max-height: 25px;
-    }
-    .amount-cont {
-      font-size: 18px;
-      font-weight: 600;
-      padding: $gap-unit 0;
-    }
-    .money-pot-name-amount-cont {
+    .top-section-main {
       display: flex;
       flex-direction: column;
+      gap: calc($gap-unit * 3);
     }
-    .recurrence-cont {
+  }
+
+  .overview-panel {
+    flex-grow: 1;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 80px;
+    gap: calc($gap-unit * 2);
+
+    .hero-content {
+      max-width: 400px;
+      @include slide-in-left;
+      h1 {
+        color: $primary-color;
+        line-height: 1.4;
+        margin-bottom: $gap-unit;
+        font-weight: 700;
+        font-size: 32px;
+      }
+      p {
+        color: $info-color;
+        font-size: 18px;
+        line-height: 1.3;
+      }
+    }
+
+    .overview-circle-cont {
       display: flex;
       align-items: center;
-      color: $info-color;
-      .MuiSvgIcon-root {
-        width: 0.8em;
-        height: 0.8em;
+      justify-content: center;
+      flex-grow: 1;
+      .primary-circle {
+        border: 16px solid $primary-color;
+        border-radius: 1000px;
+        width: 300px;
+        min-width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        @include slide-up;
+        .total-label {
+          font-size: 28px;
+        }
+        .total-balance {
+          font-size: 32px;
+          color: $primary-color;
+          margin: $gap-unit 0;
+        }
+        .change-label {
+          margin-top: 8px;
+          color: $info-color;
+        }
+        .balance-change {
+          margin-top: 8px;
+          font-size: 22px;
+        }
       }
     }
   }
-}
 
-.scheduled-listing .category-icon,
-.trasaction-listing .category-icon{
-  max-width: 25px;
-  height: 25px;
-  box-shadow: none;
-  margin-right: 8px;
-  .MuiSvgIcon-root {
-    width: 0.6em;
-    height: 0.6em;
+  .account-panel {
+    @include slide-up;
+    .money-pot-listing {
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      width: fit-content;
+      position: relative;
+      .arrow-btn {
+        font-size: 29px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 500;
+      }
+      .next-arrow-btn {
+        right: 0px;
+      }
+      .previous-arrow-btn {
+        left: 0px;
+      }
+      .outer-money-pots-cont {
+        overflow: hidden;
+        width: calc((210px * 3));
+        min-width: calc((210px * 3));
+
+        @media (max-width: 1290px) {
+          width: calc((210px * 2));
+          min-width: calc((210px * 2));
+        }
+        @media (max-width: 1100px) {
+          width: calc((210px * 3));
+          min-width: calc((210px * 3));
+        }
+
+        @media (max-width: 730px) {
+          width: 300px;
+          min-width: 300px;
+          .dyanimic-money-pots-cont {
+            transition: left 0.3s ease;
+            div.secondary-circle {
+              width: 240px;
+              height: 240px;
+              margin: 10px 30px;
+              .pot-balance {
+                margin-top: calc($gap-unit * 2);
+                font-size: 26px;
+              }
+              .pot-name {
+                font-size: 22px;
+              }
+            }
+          }
+        }
+
+        .dyanimic-money-pots-cont {
+          transition: left 0.3s ease;
+          position: relative;
+          display: flex;
+          align-items: center;
+          .secondary-circle {
+            border: 8px solid $secondary-color;
+            border-radius: 1000px;
+            width: 190px;
+            height: 190px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            @include selectable-styles;
+            background-color: transparent;
+
+            .pot-balance {
+              margin-top: $gap-unit;
+              font-size: 22px;
+            }
+            .pot-name {
+              color: $info-color;
+              font-style: italic;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .transaction-card {
+    width: 370px;
+    max-width: 370px;
+    min-width: 370px;
+    flex-grow: 0;
+    width: fit-content;
+    @include slide-up;
+
+    @media (max-width: 1100px) {
+      display: none;
+    }
+
+    .card-header {
+      margin-bottom: $gap-unit;
+    }
+
+  }
+
+  .bottom-home-section {
+    display: flex;
+    gap: calc($gap-unit * 3);
+    @include slide-up;
+
+    @media (max-width: 1100px) {
+      flex-direction: column;
+    }
   }
 }
 
-.chart-container {
+.category-icon {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  .chart-header {
-    display: flex;
-    width: 250px;
-    text-align: center;
+  border-radius: $border-radius;
+  color: rgb(250, 250, 250);
+  background-color: $dark-grey;
+}
+
+#scheduled-listing .category-icon,
+#transaction-listing .category-icon {
+  width: 30px;
+  height: 30px;
+
+  .MuiSvgIcon-root {
+    width: 0.7em;
+    height: 0.7em;
+  }
+}
+
+// Mobile media  query
+@media (max-width: 600px) {
+  body #page {
+    #home .top-section {
+      max-height: fit-content;
+
+      .overview-panel {
+        flex-direction: column;
+        div.hero-content {
+          max-width: fit-content;
+        }
+      }
+    }
+
+    .scheduled-listing,
+    .category-listing {
+      justify-content: center;
+    }
+
+    footer {
+      font-size: 12px;
+    }
   }
 }

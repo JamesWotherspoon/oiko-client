@@ -1,12 +1,13 @@
 // Shared Colors
 $primary-color: #3f51b5;
-$secondary-color: rgb(0,48,61);   
-$accent-color: rgb(58 193 157); 
+$secondary-color: rgb(0, 48, 61);
+$accent-color: rgb(58 193 157);
 $off-black: rgb(16 17 17);
 
 $info-color: rgb(128, 128, 128);
 $error-color: #f44336;
-$background-color: rgb(251, 251, 251); 
+$positive-color: rgb(0 206 153);
+$background-color: rgb(255, 255, 255);
 $text-color: #333;
 $secondary-text-color: #555;
 $light-grey: #dbdbdb;
@@ -18,20 +19,21 @@ $border-style: solid;
 $border-color: rgba(0, 0, 0, 0.12);
 $border: #{$border-width $border-style $border-color};
 $box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+$enhanced-box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 6px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 $border-radius: 4px;
 
 // Shared Spacing and Layout
-$spacing-unit: 8px;          
-$gap-unit: 16px;
+$spacing-unit: 8px;
+$gap-unit: 24px;
 $sm-gap-unit: 8px;
 $lg-gap-unit: 40px;
 $container-max-width: 1200px;
 
 // Shared Typography
-$base-font-size: 16px;       
-$heading-font-family: 'Roboto, Helvetica', sans-serif; 
-$body-font-family: 'Roboto, Arial', sans-serif;      
-$heading-line-height: 1.3; 
+$base-font-size: 16px;
+$heading-font-family: 'Roboto, Helvetica', sans-serif;
+$body-font-family: 'Roboto, Helvetica', sans-serif;
+$heading-line-height: 1.3;
 $body-line-height: 1.6;
 
 // Page-margin - Dynamic Properties set in dynamic_properties
@@ -43,15 +45,93 @@ $page-margin-lg: 60px;
 $page-margin-xlg: 80px;
 
 // Shared Breakpoints for Responsive Design
-$breakpoint-sm: 576px;     // Small screen size, optimize layout for mobile
-$breakpoint-md: 768px;    // Medium screen size, adapt to tablets and smaller screens
-$breakpoint-lg: 992px;     // Large screen size, optimize layout for desktops
-$breakpoint-xlg: 1200px;   // Extra-large screen size, handle larger displays
+$breakpoint-sm: 576px; // Small screen size, optimize layout for mobile
+$breakpoint-md: 768px; // Medium screen size, adapt to tablets and smaller screens
+$breakpoint-lg: 992px; // Large screen size, optimize layout for desktops
+$breakpoint-xlg: 1200px; // Extra-large screen size, handle larger displays
 
 // Shared Z-index for Stacking Order
-$z-index-header: 1000;         
-$z-index-overlay: 2000;     
-$z-index-modal: 3000;        
+$z-index-header: 1000;
+$z-index-overlay: 2000;
+$z-index-modal: 3000;
 
 // Shared Icons and Images
 $icon-size: 24px;
+
+@mixin focus-header {
+    color: #3f51b5;
+    line-height: 1.4;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+@mixin selectable-styles {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  box-shadow: $box-shadow;
+  transform: scale(1);
+  cursor: pointer;
+
+  &:hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: $enhanced-box-shadow;
+    transform: scale(1.05);
+  }
+}
+
+@mixin selectable-style-with-cat-icon {
+  transition: transform 0.1s ease;
+  transform: scale(1);
+  cursor: pointer;
+
+  .category-icon {
+    box-shadow: $box-shadow;
+    transition: box-shadow 0.1s ease;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+    .category-icon {
+      box-shadow: $enhanced-box-shadow;
+      transition: box-shadow 0.1s ease;
+    }
+  }
+}
+
+@mixin border {
+  background-color: $background-color;
+  border: $border;
+  border-radius: $border-radius;
+}
+
+@mixin slide-up {
+  animation: fadeInUp 0.7s ease-in-out;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@mixin slide-in-left {
+    animation: slideInLeft 0.7s ease-in-out;
+  
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
+

@@ -23,7 +23,7 @@ const ScheduledActionsListing = () => {
   };
 
   return (
-    <div className="scheduled-listing">
+    <div id="scheduled-listing">
       {scheduledActions.length === 0 ? (
         <EmptyDataInfo label="scheduled actions" />
       ) : (
@@ -35,21 +35,21 @@ const ScheduledActionsListing = () => {
               onClick={() => handleItemSelect(scheduledAction)}
             >
               <div className="category-action-name-cont">
-              {scheduledAction.Category?.iconIdentifier &&
-                <div className={`category-icon-btn ${scheduledAction.Category.iconIdentifier}`}>
-                   {categoryIconColorMapping(scheduledAction.Category.iconIdentifier, scheduledAction.Category.color)}
-                </div>}
+                {scheduledAction.Category?.iconIdentifier && (
+                  <div className={`category-icon-btn ${scheduledAction.Category.iconIdentifier}`}>
+                    {categoryIconColorMapping(scheduledAction.Category.iconIdentifier, scheduledAction.Category.color)}
+                  </div>
+                )}
                 {scheduledAction.name}
               </div>
               <div className="money-pot-name-amount-cont">
-              <div className='amount-cont'>
+                <div className="amount-cont">
                   {scheduledAction.transactionType === 'positive' ? '+' : '-'}£ {scheduledAction.amount}
                 </div>
-                
               </div>
-              <div className='low-level-info'>
+              <div className="low-level-info">
                 <div className="recurrence-cont">
-                <div>{scheduledAction.MoneyPot?.name}  -  </div>
+                  <div>{scheduledAction.MoneyPot?.name} - </div>
                   <LoopIcon />
                   {scheduledAction.recurrenceType}
                 </div>

@@ -167,11 +167,27 @@ export const chartDataSlice = createEntitySliceWithThunks(
     initialState: {
       data: {
         allMoneyPots: {},
+        pastThirtyDays: '',
       },
       status: 'idle',
       error: null,
     },
   },
   '/chart-data',
+  handleChartDataAsyncThunk,
+);
+
+export const pastThirtyDaysSlice = createEntitySliceWithThunks(
+  {
+    name: 'pastThirtyDays',
+    initialState: {
+      data: {
+        pastThirtyDays: '',
+      },
+      status: 'idle',
+      error: null,
+    },
+  },
+  '/chart-data/past-thirty-days',
   handleChartDataAsyncThunk,
 );

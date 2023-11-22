@@ -9,14 +9,14 @@ import { useDispatchToastNotification } from '../utils/hooks';
 
 const ScheduledActions = () => {
   const dispatch = useDispatch();
-  const dispatchToastNotification = useDispatchToastNotification()
+  const dispatchToastNotification = useDispatchToastNotification();
   // Handle retrieving scheduled action data
   const scheduledActions = useSelector((state) => state.scheduledAction.items);
   const status = useSelector((state) => state.scheduledAction.status);
   const error = useSelector((state) => state.scheduledAction.error);
   const selectedScheduledAction = useSelector((state) => state.selectItem.selectedScheduledAction);
-  const [displayUnit, setDisplayUnit] = useState('graphs');
-  console.log(displayUnit)
+  const [displayUnit, setDisplayUnit] = useState('');
+
   useEffect(() => {
     if (selectedScheduledAction.id) {
       setDisplayUnit('editItem');
@@ -24,45 +24,51 @@ const ScheduledActions = () => {
   }, [selectedScheduledAction]);
 
   const handleAdd = (scheduledActionData) => {
-    console.log(scheduledActionData)
-    dispatch(scheduledActionSlice.addResources(scheduledActionData)).then((action) => {
-      const { id } = action.payload.data;
-      dispatch(scheduledActionSlice.fetchResourceById(id))
-      return action;
-    }).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    console.log(scheduledActionData);
+    dispatch(scheduledActionSlice.addResources(scheduledActionData))
+      .then((action) => {
+        const { id } = action.payload.data;
+        dispatch(scheduledActionSlice.fetchResourceById(id));
+        return action;
+      })
+      .then(dispatchToastNotification);
+    setDisplayUnit('addItem');
   };
 
   const handleUpdate = (scheduledActionData) => {
-    dispatch(scheduledActionSlice.updateResource({ id: selectedScheduledAction.id, data: scheduledActionData })).then((action) => {
-      const { id } = action.payload.data;
-      dispatch(scheduledActionSlice.fetchResourceById(id))
-      return action;
-    }).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    dispatch(scheduledActionSlice.updateResource({ id: selectedScheduledAction.id, data: scheduledActionData }))
+      .then((action) => {
+        const { id } = action.payload.data;
+        dispatch(scheduledActionSlice.fetchResourceById(id));
+        return action;
+      })
+      .then(dispatchToastNotification);
+    setDisplayUnit('addItem');
   };
 
   const handleDelete = (id) => {
     dispatch(scheduledActionSlice.deleteResource(id)).then(dispatchToastNotification);
-    setDisplayUnit('graphs')
+    setDisplayUnit('addItem');
   };
 
   return (
-    <div>
-      <ItemCard className="scheduled-action-panel" title="Scheduled Actions" addItem={() => setDisplayUnit('addItem')}>
+    <main id="scheduled-actions">
+      <div className="content-header">
+        <h1>Schedule Transactions</h1>
+        <p>
+          Schedule money coming in and the bills you need to pay
+          <br />Create a new scheduled transaction.
+        </p>
+        <button className='btn'>Create</button>
+      </div>
+      <div className="content">
         <ScheduledActionsListing />
-      </ItemCard>
-      <div className="side-cont">
-        {displayUnit === 'graphs' && (
-          <div>
-            <h5>Graphs</h5>
-          </div>
-        )}
+
         {displayUnit === 'addItem' && (
           <div className="form-cont">
             <h5 className="modal-title">Add Scheduled Action</h5>
             <ScheduledActionForm onSubmit={handleAdd}>
-              <button type="submit">Create</button>
+              <button className='btn' type="submit">Create</button>
             </ScheduledActionForm>
           </div>
         )}
@@ -74,7 +80,7 @@ const ScheduledActions = () => {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
