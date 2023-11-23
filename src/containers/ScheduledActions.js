@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { scheduledActionSlice } from '../utils/slices';
 import ScheduledActionForm from '../components/forms/ScheduledActionForm';
 import ScheduledActionsListing from '../components/ScheduledActionsListing';
-import EditScheduledAction from '../components/EditScheduledAction';
 import { useDispatchToastNotification } from '../utils/hooks';
 import Modal from '../sharedComponents/Modal';
+import { selectScheduledAction } from '../utils/slices';
 
 const ScheduledActions = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,7 @@ const ScheduledActions = () => {
   const selectedScheduledAction = useSelector((state) => state.selectItem.selectedScheduledAction);
   const [addItem, setAddItem] = useState(false);
 
-  useEffect(() => {
-    if (selectedScheduledAction.id) {
-    }
-  }, [selectedScheduledAction]);
-
   const handleAdd = (scheduledActionData) => {
-    console.log(scheduledActionData);
     dispatch(scheduledActionSlice.addResources(scheduledActionData))
       .then((action) => {
         const { id } = action.payload.data;
@@ -43,10 +37,12 @@ const ScheduledActions = () => {
         return action;
       })
       .then(dispatchToastNotification);
+      dispatch(selectScheduledAction({ id: null }))
   };
 
   const handleDelete = (id) => {
     dispatch(scheduledActionSlice.deleteResource(id)).then(dispatchToastNotification);
+    dispatch(selectScheduledAction({ id: null }))
   };
 
   return (
@@ -58,7 +54,9 @@ const ScheduledActions = () => {
           <br />
           Create a new scheduled transaction.
         </p>
-        <button className="btn" onClick={() => setAddItem(true)}>Create</button>
+        <button className="btn" onClick={() => setAddItem(true)}>
+          Create
+        </button>
       </div>
       <div className="content">
         <ScheduledActionsListing />
@@ -71,12 +69,15 @@ const ScheduledActions = () => {
             </ScheduledActionForm>
           </Modal>
         )}
-        {false && (
-          <EditScheduledAction
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-            selectedScheduledAction={selectedScheduledAction}
-          />
+        {selectedScheduledAction?.id && (
+          <Modal onClose={() => dispatch(selectScheduledAction({ id: null }))}>
+            <ScheduledActionForm onSubmit={handleUpdate} scheduledAction={selectedScheduledAction}>
+              <button onClick={() => handleDelete(selectedScheduledAction.id)} className="delete">
+                Delete
+              </button>
+              <button type="submit">Update</button>
+            </ScheduledActionForm>
+          </Modal>
         )}
       </div>
     </main>

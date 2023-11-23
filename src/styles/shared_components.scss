@@ -172,6 +172,7 @@ header {
   display:  flex;
   justify-content: center;
   align-items: center;
+  @include fade-in;
 
   .modal-overlay {
     position: fixed;

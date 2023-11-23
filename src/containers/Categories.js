@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { categorySlice } from '../utils/slices';
 import CategoryForm from '../components/forms/CategoryForm';
 import { useDispatchToastNotification } from '../utils/hooks';
 import CategoryListing from '../components/CategoryListing';
-import EditCategory from '../components/EditCategory';
 import Modal from '../sharedComponents/Modal';
+import { selectCategory } from '../utils/slices';
 
 export default function Categories() {
   const dispatch = useDispatch();
@@ -18,11 +17,6 @@ export default function Categories() {
   const [addItem, setAddItem] = useState(false);
   const selectedCategory = useSelector((state) => state.selectItem.selectedCategory);
 
-  useEffect(() => {
-    if (selectedCategory.id) {
-    }
-  }, [selectedCategory]);
-
   const handleAdd = (itemData) => {
     dispatch(categorySlice.addResources(itemData)).then(dispatchToastNotification);
     setAddItem(false);
@@ -30,10 +24,12 @@ export default function Categories() {
 
   const handleUpdate = (data) => {
     dispatch(categorySlice.updateResource({ id: selectedCategory.id, data })).then(dispatchToastNotification);
+    dispatch(selectCategory({ id: null }))
   };
 
   const handleDelete = (id) => {
     dispatch(categorySlice.deleteResource(id)).then(dispatchToastNotification);
+    dispatch(selectCategory({ id: null }))
   };
 
   return (
@@ -44,7 +40,9 @@ export default function Categories() {
           Break your spending down into categories to better understand how to make your money go futher
           <br /> create a new category or edit the existing ones.
         </p>
-        <button className="btn" onClick={() => setAddItem(true)}>Create</button>
+        <button className="btn" onClick={() => setAddItem(true)}>
+          Create
+        </button>
       </div>
       <div className="content">
         <CategoryListing />
@@ -57,9 +55,15 @@ export default function Categories() {
             </CategoryForm>
           </Modal>
         )}
-
-        {false && (
-          <EditCategory handleUpdate={handleUpdate} handleDelete={handleDelete} selectedCategory={selectedCategory} />
+        {selectedCategory?.id && (
+          <Modal onClose={() => dispatch(selectCategory({ id: null }))}>
+            <CategoryForm onSubmit={handleUpdate} category={selectedCategory}>
+              <button onClick={() => handleDelete(selectedCategory.id)} className="delete">
+                Delete
+              </button>
+              <button type="submit">Update</button>
+            </CategoryForm>
+          </Modal>
         )}
       </div>
     </main>

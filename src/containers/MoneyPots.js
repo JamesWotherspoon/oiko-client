@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { moneyPotSlice } from '../utils/slices';
 import MoneyPotForm from '../components/forms/MoneyPotForm';
 import MoneyPotsListing from '../components/MoneyPotsListing';
-import EditMoneyPot from '../components/EditMoneyPot';
 import { useDispatchToastNotification } from '../utils/hooks';
 import MonthlyChart from '../components/MonthlyChart';
 import MoneyPot from '../sharedComponents/Moneypot';
 import Modal from '../sharedComponents/Modal';
+import { selectMoneyPot } from '../utils/slices';
 
 export default function MoneyPots() {
   const dispatch = useDispatch();
@@ -20,11 +20,6 @@ export default function MoneyPots() {
   const selectedMoneyPot = useSelector((state) => state.selectItem.selectedMoneyPot);
   const [addItem, setAddItem] = useState(false);
 
-  useEffect(() => {
-    if (selectedMoneyPot.id) {
-    }
-  }, [selectedMoneyPot]);
-
   const handleAdd = (ItemData) => {
     dispatch(moneyPotSlice.addResources(ItemData)).then(dispatchToastNotification);
     setAddItem(false);
@@ -32,10 +27,12 @@ export default function MoneyPots() {
 
   const handleUpdate = (data) => {
     dispatch(moneyPotSlice.updateResource({ id: selectedMoneyPot.id, data })).then(dispatchToastNotification);
+    dispatch(selectMoneyPot({ id: null }));
   };
 
   const handleDelete = (id) => {
     dispatch(moneyPotSlice.deleteResource(id)).then(dispatchToastNotification);
+    dispatch(selectMoneyPot({ id: null }));
   };
 
   return (
@@ -60,7 +57,14 @@ export default function MoneyPots() {
                   {moneyPot.balanceType === 'negative' && '-'} £{moneyPot.balance}
                 </h4>
                 <p className="pot-description">{moneyPot.description}</p>
-                <button className="btn">Edit {moneyPot.name}</button>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    dispatch(selectMoneyPot(moneyPot));
+                  }}
+                >
+                  Edit {moneyPot.name}
+                </button>
               </div>
               <MonthlyChart moneyPotId={moneyPot.id} />
             </section>
@@ -76,8 +80,15 @@ export default function MoneyPots() {
           </MoneyPotForm>
         </Modal>
       )}
-      {false && (
-        <EditMoneyPot handleUpdate={handleUpdate} handleDelete={handleDelete} selectedMoneyPot={selectedMoneyPot} />
+      {selectedMoneyPot?.id && (
+        <Modal onClose={() => dispatch(selectMoneyPot({ id: null }))}>
+          <MoneyPotForm onSubmit={handleUpdate} moneyPot={selectedMoneyPot}>
+            <button onClick={() => handleDelete(selectedMoneyPot.id)} className="delete">
+              Delete
+            </button>
+            <button type="submit">Update</button>
+          </MoneyPotForm>
+        </Modal>
       )}
     </main>
   );

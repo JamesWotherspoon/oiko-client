@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ItemCard from '../sharedComponents/ItemCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionSlice, moneyPotSlice, pastThirtyDaysSlice } from '../utils/slices';
+import { transactionSlice, moneyPotSlice, pastThirtyDaysSlice, selectTransaction } from '../utils/slices';
 import TransactionForm from '../components/forms/TransactionForm';
 import TransactionsListing from '../components/TransactionsListing';
-import EditTransaction from '../components/EditTransaction';
 import { useDispatchToastNotification } from '../utils/hooks';
 import MonthlyChart from '../components/MonthlyChart';
 import Modal from '../sharedComponents/Modal';
@@ -18,10 +17,6 @@ export default function Transactions() {
   const selectedTransaction = useSelector((state) => state.selectItem.selectedTransaction);
   const [addItem, setAddItem] = useState(false);
 
-  useEffect(() => {
-    if (selectedTransaction.id) {
-    }
-  }, [selectedTransaction]);
 
   const handleAddItem = async (itemData) => {
     await dispatch(transactionSlice.addResources(itemData))
@@ -50,6 +45,7 @@ export default function Transactions() {
         return action;
       })
       .then(dispatchToastNotification);
+      dispatch(selectTransaction({ id: null }))
   };
 
   const handleDelete = (id) => {
@@ -62,6 +58,7 @@ export default function Transactions() {
         return action;
       })
       .then(dispatchToastNotification);
+      dispatch(selectTransaction({ id: null }))
   };
 
   return (
@@ -72,7 +69,9 @@ export default function Transactions() {
           Explore your transactions and break down your expenses
           <br /> or create a new transaction.
         </p>
-        <button className='btn' onClick={() => setAddItem(true)}>Create</button>
+        <button className="btn" onClick={() => setAddItem(true)}>
+          Create
+        </button>
       </div>
       <div className="content">
         <TransactionsListing />
@@ -80,16 +79,21 @@ export default function Transactions() {
         {addItem && (
           <Modal onClose={() => setAddItem(false)}>
             <TransactionForm onSubmit={handleAddItem}>
-              <button className='btn btn-large' type="submit">Add transaction</button>
+              <button className="btn btn-large" type="submit">
+                Add transaction
+              </button>
             </TransactionForm>
           </Modal>
         )}
-        {false && (
-          <EditTransaction
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-            selectedTransaction={selectedTransaction}
-          />
+        {selectedTransaction?.id && (
+          <Modal onClose={() => dispatch(selectTransaction({ id: null }))}>
+            <TransactionForm onSubmit={handleUpdate} transaction={selectedTransaction}>
+              <button onClick={() => handleDelete(selectedTransaction.id)} className="delete">
+                Delete
+              </button>
+              <button type="submit">Update</button>
+            </TransactionForm>
+          </Modal>
         )}
       </div>
     </main>
