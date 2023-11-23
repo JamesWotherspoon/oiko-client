@@ -29,6 +29,7 @@
         @include slide-up;
 
         .pot-name {
+          max-width: 90%;
           @include focus-header;
         }
         .pot-balance {

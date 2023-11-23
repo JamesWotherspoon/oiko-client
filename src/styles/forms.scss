@@ -56,8 +56,18 @@ form {
   }
   .submit-btn-cont {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     margin: 20px 0 0 0;
+    gap: 10px;
+    .delete {
+      background-color: transparent;
+      color: $error-color;
+      border-color: $error-color;
+      &:hover {
+        background-color: $error-color;
+        color: $background-color;
+      }
+    }
   }
   button.expense-income-btn {
     width: 30px;
@@ -88,6 +98,7 @@ form {
       justify-content: center;
       align-items: center;
       padding-top: 8px;
+
       .minus {
         font-size: 28px;
         padding-bottom: 6px;
@@ -172,6 +183,9 @@ html body .MuiPopper-root {
 }
 html body .MuiMenuItem-root {
   font-size: 18px;
+}
+#menu-selectId {
+  max-width: 600px;
 }
 
 @media (max-width: 775px) {

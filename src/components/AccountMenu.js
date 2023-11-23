@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import { sessionSlice } from '../utils/slices';
 import { useClickOutside, useReduxResetStates } from '../utils/hooks';
+import Nav from './Nav.js';
 
 const AccountMenu = () => {
-  const reduxResetStates = useReduxResetStates()
+  const reduxResetStates = useReduxResetStates();
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ const AccountMenu = () => {
 
   const handleDeleteSession = () => {
     dispatch(sessionSlice.deleteResource());
-    reduxResetStates()
+    reduxResetStates();
   };
 
   const toggleMenu = () => {
@@ -31,8 +32,11 @@ const AccountMenu = () => {
       {isAuthenticated ? (
         <div ref={menuRef} className={`account-container ${isMenuOpen ? 'open' : null}`}>
           <MenuIcon onClick={toggleMenu} id="menu-icon" />
-          <div className={`account-actions ${isMenuOpen ? 'open' : null}`}>
-            <p onClick={handleDeleteSession}>Sign out</p>
+          <div className={`account-menu`} onClick={() => setIsMenuOpen(false)}>
+            <Nav />
+            <div className="account-actions">
+              <p onClick={handleDeleteSession}>Sign out</p>
+            </div>
           </div>
         </div>
       ) : (

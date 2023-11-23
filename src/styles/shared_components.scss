@@ -8,8 +8,19 @@ p,
 span {
   padding: 0;
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}
+.pot-name,
+.btn,
+.recurrence-cont,
+li {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
 }
 a {
   color: inherit;
@@ -18,104 +29,6 @@ a {
 #page {
   display: flex;
   flex-direction: column;
-}
-
-header {
-  display: flex;
-  flex-direction: column;
-  padding-top: 80px;
-
-  #top-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 80px;
-    padding: 10px $page-margin 0 $page-margin;
-    box-shadow: $box-shadow;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $background-color;
-    z-index: 2000;
-    .brand-container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: baseline;
-
-      .brand-full-logo {
-        width: fit-content;
-        .brand-name {
-          width: fit-content;
-        }
-      }
-    }
-    .account-container {
-      width: fit-content;
-
-      position: relative;
-      #menu-icon {
-        cursor: pointer;
-      }
-      .account-actions {
-        display: none;
-        &.open {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 200px;
-          padding: $gap-unit;
-          position: absolute;
-          top: 30px;
-          right: 0;
-          color: $dark-grey;
-          @include border;
-          cursor: pointer;
-          &:hover {
-            color: $secondary-color;
-          }
-        }
-      }
-    }
-  }
-
-  nav {
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    padding: $gap-unit 0 0 0;
-    .nav-item {
-      width: 100px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0 20px;
-      color: $light-grey;
-      text-decoration: none;
-      .nav-label {
-        margin-top: 8px;
-        font-weight: 500;
-      }
-      .nav-underline {
-        margin-top: 8px;
-        width: 100%;
-        height: 2px;
-        background-color: $light-grey;
-        border-radius: $border-radius;
-      }
-      &:hover {
-        color: $dark-grey;
-        .nav-underline {
-          background-color: $dark-grey;
-        }
-      }
-      &.active {
-        color: $primary-color;
-        .nav-underline {
-          background-color: $primary-color;
-        }
-      }
-    }
-  }
 }
 
 
@@ -131,10 +44,6 @@ header {
   cursor: pointer;
   scale: 1;
   transition: all 0.3s ease;
-  &-large {
-    width: 340px;
-    font-size: 22px;
-  }
   &:hover {
     background-color: transparent;
     color: $off-black;

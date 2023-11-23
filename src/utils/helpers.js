@@ -13,6 +13,9 @@ import CommuteSvg from '@mui/icons-material/DirectionsCar';
 import DefaultSvg from '@mui/icons-material/Category';
 import RentSvg from '@mui/icons-material/HouseSiding';
 import BillsSvg from '@mui/icons-material/Water';
+import EntertainmentSvg from '@mui/icons-material/Theaters';
+import HealthSvg from '@mui/icons-material/LocalHospital';
+import GiftsSvg from '@mui/icons-material/CardGiftcard';
 
 export function sanitizePayload(payload, keysToRemove, { removeEmptyString = true, removeNull = true } = {}) {
   return Object.entries(payload).reduce((acc, [key, value]) => {
@@ -58,6 +61,10 @@ export const categoryIconColorMapping = (iconIdentifier, color) => {
     rent: <RentSvg />,
     bills: <BillsSvg />,
     default: <DefaultSvg />,
+    miscellaneous: <DefaultSvg />,
+    gifts: <GiftsSvg />,
+    entertainment: <EntertainmentSvg />,
+    health: <HealthSvg />
   };
 
   const svgComponent = svgComponents[iconIdentifier] || svgComponents.default;

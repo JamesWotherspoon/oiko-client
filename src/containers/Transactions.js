@@ -88,10 +88,10 @@ export default function Transactions() {
         {selectedTransaction?.id && (
           <Modal onClose={() => dispatch(selectTransaction({ id: null }))}>
             <TransactionForm onSubmit={handleUpdate} transaction={selectedTransaction}>
-              <button onClick={() => handleDelete(selectedTransaction.id)} className="delete">
+              <button onClick={() => handleDelete(selectedTransaction.id)} className="delete btn">
                 Delete
               </button>
-              <button type="submit">Update</button>
+              <button className="update btn" type="submit">Update</button>
             </TransactionForm>
           </Modal>
         )}

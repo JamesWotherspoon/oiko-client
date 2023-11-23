@@ -83,10 +83,10 @@ export default function MoneyPots() {
       {selectedMoneyPot?.id && (
         <Modal onClose={() => dispatch(selectMoneyPot({ id: null }))}>
           <MoneyPotForm onSubmit={handleUpdate} moneyPot={selectedMoneyPot}>
-            <button onClick={() => handleDelete(selectedMoneyPot.id)} className="delete">
+            <button onClick={() => handleDelete(selectedMoneyPot.id)} className="delete btn">
               Delete
             </button>
-            <button type="submit">Update</button>
+            <button type="submit" className="update btn">Update</button>
           </MoneyPotForm>
         </Modal>
       )}

@@ -10,7 +10,7 @@ export default function OptionsSelect({ label, selectedId, handleSelectedIdChang
       const value = isObjectOrArray ? 'id' in option && option.id : option;
       const valueLabel = isObjectOrArray ? 'name' in option && option.name : option;
       return (
-        <MenuItem key={value + valueLabel} value={value}>
+        <MenuItem key={value + valueLabel} value={value} id={value}>
           {valueLabel}
         </MenuItem>
       );

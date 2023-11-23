@@ -58,10 +58,10 @@ export default function Categories() {
         {selectedCategory?.id && (
           <Modal onClose={() => dispatch(selectCategory({ id: null }))}>
             <CategoryForm onSubmit={handleUpdate} category={selectedCategory}>
-              <button onClick={() => handleDelete(selectedCategory.id)} className="delete">
+              <button onClick={() => handleDelete(selectedCategory.id)} className="delete btn">
                 Delete
               </button>
-              <button type="submit">Update</button>
+              <button type="submit" className="update btn">Update</button>
             </CategoryForm>
           </Modal>
         )}

@@ -72,10 +72,10 @@ const ScheduledActions = () => {
         {selectedScheduledAction?.id && (
           <Modal onClose={() => dispatch(selectScheduledAction({ id: null }))}>
             <ScheduledActionForm onSubmit={handleUpdate} scheduledAction={selectedScheduledAction}>
-              <button onClick={() => handleDelete(selectedScheduledAction.id)} className="delete">
+              <button onClick={() => handleDelete(selectedScheduledAction.id)} className="delete btn">
                 Delete
               </button>
-              <button type="submit">Update</button>
+              <button type="submit" className="update btn">Update</button>
             </ScheduledActionForm>
           </Modal>
         )}

@@ -11,6 +11,21 @@
     @include slide-up;
   }
 }
+#menu-color {
+  z-index: 5000;
+}
+.color-display-square {
+  width: 25px;
+  height: 25px;
+  border-radius: $border-radius;
+  margin-right: 15px;
+}
+.selected-option-cont {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 10px;
+}
 
 // Styles used across pages
 .category-listing {

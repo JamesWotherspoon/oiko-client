@@ -26,6 +26,7 @@ const categoryBodySchema = {
   properties: {
     type: { type: 'string', enum: ['positive', 'negative', ''] },
     name: { type: 'string', minLength: 1 },
+    color: { type: 'string'},
     description: { type: 'string' },
   },
   required: ['name'],
