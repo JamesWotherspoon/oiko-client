@@ -15,7 +15,7 @@
 @import 'scheduled-actions.scss';
 @import 'categories.scss';
 @import 'forms.scss';
-
+@import 'authPage.scss';
 html,
 body {
   height: 100%;
@@ -27,7 +27,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.root {
+  display: flex;
+  flex-direction: column;
+}
 header {
   display: flex;
   flex-direction: column;

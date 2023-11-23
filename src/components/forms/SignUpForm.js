@@ -39,6 +39,7 @@ export default function SignUpForm({ handleSignUp }) {
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={validationErrors?.email}
+        autocomplete
       />
       <TextField
         label="Password"
@@ -47,6 +48,7 @@ export default function SignUpForm({ handleSignUp }) {
         value={formData.password}
         onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
         error={validationErrors?.password}
+        autocomplete
       />
       <TextField
         label="Confirm Password"
@@ -55,8 +57,9 @@ export default function SignUpForm({ handleSignUp }) {
         value={formData.confirmPassword}
         onChange={(e) => setFormData((prev) => ({ ...prev, confirmPassword: e.target.value }))}
         error={validationErrors?.confirmPassword}
+        autocomplete
       />
-      <button type="submit">SignUp</button>
+      <button type="submit" className='btn'>SignUp</button>
     </form>
   );
 }

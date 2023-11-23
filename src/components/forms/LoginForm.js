@@ -47,6 +47,7 @@ export default function LoginForm({ handleLogin }) {
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
         error={errors.email}
+        autocomplete
       />
       <TextField
         label="Password"
@@ -55,6 +56,7 @@ export default function LoginForm({ handleLogin }) {
         value={formData.password}
         onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
         error={errors.password}
+        autocomplete
       />
       <FormControlLabel
         control={
@@ -65,7 +67,7 @@ export default function LoginForm({ handleLogin }) {
         }
         label="Remember Me"
       />
-      <button type="submit">Login</button>
+      <button type="submit" className='btn'>Login</button>
     </form>
   );
 }

@@ -15,8 +15,8 @@ export default function Auth() {
     const payload = { email: userData.email, password: userData.password };
     dispatch(userSlice.addResources(payload)).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
-        dispatch(sessionSlice.actions.login())
-      } else if(action.type.endsWith('/rejected')){
+        dispatch(sessionSlice.actions.login());
+      } else if (action.type.endsWith('/rejected')) {
         dispatch(setNotification({ message: action.payload, type: 'error' }));
       }
     });
@@ -25,19 +25,28 @@ export default function Auth() {
   const handleAddSession = (credentials) => {
     dispatch(sessionSlice.addResources({ email: credentials.email, password: credentials.password })).then((action) => {
       if (action.type.endsWith('/fulfilled')) {
-        dispatch(sessionSlice.actions.login())
-      } else if(action.type.endsWith('/rejected')){
+        dispatch(sessionSlice.actions.login());
+      } else if (action.type.endsWith('/rejected')) {
         dispatch(setNotification({ message: action.payload, type: 'error' }));
       }
     });
   };
 
   return (
-    <div className='auth-page'>
+    <div className="auth-page">
       <BrandContainer />
       <div className="auth-content">
         {isSignUp ? <SignUpForm handleSignUp={handleAddUser} /> : <LoginForm handleLogin={handleAddSession} />}
-        <div className="auth-swap-link" onClick={() => setIsSignUp((prev) => !prev)}>{isSignUp ? 'Already have an account? Swap to login' : 'Create an account'}</div>
+        <div className="auth-swap-link" onClick={() => setIsSignUp((prev) => !prev)}>
+          {isSignUp ? (
+            <>
+              <p>Already have an account?</p>
+              <p className="underline">Swap to login</p>
+            </>
+          ) : (
+            <p className="underline">Create an account</p>
+          )}
+        </div>
       </div>
     </div>
   );
