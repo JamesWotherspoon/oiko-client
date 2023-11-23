@@ -33,8 +33,7 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
   }, [initialFormState, transaction]);
 
   const handleChange = (name, value) => {
-    console.log(formData.transactionType);
-    setFormData((prevFormData) => ({
+        setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -42,7 +41,9 @@ const TransactionForm = ({ children, onSubmit, transaction }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const sanitizedData = sanitizePayload(formData, ['categoryId', 'name', 'description']);
+    const data = {...formData}
+    data.amount = parseFloat(data.amount);
+    const sanitizedData = sanitizePayload(data, ['categoryId', 'name', 'description']);
     const { valid, errors } = validateHelper(transactionValidate, sanitizedData);
     if (!valid) {
       setErrors(errors);

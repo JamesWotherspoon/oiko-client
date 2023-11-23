@@ -21,7 +21,8 @@ form {
   input,
   .MuiInputBase-root,
   .MuiTextField-root,
-  .MuiFormControl-root {
+  .MuiFormControl-root,
+  .transaction-type-amount-cont {
     width: 300px;
     position: relative;
   }
@@ -104,10 +105,6 @@ form {
         padding-bottom: 6px;
       }
     }
-    .money-input-container {
-      display: flex;
-      align-items: center;
-
       .money-input {
         width: 100%;
         border: none;
@@ -116,6 +113,11 @@ form {
         font-size: 36px;
         font-weight: 700;
         background-color: transparent;
+        .pound-adornmenet {
+          font-size: 36px;
+          font-weight: 700;
+          color: $off-black;
+        }
         input {
           padding: 0 8px;
         }
@@ -123,7 +125,6 @@ form {
           outline: none;
         }
       }
-    }
   }
 
   .error-cont {
