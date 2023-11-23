@@ -1,8 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { transactionSlice, scheduledActionSlice, categorySlice, moneyPotSlice, sessionSlice } from './slices';
-import { setNotification } from './slices';
 import GroceriesSvg from '@mui/icons-material/LocalGroceryStore';
 import ClothesSvg from '@mui/icons-material/ShoppingBag';
 import DiningSvg from '@mui/icons-material/Restaurant';

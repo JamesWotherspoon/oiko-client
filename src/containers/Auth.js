@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LoginForm from '../components/forms/LoginForm';
 import SignUpForm from '../components/forms/SignUpForm';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { sessionSlice, userSlice } from '../utils/slices';
-import { useNavigate } from 'react-router-dom';
 import { setNotification } from '../utils/slices';
 import BrandContainer from '../sharedComponents/BrandContainer';
 

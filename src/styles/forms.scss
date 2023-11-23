@@ -105,26 +105,26 @@ form {
         padding-bottom: 6px;
       }
     }
-      .money-input {
-        width: 100%;
-        border: none;
-        border-radius: $border-radius;
-        padding: 0 0 0 35px;
+    .money-input {
+      width: 100%;
+      border: none;
+      border-radius: $border-radius;
+      padding: 0 0 0 35px;
+      font-size: 36px;
+      font-weight: 700;
+      background-color: transparent;
+      .pound-adornmenet {
         font-size: 36px;
         font-weight: 700;
-        background-color: transparent;
-        .pound-adornmenet {
-          font-size: 36px;
-          font-weight: 700;
-          color: $off-black;
-        }
-        input {
-          padding: 0 8px;
-        }
-        &:focus {
-          outline: none;
-        }
+        color: $off-black;
       }
+      input {
+        padding: 0 8px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
   }
 
   .error-cont {
@@ -164,7 +164,7 @@ form {
   }
 }
 .auth {
-  // Styles currently not in use 
+  // Styles currently not in use
   input:-webkit-autofill,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
@@ -173,8 +173,6 @@ form {
   }
   input:-webkit-autofill:hover {
     border-bottom: 1px solid rgba(0, 0, 0);
-  }
-  input:-webkit-autofill::first-line {
   }
 }
 

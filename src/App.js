@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Routes, Route, Navigate } from 'react-router-dom';
 import NotFoundPage from './containers/NotFoundPage';
 import { ProtectedLayout } from './containers/ProtectedLayout';
 import Auth from './containers/Auth';
@@ -18,7 +18,7 @@ const ProtectedRoute = ({ element }) => {
 };
 
 const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const sessionStatus = useSelector((state) => state.session.status);
   const isAuthenticated = useSelector((state) => state.session.isAuthenticated);
 

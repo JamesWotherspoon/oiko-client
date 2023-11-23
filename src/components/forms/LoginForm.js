@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import TextField from '../../sharedComponents/TextField';
-import { credentialsValidate} from '../../utils/validator';
-import { validateHelper } from '../../utils/helpers';
 
 const getEmailFromStorage = () => {
   try {
@@ -20,7 +18,6 @@ export default function LoginForm({ handleLogin }) {
     password: '',
     rememberMe: !!rememberedEmail,
   });
-  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!formData.rememberMe) {
@@ -30,7 +27,7 @@ export default function LoginForm({ handleLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.rememberMe) {
       localStorage.setItem('rememberedEmail', formData.email);
     }
@@ -46,7 +43,6 @@ export default function LoginForm({ handleLogin }) {
         type="email"
         value={formData.email}
         onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-        error={errors.email}
         autocomplete
       />
       <TextField
@@ -55,7 +51,6 @@ export default function LoginForm({ handleLogin }) {
         type="password"
         value={formData.password}
         onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
-        error={errors.password}
         autocomplete
       />
       <FormControlLabel
@@ -67,7 +62,9 @@ export default function LoginForm({ handleLogin }) {
         }
         label="Remember Me"
       />
-      <button type="submit" className='btn'>Login</button>
+      <button type="submit" className="btn">
+        Login
+      </button>
     </form>
   );
 }

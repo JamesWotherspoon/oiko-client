@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import TextField from '../../sharedComponents/TextField';
-import { userSlice } from '../../utils/slices';
 import { credentialsValidate} from '../../utils/validator';
 import { validateHelper } from '../../utils/helpers';
 
 export default function SignUpForm({ handleSignUp }) {
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,7 +20,6 @@ export default function SignUpForm({ handleSignUp }) {
       errors.confirmPassword = 'Passwords do not match';
     }
     if(!valid){
-      console.log(errors)
       setValidationErrors(errors)
       return
     }
